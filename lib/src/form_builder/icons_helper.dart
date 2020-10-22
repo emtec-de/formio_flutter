@@ -6,7 +6,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // If you don't use the dot notation described it will attempt to get you an icon favoring the Material icon set using getIconGuessFavorMaterial
 IconData getIconUsingPrefix({String name}) {
   final List<String> split = name.split('-');
-
   if (split.length > 1) {
     name = split[1];
     if (split[0].toLowerCase() == 'fa' ||
@@ -17,37 +16,24 @@ IconData getIconUsingPrefix({String name}) {
   } else {
     return getIconGuessFavorMaterial(name: name);
   }
-
   return getMaterialIcon(name: name);
 }
 
 // Returns an icon named in name favoring Font Awesome
-IconData getIconGuessFavorFA({String name}) {
-  if (FontAwesomeIconsMap[name] != null) {
-    return FontAwesomeIconsMap[name];
-  } else {
-    return IconsMap[name];
-  }
-}
+IconData getIconGuessFavorFA({String name}) =>
+    (FontAwesomeIconsMap[name] != null)
+        ? FontAwesomeIconsMap[name]
+        : IconsMap[name];
 
 // Returns an icon named in name favoring Material
-IconData getIconGuessFavorMaterial({String name}) {
-  if (IconsMap[name] != null) {
-    return IconsMap[name];
-  } else {
-    return FontAwesomeIconsMap[name];
-  }
-}
+IconData getIconGuessFavorMaterial({String name}) =>
+    (IconsMap[name] != null) ? IconsMap[name] : FontAwesomeIconsMap[name];
 
 // Kinda self explanatory, no?
-IconData getMaterialIcon({String name}) {
-  return IconsMap[name];
-}
+IconData getMaterialIcon({String name}) => IconsMap[name];
 
 // Kinda self explanatory, no?
-IconData getFontAwesomeIcon({String name}) {
-  return FontAwesomeIconsMap[name];
-}
+IconData getFontAwesomeIcon({String name}) => FontAwesomeIconsMap[name];
 
 /// Icon data map for Material Icons
 const Map<String, IconData> IconsMap = <String, IconData>{

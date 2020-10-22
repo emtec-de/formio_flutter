@@ -16,6 +16,7 @@ dependencies:
   math_expressions: ^2.0.1
   location: ^3.0.2
   file_picker: ^2.0.10
+  font_awesome_flutter: ^8.9.0
   intl: ^0.16.1
 dev_dependencies:
   flutter_test:
