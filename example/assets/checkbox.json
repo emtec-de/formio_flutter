@@ -1,0 +1,29 @@
+{
+    "display": "form",
+    "components": [
+      {
+        "label": "Checkbox",
+        "tableView": false,
+        "key": "checkbox",
+        "type": "checkbox",
+        "input": true
+      },
+      {
+        "label": "Unavailable",
+        "disabled": true,
+        "tableView": false,
+        "key": "unavailable",
+        "type": "checkbox",
+        "input": true,
+        "defaultValue": false
+      },
+      {
+        "type": "button",
+        "label": "Submit",
+        "key": "submit",
+        "disableOnInvalid": true,
+        "input": true,
+        "tableView": false
+      }
+    ]
+  }

@@ -1,0 +1,29 @@
+{
+    "display": "form",
+    "components": [
+      {
+        "label": "Signature",
+        "tableView": false,
+        "key": "signature",
+        "type": "signature",
+        "input": true
+      },
+      {
+        "label": "Signature2",
+        "backgroundColor": "rgb(0, 12, 255)",
+        "penColor": "yellow",
+        "tableView": false,
+        "key": "signature2",
+        "type": "signature",
+        "input": true
+      },
+      {
+        "type": "button",
+        "label": "Submit",
+        "key": "submit",
+        "disableOnInvalid": true,
+        "input": true,
+        "tableView": false
+      }
+    ]
+  }

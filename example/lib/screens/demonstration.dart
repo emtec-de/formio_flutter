@@ -18,6 +18,7 @@ class DemonstrationPage extends StatefulWidget {
 class _DemonstrationPageState extends State<DemonstrationPage>
     implements ClickListener {
   Future<List<Widget>> _widgets;
+  BuildContext _context;
 
   @override
   Widget build(BuildContext context) {
@@ -27,37 +28,42 @@ class _DemonstrationPageState extends State<DemonstrationPage>
         title: Text('FormIO.Flutter'),
         centerTitle: true,
       ),
-      body: FutureBuilder<List<Widget>>(
-        future: _widgets,
-        builder: (context, AsyncSnapshot<List<Widget>> snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.done:
-              return (snapshot.hasData)
-                  ? ListView.builder(
-                      itemCount: snapshot.data.length,
-                      physics: BouncingScrollPhysics(),
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      itemBuilder: (context, index) => snapshot.data[index],
-                    )
-                  : Center(
-                      child: CircularProgressIndicator(),
-                    );
-              break;
-            case ConnectionState.waiting:
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-              break;
-            case ConnectionState.none:
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            default:
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-          }
+      body: Builder(
+        builder: (context) {
+          _context = context;
+          return FutureBuilder<List<Widget>>(
+            future: _widgets,
+            builder: (context, AsyncSnapshot<List<Widget>> snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.done:
+                  return (snapshot.hasData)
+                      ? ListView.builder(
+                          itemCount: snapshot.data.length,
+                          physics: BouncingScrollPhysics(),
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (context, index) => snapshot.data[index],
+                        )
+                      : Center(
+                          child: CircularProgressIndicator(),
+                        );
+                  break;
+                case ConnectionState.waiting:
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                  break;
+                case ConnectionState.none:
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                default:
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+              }
+            },
+          );
         },
       ),
     );
@@ -67,7 +73,7 @@ class _DemonstrationPageState extends State<DemonstrationPage>
     String _json;
     switch (widget.argument) {
       case "textfield":
-        _json = await rootBundle.loadString('assets/multi_textfields.json');
+        _json = await rootBundle.loadString('assets/textfield.json');
         break;
       case "multiTextfields":
         _json = await rootBundle.loadString('assets/multi_textfields.json');
@@ -82,7 +88,7 @@ class _DemonstrationPageState extends State<DemonstrationPage>
         _json = await rootBundle.loadString('assets/multi_textfields.json');
         break;
       case "checkbox":
-        _json = await rootBundle.loadString('assets/multi_textfields.json');
+        _json = await rootBundle.loadString('assets/checkbox.json');
         break;
       case "file":
         _json = await rootBundle.loadString('assets/file.json');
@@ -93,8 +99,14 @@ class _DemonstrationPageState extends State<DemonstrationPage>
       case "pagination":
         _json = await rootBundle.loadString('assets/multi.json');
         break;
-      case "multi":
+      case "noPagination":
         _json = await rootBundle.loadString('assets/multi.json');
+        break;
+      case "validatorSignature":
+        _json = await rootBundle.loadString('assets/signature_validator.json');
+        break;
+      case "validatorFields":
+        _json = await rootBundle.loadString('assets/fields_validator.json');
         break;
       default:
     }
@@ -103,7 +115,35 @@ class _DemonstrationPageState extends State<DemonstrationPage>
   }
 
   @override
-  void onClicked(String event) {
-    print("clicked");
+  void onClicked(String event) async {
+    switch (widget.argument) {
+      case "validatorSignature":
+        (await checkSignatures(WidgetParserBuilder.widgets))
+            ? Scaffold.of(_context).showSnackBar(
+                SnackBar(
+                  content: Text('Please fill all the signature fields'),
+                ),
+              )
+            : Scaffold.of(_context).showSnackBar(
+                SnackBar(
+                  content: Text('Signatures completed'),
+                ),
+              );
+        break;
+      case "validatorFields":
+        (await checkFields(WidgetParserBuilder.widgets))
+            ? Scaffold.of(_context).showSnackBar(
+                SnackBar(
+                  content: Text('Please fill all the fields'),
+                ),
+              )
+            : Scaffold.of(_context).showSnackBar(
+                SnackBar(
+                  content: Text('Fields completed'),
+                ),
+              );
+        break;
+      default:
+    }
   }
 }

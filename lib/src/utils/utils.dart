@@ -185,6 +185,92 @@ Future<bool> checkSignatures(List<Widget> widgets) async {
   return false;
 }
 
+/// Similar to [checkSignatures], but check all the fields in the [List<Widget>]
+/// ```dart
+/// (empty != null) ? false : true
+/// ```
+Future<bool> checkFields(List<Widget> widgets) async {
+  dynamic converted;
+  widgets.asMap().forEach((key, value) {});
+  for (var value in widgets) {
+    switch (value.runtimeType) {
+      case SignatureCreator:
+        converted = value as SignatureCreator;
+        if (await converted.data == null || await converted.data == "")
+          return true;
+        break;
+      case FileCreator:
+        converted = value as FileCreator;
+        if (await converted.data == null || await converted.data == "")
+          return true;
+        break;
+      case TextFieldCreator:
+        converted = value as TextFieldCreator;
+        if (!converted.map.disabled &&
+            (await converted.data == null || await converted.data == ""))
+          return true;
+        break;
+      case TextAreaCreator:
+        converted = value as TextAreaCreator;
+        if (!converted.map.disabled &&
+            (await converted.data == null || await converted.data == ""))
+          return true;
+        break;
+      case UrlTextFieldCreator:
+        converted = value as UrlTextFieldCreator;
+        if (!converted.map.disabled &&
+            (await converted.data == null || await converted.data == ""))
+          return true;
+        break;
+      case PhoneTextFieldCreator:
+        converted = value as PhoneTextFieldCreator;
+        if (!converted.map.disabled &&
+            (await converted.data == null || await converted.data == ""))
+          return true;
+        break;
+      case NumberTextFieldCreator:
+        converted = value as NumberTextFieldCreator;
+        if (!converted.map.disabled &&
+            (await converted.data == null || await converted.data == ""))
+          return true;
+        break;
+      case EmailTextFieldCreator:
+        converted = value as EmailTextFieldCreator;
+        print("STAT: ${converted.map.disabled}");
+        if (!converted.map.disabled &&
+            (await converted.data == null || await converted.data == ""))
+          return true;
+        break;
+      case DateTextFieldCreator:
+        converted = value as DateTextFieldCreator;
+        if (!converted.map.disabled &&
+            (await converted.data == null || await converted.data == ""))
+          return true;
+        break;
+      case TimeTextFieldCreator:
+        converted = value as TimeTextFieldCreator;
+        if (!converted.map.disabled &&
+            (await converted.data == null || await converted.data == ""))
+          return true;
+        break;
+      case SignatureCreator:
+        converted = value as SignatureCreator;
+        if (await converted.data == null || await converted.data == "")
+          return true;
+        break;
+      case PagerParserWidget:
+        converted = value as PagerParserWidget;
+        if (await checkSignatures(converted.widgets)) return true;
+        break;
+      case ColumnParserWidget:
+        converted = value as ColumnParserWidget;
+        if (await checkSignatures(converted.widgets)) return true;
+        break;
+    }
+  }
+  return false;
+}
+
 /// Parse a list of [widgets].
 ///
 /// returns a [Map<String, dynamic>] that contains the [key] and [value]

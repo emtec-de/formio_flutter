@@ -101,8 +101,8 @@ class _EmailTextFieldCreatorState extends State<EmailTextFieldCreator> {
                       "$_calculate ${snapshot.data[element]} ${(value < _operators.length) ? (_operators[value]) : ""}")
                   : "";
             });
+            widget.controller.text = parseCalculate(_calculate);
           }
-          widget.controller.text = parseCalculate(_calculate);
           if (!isVisible) widget.controller.text = "";
           return (!isVisible)
               ? Container()
@@ -118,9 +118,7 @@ class _EmailTextFieldCreatorState extends State<EmailTextFieldCreator> {
                   onChanged: (value) {
                     _mapper.update(widget.map.key, (nVal) => value);
                     widget.widgetProvider.registerMap(_mapper);
-                    setState(() {
-                      characters = value;
-                    });
+                    setState(() => characters = value);
                   },
                   decoration: InputDecoration(
                     counter: (widget.map.showWordCount != null)

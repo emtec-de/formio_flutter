@@ -39,10 +39,10 @@ class WidgetParserBuilder {
   static List<Widget> _rt = [];
 
   /// The list of [widgets] that are created.
-  List<Widget> get widgets => _rt;
+  static List<Widget> get widgets => _rt;
 
   /// The length of the current list of [widgets].
-  int get size => _rt.length;
+  static int get size => _rt.length;
 
   /// Add to a [Map<String, WidgetParser] the class received from the abstract class [WidgetParser]
   ///

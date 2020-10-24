@@ -49,8 +49,16 @@ class MenuPage extends StatelessWidget {
               child: Text('Pagination')),
           ElevatedButton(
               onPressed: () => Navigator.pushNamed(context, 'demonstration',
-                  arguments: 'multi'),
+                  arguments: 'noPagination'),
               child: Text('NoPagination')),
+          ElevatedButton(
+              onPressed: () => Navigator.pushNamed(context, 'demonstration',
+                  arguments: 'validatorSignature'),
+              child: Text('Validator Signature')),
+          ElevatedButton(
+              onPressed: () => Navigator.pushNamed(context, 'demonstration',
+                  arguments: 'validatorFields'),
+              child: Text('Validator Fields')),
         ],
       ),
     );

@@ -1,0 +1,75 @@
+{
+    "display": "form",
+    "components": [
+      {
+        "label": "Text Field",
+        "tableView": true,
+        "key": "textField",
+        "type": "textfield",
+        "input": true
+      },
+      {
+        "label": "Name",
+        "tableView": true,
+        "key": "name",
+        "type": "textfield",
+        "input": true
+      },
+      {
+          "label": "Email",
+          "tableView": true,
+          "key": "email",
+          "type": "email",
+          "input": true
+      },
+      {
+          "label": "Last Name",
+          "tableView": true,
+          "key": "lastName",
+          "type": "textfield",
+          "input": true
+      },
+      {
+          "label": "Peco",
+          "action": "reset",
+          "showValidations": true,
+          "theme": "secondary",
+          "size": "lg",
+          "block": true,
+          "leftIcon": "fa fa-plus",
+          "rightIcon": "fa fa-git",
+          "shortcut": "C",
+          "description": "Peeeco peco peco peco",
+          "tooltip": "pekora",
+          "tabindex": "1",
+          "tableView": false,
+          "modalEdit": true,
+          "key": "peco",
+          "tags": [
+              "pecora"
+          ],
+          "type": "button",
+          "input": true
+      },
+      {
+        "type": "button",
+        "label": "Submit",
+        "key": "submit",
+        "disableOnInvalid": true,
+        "input": true,
+        "tableView": false
+      },
+      {
+        "label": "Currency",
+        "mask": false,
+        "spellcheck": true,
+        "tableView": false,
+        "currency": "EUR",
+        "inputFormat": "plain",
+        "key": "currency",
+        "type": "currency",
+        "input": true,
+        "delimiter": true
+      }
+    ]
+  }
