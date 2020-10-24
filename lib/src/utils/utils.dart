@@ -82,32 +82,32 @@ List<String> parseListStringOperator(String value) {
 
 /// Returns a [Color] containing a specific css theme.
 /// ```dart
-/// parseHexColor("Primary") => Color.fromRGBO(0, 123, 255, 1.0)
-/// parseHexColor("Secondary") => Color.fromRGBO(108, 117, 125, 1.0)
-/// parseHexColor("Info") => Color.fromRGBO(23, 162, 184, 1.0)
-/// parseHexColor("Success") => Color.fromRGBO(40, 167, 69, 1.0)
-/// parseHexColor("Danger") => Color.fromRGBO(220, 53, 69, 1.0)
-/// parseHexColor("Warning") => Color.fromRGBO(255, 193, 7, 1.0)
+/// parseHexColor("primary") => Color.fromRGBO(0, 123, 255, 1.0)
+/// parseHexColor("secondary") => Color.fromRGBO(108, 117, 125, 1.0)
+/// parseHexColor("info") => Color.fromRGBO(23, 162, 184, 1.0)
+/// parseHexColor("success") => Color.fromRGBO(40, 167, 69, 1.0)
+/// parseHexColor("danger") => Color.fromRGBO(220, 53, 69, 1.0)
+/// parseHexColor("warning") => Color.fromRGBO(255, 193, 7, 1.0)
 /// ```
 Color parseHexColor(String theme) {
   Color color;
-  switch (theme) {
-    case "Primary":
+  switch (theme.toLowerCase()) {
+    case "primary":
       color = Color.fromRGBO(0, 123, 255, 1.0);
       break;
-    case "Secondary":
+    case "secondary":
       color = Color.fromRGBO(108, 117, 125, 1.0);
       break;
-    case "Info":
+    case "info":
       color = Color.fromRGBO(23, 162, 184, 1.0);
       break;
-    case "Success":
+    case "success":
       color = Color.fromRGBO(40, 167, 69, 1.0);
       break;
-    case "Danger":
+    case "danger":
       color = Color.fromRGBO(220, 53, 69, 1.0);
       break;
-    case "Warning":
+    case "warning":
       color = Color.fromRGBO(255, 193, 7, 1.0);
       break;
     default:
@@ -123,6 +123,11 @@ Color parseHexColor(String theme) {
 /// parseInputType("number") => TextInputType.number
 /// parseInputType("phone") => TextInputType.phone
 /// parseInputType("url") => TextInputType.url
+/// parseInputType("time") => TextInputType.datetime
+/// parseInputType("datetime") => TextInputType.datetime
+/// parseInputType("date") => TextInputType.datetime
+/// parseInputType("calendar") => TextInputType.datetime
+/// parseInputType("textarea") => TextInputType.multiline
 /// ```
 TextInputType parsetInputType(String type) {
   TextInputType _inputType;
@@ -143,6 +148,9 @@ TextInputType parsetInputType(String type) {
       _inputType = TextInputType.datetime;
       break;
     case "datetime":
+      _inputType = TextInputType.datetime;
+      break;
+    case "date":
       _inputType = TextInputType.datetime;
       break;
     case "calendar":

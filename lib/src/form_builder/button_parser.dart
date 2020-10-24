@@ -34,7 +34,8 @@ class ButtonParser extends WidgetParser {
                   : ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(
-                            parseHexColor(map.theme)),
+                          parseHexColor(map.theme ?? "primary"),
+                        ),
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
