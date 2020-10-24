@@ -85,16 +85,16 @@ class _DemonstrationPageState extends State<DemonstrationPage>
         _json = await rootBundle.loadString('assets/multi_textfields.json');
         break;
       case "file":
-        _json = await rootBundle.loadString('assets/multi_textfields.json');
+        _json = await rootBundle.loadString('assets/file.json');
         break;
       case "signature":
-        _json = await rootBundle.loadString('assets/multi_textfields.json');
+        _json = await rootBundle.loadString('assets/signature.json');
         break;
       case "pagination":
-        _json = await rootBundle.loadString('assets/multi_textfields.json');
+        _json = await rootBundle.loadString('assets/multi.json');
         break;
       case "multi":
-        _json = await rootBundle.loadString('assets/multi_textfields.json');
+        _json = await rootBundle.loadString('assets/multi.json');
         break;
       default:
     }
