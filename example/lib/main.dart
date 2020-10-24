@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-import 'dart:convert';
+import 'package:provider/provider.dart';
 
-import 'package:flutter/services.dart';
 import 'package:formio_flutter/formio_flutter.dart';
 import 'package:formio_flutter_example/routes/routes.dart';
-import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,8 +28,8 @@ class _MyAppState extends State<MyApp> {
         ),
       ],
       child: MaterialApp(
-        title: 'DEMO',
-        initialRoute: 'demo',
+        title: 'FormIo.Flutter',
+        initialRoute: 'menu',
         onGenerateRoute: generateRoutes,
       ),
     );

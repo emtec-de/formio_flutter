@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:formio_flutter/src/abstraction/abstraction.dart';
+import 'package:formio_flutter/src/abstraction/implements/non_response_click.dart';
 import 'package:formio_flutter/src/form_builder/form_builder.dart';
 import 'package:formio_flutter/src/models/models.dart';
 
@@ -15,6 +16,8 @@ class WidgetParserBuilder {
     EmailTextFieldParser(),
     PhoneTextFieldParser(),
     DateTextFieldParser(),
+    DateTimeTextFieldParser(),
+    DayTextFieldParser(),
     TimeTextFieldParser(),
     UrlTextFieldParser(),
     NumberTextFieldParser(),
@@ -55,7 +58,6 @@ class WidgetParserBuilder {
   static Widget buildFromMap(
       Component component, BuildContext context, ClickListener listener) {
     var parser = _widgetNameParserMap[component.type];
-    print("PARSER: $parser");
     return (parser != null)
         ? parser.parse(component, context, listener)
         : Container();
@@ -77,7 +79,6 @@ class WidgetParserBuilder {
     collection.components.forEach((element) {
       _rt.add(build(element, context, listener));
     });
-    print("RT: ${_rt.length}");
     return _rt;
   }
 }

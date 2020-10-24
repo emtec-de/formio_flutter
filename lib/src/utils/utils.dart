@@ -125,24 +125,25 @@ TextInputType parsetInputType(String type) {
 
 Future<bool> checkSignatures(List<Widget> widgets) async {
   dynamic converted;
-  widgets.asMap().forEach(
-    (key, value) async {
-      switch (value.runtimeType) {
-        case SignatureCreator:
-          result = (value as SignatureCreator).controller.isEmpty;
-          break;
-        case PagerParserWidget:
-          converted = value as PagerParserWidget;
-          parseWidgets(converted.widgets);
-          break;
-        case ColumnParserWidget:
-          converted = value as ColumnParserWidget;
-          parseWidgets(converted.widgets);
-          break;
-      }
-    },
-  );
-  return result;
+  widgets.asMap().forEach((key, value) {});
+  for (var value in widgets) {
+    switch (value.runtimeType) {
+      case SignatureCreator:
+        converted = value as SignatureCreator;
+        if (await converted.data == null || await converted.data == "")
+          return true;
+        break;
+      case PagerParserWidget:
+        converted = value as PagerParserWidget;
+        if (await checkSignatures(converted.widgets)) return true;
+        break;
+      case ColumnParserWidget:
+        converted = value as ColumnParserWidget;
+        if (await checkSignatures(converted.widgets)) return true;
+        break;
+    }
+  }
+  return false;
 }
 
 //Parse a list widgets to a map with the result.

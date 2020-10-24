@@ -1,0 +1,43 @@
+{
+    "display": "form",
+    "components": [
+      {
+        "label": "DISABLED",
+        "showValidations": false,
+        "theme": "secondary",
+        "disabled": true,
+        "tableView": false,
+        "key": "disabled",
+        "type": "button",
+        "input": true
+      },
+      {
+        "type": "button",
+        "label": "Submit",
+        "key": "submit",
+        "disableOnInvalid": true,
+        "input": true,
+        "tableView": false
+      },
+      {
+        "label": "ICONS",
+        "showValidations": false,
+        "leftIcon": "fa fa-git",
+        "rightIcon": "fa fa-plus",
+        "tableView": false,
+        "key": "icons",
+        "type": "button",
+        "input": true
+      },
+      {
+        "label": "HIDDEN",
+        "showValidations": false,
+        "theme": "danger",
+        "hidden": true,
+        "tableView": false,
+        "key": "hidden",
+        "type": "button",
+        "input": true
+      }
+    ]
+  }
