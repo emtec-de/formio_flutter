@@ -6,7 +6,9 @@ import 'package:formio_flutter/src/abstraction/abstraction.dart';
 import 'package:formio_flutter/src/models/models.dart';
 import 'package:formio_flutter/src/providers/providers.dart';
 
+/// Extends the abstract class [WidgetParser]
 class TextFieldParser extends WidgetParser {
+  /// Returns a [Widget] of type [TextField]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener) {
     return TextFieldCreator(
@@ -14,6 +16,7 @@ class TextFieldParser extends WidgetParser {
     );
   }
 
+  /// [widgetName] => "textfield"
   @override
   String get widgetName => "textfield";
 }
@@ -27,9 +30,11 @@ class TextFieldCreator extends StatefulWidget implements Manager {
   @override
   _TextFieldCreatorState createState() => _TextFieldCreatorState();
 
+  /// Returns a [String] with the value contained inside [Component.key]
   @override
   String keyValue() => map.key ?? "textField";
 
+  /// Current value of the [Widget]
   @override
   get data => controller.text ?? "";
 }
@@ -58,6 +63,7 @@ class _TextFieldCreatorState extends State<TextFieldCreator> {
 
   @override
   void didChangeDependencies() {
+    /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
     widget.widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
     super.didChangeDependencies();
   }

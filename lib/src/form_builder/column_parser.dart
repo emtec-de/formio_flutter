@@ -6,12 +6,15 @@ import 'package:formio_flutter/src/abstraction/abstraction.dart';
 import 'package:formio_flutter/src/models/models.dart';
 import 'package:formio_flutter/src/providers/providers.dart';
 
+/// Extends the abstract class [WidgetParser]
 class ColumnParser extends WidgetParser {
+  /// Returns a [Widget] of type [Column]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener) {
     return ColumnParserWidget(map: map, listener: listener);
   }
 
+  /// [widgetName] => "columns"
   @override
   String get widgetName => "columns";
 }
@@ -34,6 +37,7 @@ class _ColumnParserWidgetState extends State<ColumnParserWidget> {
 
   @override
   void didChangeDependencies() {
+    /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
     widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
     super.didChangeDependencies();
   }
@@ -95,6 +99,7 @@ class _ColumnParserWidgetState extends State<ColumnParserWidget> {
     );
   }
 
+  /// Returns a [List<Widget>] contained in [Component.map.columns] and [Component.map.component]
   Future<List<Widget>> _buildWidget(BuildContext context) async {
     widget.map.columns.asMap().forEach((key, value) {
       value.component.asMap().forEach((key, ss) {

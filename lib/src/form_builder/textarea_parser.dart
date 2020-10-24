@@ -6,7 +6,9 @@ import 'package:formio_flutter/src/abstraction/abstraction.dart';
 import 'package:formio_flutter/src/models/models.dart';
 import 'package:formio_flutter/src/providers/providers.dart';
 
+/// Extends the abstract class [WidgetParser]
 class TextAreaParser extends WidgetParser {
+  /// Returns a [Widget] of type [TextArea]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener) {
     return TextAreaCreator(
@@ -14,6 +16,7 @@ class TextAreaParser extends WidgetParser {
     );
   }
 
+  /// [widgetName] => "textarea"
   @override
   String get widgetName => "textarea";
 }
@@ -27,9 +30,11 @@ class TextAreaCreator extends StatefulWidget implements Manager {
   @override
   _TextAreaCreatorState createState() => _TextAreaCreatorState();
 
+  /// Returns a [String] with the value contained inside [Component.key]
   @override
   String keyValue() => map.key ?? "textAreaField";
 
+  /// Current value of the [Widget]
   @override
   get data => controller.text ?? "";
 }
@@ -53,6 +58,7 @@ class _TextAreaCreatorState extends State<TextAreaCreator> {
 
   @override
   void didChangeDependencies() {
+    /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
     widget.widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
     super.didChangeDependencies();
   }

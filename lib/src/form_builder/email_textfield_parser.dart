@@ -6,7 +6,9 @@ import 'package:formio_flutter/src/abstraction/abstraction.dart';
 import 'package:formio_flutter/src/models/models.dart';
 import 'package:formio_flutter/src/providers/providers.dart';
 
+/// Extends the abstract class [WidgetParser]
 class EmailTextFieldParser extends WidgetParser {
+  /// Returns a [Widget] of type [EmailTextField]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener) {
     return EmailTextFieldCreator(
@@ -14,6 +16,7 @@ class EmailTextFieldParser extends WidgetParser {
     );
   }
 
+  /// [widgetName] => "email"
   @override
   String get widgetName => "email";
 }
@@ -27,9 +30,11 @@ class EmailTextFieldCreator extends StatefulWidget implements Manager {
   @override
   _EmailTextFieldCreatorState createState() => _EmailTextFieldCreatorState();
 
+  /// Returns a [String] with the value contained inside [Component.key]
   @override
   String keyValue() => map.key ?? "emailField";
 
+  /// Current value of the [Widget]
   @override
   get data => controller.text ?? "";
 }
@@ -58,6 +63,7 @@ class _EmailTextFieldCreatorState extends State<EmailTextFieldCreator> {
 
   @override
   void didChangeDependencies() {
+    /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
     widget.widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
     super.didChangeDependencies();
   }

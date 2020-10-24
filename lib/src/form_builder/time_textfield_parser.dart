@@ -6,7 +6,9 @@ import 'package:formio_flutter/src/abstraction/abstraction.dart';
 import 'package:formio_flutter/src/models/models.dart';
 import 'package:formio_flutter/src/providers/providers.dart';
 
+/// Extends the abstract class [WidgetParser]
 class TimeTextFieldParser extends WidgetParser {
+  /// Returns a [Widget] of type [TimeTextField]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener) {
     return TimeTextFieldCreator(
@@ -14,6 +16,7 @@ class TimeTextFieldParser extends WidgetParser {
     );
   }
 
+  /// [widgetName] => "time"
   @override
   String get widgetName => "time";
 }
@@ -27,9 +30,11 @@ class TimeTextFieldCreator extends StatefulWidget implements Manager {
   @override
   _TimeTextFieldCreatorState createState() => _TimeTextFieldCreatorState();
 
+  /// Returns a [String] with the value contained inside [Component.key]
   @override
   String keyValue() => map.key ?? "timeField";
 
+  /// Current value of the [Widget]
   @override
   get data => controller.text ?? "";
 }
@@ -51,6 +56,7 @@ class _TimeTextFieldCreatorState extends State<TimeTextFieldCreator> {
 
   @override
   Widget build(BuildContext context) {
+    /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
     widget.widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
     bool isVisible = true;
     if (widget.map.defaultValue.isNotEmpty) if (widget

@@ -8,7 +8,9 @@ import 'package:formio_flutter/src/abstraction/abstraction.dart';
 import 'package:formio_flutter/src/models/models.dart';
 import 'package:formio_flutter/src/providers/providers.dart';
 
+/// Extends the abstract class [WidgetParser]
 class FileParser extends WidgetParser {
+  /// Returns a [Widget] of type [File]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener) {
     return FileCreator(
@@ -16,6 +18,7 @@ class FileParser extends WidgetParser {
     );
   }
 
+  /// [widgetName] => "file"
   @override
   String get widgetName => "file";
 }
@@ -30,9 +33,11 @@ class FileCreator extends StatefulWidget implements Manager {
   @override
   _FileCreatorState createState() => _FileCreatorState();
 
+  /// Returns a [String] with the value contained inside [Component.key]
   @override
   String keyValue() => map.key ?? "fileField";
 
+  /// Current value of the [Widget]
   @override
   get data => convertFileToBase64(absolutePath) ?? "";
 }
@@ -49,6 +54,7 @@ class _FileCreatorState extends State<FileCreator> {
 
   @override
   void didChangeDependencies() {
+    /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
     widget.widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
     super.didChangeDependencies();
   }

@@ -6,11 +6,15 @@ import 'package:formio_flutter/src/abstraction/abstraction.dart';
 import 'package:formio_flutter/src/models/models.dart';
 import 'package:formio_flutter/src/providers/providers.dart';
 
+/// Extends the abstract class [WidgetParser]
 class ButtonParser extends WidgetParser {
+  /// Returns a [Widget] of type [Button]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener) {
     String clickEvent = map.action ?? "";
     bool isVisible = true;
+
+    /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
     WidgetProvider widgetProvider =
         Provider.of<WidgetProvider>(context, listen: false);
     var button = (map.hidden)
@@ -75,6 +79,7 @@ class ButtonParser extends WidgetParser {
     return button;
   }
 
+  /// [widgetName] => "button"
   @override
   String get widgetName => "button";
 }

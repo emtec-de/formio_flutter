@@ -6,7 +6,9 @@ import 'package:formio_flutter/src/abstraction/abstraction.dart';
 import 'package:formio_flutter/src/models/models.dart';
 import 'package:formio_flutter/src/providers/providers.dart';
 
+/// Extends the abstract class [WidgetParser]
 class UrlTextFieldParser extends WidgetParser {
+  /// Returns a [Widget] of type [UrlTextField]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener) {
     return UrlTextFieldCreator(
@@ -14,6 +16,7 @@ class UrlTextFieldParser extends WidgetParser {
     );
   }
 
+  /// [widgetName] => "url"
   @override
   String get widgetName => "url";
 }
@@ -27,9 +30,11 @@ class UrlTextFieldCreator extends StatefulWidget implements Manager {
   @override
   _UrlTextFieldCreatorState createState() => _UrlTextFieldCreatorState();
 
+  /// Returns a [String] with the value contained inside [Component.key]
   @override
   String keyValue() => map.key ?? "urlField";
 
+  /// Current value of the [Widget]
   @override
   get data => controller.text ?? "";
 }
@@ -58,6 +63,7 @@ class _UrlTextFieldCreatorState extends State<UrlTextFieldCreator> {
 
   @override
   Widget build(BuildContext context) {
+    /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
     widget.widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
     bool isVisible = true;
     if (widget.map.calculateValue != null) {

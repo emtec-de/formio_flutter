@@ -5,12 +5,15 @@ import 'package:formio_flutter/src/models/models.dart';
 import 'package:formio_flutter/src/providers/providers.dart';
 import 'package:provider/provider.dart';
 
+/// Extends the abstract class [WidgetParser]
 class SelectParser extends WidgetParser {
+  /// Returns a [Widget] of type [DropDown/Selector]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener) {
     return SelectParserWidget(map: map);
   }
 
+  /// [widgetName] => "select"
   @override
   String get widgetName => "select";
 }
@@ -26,9 +29,11 @@ class SelectParserWidget extends StatefulWidget implements Manager {
   @override
   _SelectParserWidgetState createState() => _SelectParserWidgetState();
 
+  /// Returns a [String] with the value contained inside [Component.key]
   @override
   String keyValue() => map.key ?? "selectField";
 
+  /// Current value of the [Widget]
   @override
   get data => selected.value ?? "";
 }
@@ -64,6 +69,7 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
 
   @override
   void didChangeDependencies() {
+    /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
     widget.widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
     super.didChangeDependencies();
   }

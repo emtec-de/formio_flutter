@@ -1,3 +1,2 @@
-## 0.0.1
-
-* TODO: Describe initial release.
+## 0.7.0 - 2020.10.24
+* Initial Release

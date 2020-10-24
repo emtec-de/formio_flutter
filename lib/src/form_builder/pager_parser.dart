@@ -6,7 +6,9 @@ import 'package:formio_flutter/src/abstraction/abstraction.dart';
 import 'package:formio_flutter/src/models/models.dart';
 import 'package:formio_flutter/src/providers/providers.dart';
 
+/// Extends the abstract class [WidgetParser]
 class PagerParser extends WidgetParser {
+  /// Returns a [Widget] of type [Pager]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener) {
     return PagerParserWidget(
@@ -15,6 +17,7 @@ class PagerParser extends WidgetParser {
     );
   }
 
+  /// [widgetName] => "panel"
   @override
   String get widgetName => "panel";
 }
@@ -52,10 +55,12 @@ class _PagerParserWidgetState extends State<PagerParserWidget>
 
   @override
   void didChangeDependencies() {
+    /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
     widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
     super.didChangeDependencies();
   }
 
+  /// Returns a [SingleChildScrollView] that has a [List<Widget>] contained in [Component.map.component]
   @override
   Widget build(BuildContext context) {
     super.build(context);

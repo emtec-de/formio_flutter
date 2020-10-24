@@ -6,10 +6,14 @@ import 'package:flutter/widgets.dart';
 import 'package:formio_flutter/formio_flutter.dart';
 import 'package:math_expressions/math_expressions.dart';
 
+/// Contains all the data from the created widgets
 Map<String, dynamic> map = new Map();
-RegExp regex = new RegExp("(?!^-)[+*\/-](\s?-)?");
-bool result = false;
 
+/// Filter by every basic mathematic operator.
+/// ex: +,-,*,/
+RegExp regex = new RegExp("(?!^-)[+*\/-](\s?-)?");
+
+/// List of [Colors] with their hexadecimal representation.
 const Map<String, int> colorMap = {
   'aqua': 0x00FFFF,
   'black': 0x000000,
@@ -33,6 +37,11 @@ const Map<String, int> colorMap = {
   'yellow': 0xFFFF00
 };
 
+/// Returns a list of [String].
+///
+/// ```dart
+/// parseListStringCalculated("value=data.valueA*data.valueB") => ["valueA, valueB"]
+/// ```
 List<String> parseListStringCalculated(String value) {
   if (value.isEmpty) return [];
   List<String> _retainer = [];
@@ -42,6 +51,13 @@ List<String> parseListStringCalculated(String value) {
   return _retainer;
 }
 
+/// Returns a [String] with the result from a mathematic operator.
+///
+/// ```dart
+/// parseCalculate("8+5*2+(8/2)") => "22"
+/// ```
+///
+/// Throws a [ArgumentError] if the expression isn't valid.
 String parseCalculate(String operation) {
   try {
     Expression exp = Parser().parse(operation);
@@ -51,6 +67,9 @@ String parseCalculate(String operation) {
   }
 }
 
+/// Similar to [parseListStringCalculated], but handles a List of [String] with their
+/// respective mathematic symbol.
+/// ex: ["+","-","*","/"].
 List<String> parseListStringOperator(String value) {
   if (value.isEmpty) return [];
   List<String> _retainer = [];
@@ -61,6 +80,15 @@ List<String> parseListStringOperator(String value) {
   return _retainer;
 }
 
+/// Returns a [Color] containing a specific css theme.
+/// ```dart
+/// parseHexColor("Primary") => Color.fromRGBO(0, 123, 255, 1.0)
+/// parseHexColor("Secondary") => Color.fromRGBO(108, 117, 125, 1.0)
+/// parseHexColor("Info") => Color.fromRGBO(23, 162, 184, 1.0)
+/// parseHexColor("Success") => Color.fromRGBO(40, 167, 69, 1.0)
+/// parseHexColor("Danger") => Color.fromRGBO(220, 53, 69, 1.0)
+/// parseHexColor("Warning") => Color.fromRGBO(255, 193, 7, 1.0)
+/// ```
 Color parseHexColor(String theme) {
   Color color;
   switch (theme) {
@@ -89,6 +117,13 @@ Color parseHexColor(String theme) {
   return color;
 }
 
+/// Returns a [TextInputType] from a String.
+/// ```dart
+/// parseInputType("email") => TextInputType.emailAddress
+/// parseInputType("number") => TextInputType.number
+/// parseInputType("phone") => TextInputType.phone
+/// parseInputType("url") => TextInputType.url
+/// ```
 TextInputType parsetInputType(String type) {
   TextInputType _inputType;
   switch (type) {
@@ -123,6 +158,10 @@ TextInputType parsetInputType(String type) {
   return _inputType;
 }
 
+/// Returns a [bool] if there's a signature widget that is empty.
+/// ```dart
+/// (empty != null) ? false : true
+/// ```
 Future<bool> checkSignatures(List<Widget> widgets) async {
   dynamic converted;
   widgets.asMap().forEach((key, value) {});
@@ -146,7 +185,10 @@ Future<bool> checkSignatures(List<Widget> widgets) async {
   return false;
 }
 
-//Parse a list widgets to a map with the result.
+/// Parse a list of [widgets].
+///
+/// returns a [Map<String, dynamic>] that contains the [key] and [value]
+/// from that widget.
 Future<Map<String, dynamic>> parseWidgets(List<Widget> widgets) async {
   dynamic converted;
   widgets.asMap().forEach(
@@ -214,25 +256,36 @@ Future<Map<String, dynamic>> parseWidgets(List<Widget> widgets) async {
   return map;
 }
 
+/// Returns a [String] with the [base64] representation of the related file.
 String convertFileToBase64(String filename) {
   return (filename == null || filename.isEmpty)
       ? ""
       : (base64Encode(File(filename).readAsBytesSync()));
 }
 
+/// Similar to [convertFileToBase64], but instead check a [Signature Widget]
+/// and returns the [base64] representation.
 Future<String> convertSignatureToBase64(SignatureController controller) async {
   return (await controller.toPngBytes() != null)
       ? base64Encode(await controller.toPngBytes())
       : "";
 }
 
-//Parse Color from String name
+/// Returns a [Color] from a [String] with the color name.
+/// the filter is based on the [colorMap] list.
+/// ```dart
+/// parseColor("aqua") => colorMap["aqua"]
+/// ```
 Color parseColor(String color) {
   var v = colorMap[color];
   Color out = Color((0xff << 24) | v);
   return (v == null) ? Colors.cyan : out;
 }
 
+/// Returns a [Color] from a [String]
+/// ```dart
+/// parseRgb("rgb(245,245,235)") => Color.fromARGB(255, 245, 245, 235)
+/// ```
 Color parseRgb(String input) {
   var startIndex = input.indexOf("(") + 1;
   var endIndex = input.indexOf(")");

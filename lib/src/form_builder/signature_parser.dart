@@ -6,7 +6,9 @@ import 'package:formio_flutter/src/abstraction/abstraction.dart';
 import 'package:formio_flutter/src/models/models.dart';
 import 'package:formio_flutter/src/providers/providers.dart';
 
+/// Extends the abstract class [WidgetParser]
 class SignatureParser extends WidgetParser {
+  /// Returns a [Widget] of type [Signature]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener) {
     return SignatureCreator(
@@ -14,6 +16,7 @@ class SignatureParser extends WidgetParser {
     );
   }
 
+  /// [widgetName] => "signature"
   @override
   String get widgetName => "signature";
 }
@@ -31,9 +34,11 @@ class SignatureCreator extends StatefulWidget implements Manager {
   @override
   _SignatureCreatorState createState() => _SignatureCreatorState();
 
+  /// Returns a [String] with the value contained inside [Component.key]
   @override
   String keyValue() => map.key ?? "signatureField";
 
+  /// Current value of the [Widget]
   @override
   get data async => await convertSignatureToBase64(controller);
 }
@@ -53,6 +58,7 @@ class _SignatureCreatorState extends State<SignatureCreator> {
 
   @override
   void didChangeDependencies() {
+    /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
     widget.widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
     super.didChangeDependencies();
   }

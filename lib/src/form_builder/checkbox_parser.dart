@@ -6,7 +6,9 @@ import 'package:formio_flutter/src/abstraction/abstraction.dart';
 import 'package:formio_flutter/src/models/models.dart';
 import 'package:formio_flutter/src/providers/providers.dart';
 
+/// Extends the abstract class [WidgetParser]
 class CheckboxParser extends WidgetParser {
+  /// Returns a [Widget] of type [Checkbox]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener) {
     return CheckboxCreator(
@@ -14,6 +16,7 @@ class CheckboxParser extends WidgetParser {
     );
   }
 
+  /// [widgetName] => "checkbox"
   @override
   String get widgetName => "checkbox";
 }
@@ -27,9 +30,11 @@ class CheckboxCreator extends StatefulWidget implements Manager {
   @override
   _CheckboxCreatorState createState() => _CheckboxCreatorState();
 
+  /// Returns a [String] with the value contained inside [Component.key]
   @override
   String keyValue() => map.key ?? "checkbox";
 
+  /// Current value of the [Widget]
   @override
   get data => isSelected;
 }
@@ -55,6 +60,7 @@ class _CheckboxCreatorState extends State<CheckboxCreator> {
 
   @override
   void didChangeDependencies() {
+    /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
     widget.widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
     super.didChangeDependencies();
   }

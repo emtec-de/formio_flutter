@@ -7,7 +7,9 @@ import 'package:formio_flutter/src/abstraction/abstraction.dart';
 import 'package:formio_flutter/src/models/models.dart';
 import 'package:formio_flutter/src/providers/providers.dart';
 
+/// Extends the abstract class [WidgetParser]
 class DateTimeTextFieldParser extends WidgetParser {
+  /// Returns a [Widget] of type [DateTimeTextField]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener) {
     return DateTimeTextFieldCreator(
@@ -15,6 +17,7 @@ class DateTimeTextFieldParser extends WidgetParser {
     );
   }
 
+  /// [widgetName] => "datetime"
   @override
   String get widgetName => "datetime";
 }
@@ -29,9 +32,11 @@ class DateTimeTextFieldCreator extends StatefulWidget implements Manager {
   _DateTimeTextFieldCreatorState createState() =>
       _DateTimeTextFieldCreatorState();
 
+  /// Returns a [String] with the value contained inside [Component.key]
   @override
   String keyValue() => map.key ?? "datetime";
 
+  /// Current value of the [Widget]
   @override
   get data => controller.text ?? "";
 }
@@ -55,6 +60,7 @@ class _DateTimeTextFieldCreatorState extends State<DateTimeTextFieldCreator> {
 
   @override
   void didChangeDependencies() {
+    /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
     widget.widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
     super.didChangeDependencies();
   }
