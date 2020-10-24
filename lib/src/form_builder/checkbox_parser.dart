@@ -46,7 +46,9 @@ class _CheckboxCreatorState extends State<CheckboxCreator> {
   @override
   void initState() {
     super.initState();
-    widget.isSelected = (widget.map.defaultValue as bool);
+    widget.isSelected = (widget.map.defaultValue is bool)
+        ? widget.map.defaultValue ?? false
+        : false;
     _mapper[widget.map.key] = widget.isSelected;
     Future.delayed(Duration(milliseconds: 10), () {
       widget.widgetProvider?.registerMap(_mapper);
