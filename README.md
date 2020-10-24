@@ -1,7 +1,5 @@
 # FormIO.Flutter
-One thing that i always love was the simplicity that messenger had using Chatheads.
-
-And for that reason this plugin was created with all the love that us the developers have :heartbeat:
+Render any form created with [FORM.IO](https://www.form.io) on your mobile/web/desktop app with flutter.
 
 
 ### To use this please add in your **pubspec.yaml**
