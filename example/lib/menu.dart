@@ -10,7 +10,7 @@ class MenuPage extends StatelessWidget {
       ),
       body: ListView(
         physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.symmetric(horizontal: 5.0),
+        padding: EdgeInsets.symmetric(horizontal: 7.0, vertical: 4.0),
         children: [
           ElevatedButton(
               onPressed: () => Navigator.pushNamed(context, 'demonstration',
@@ -45,13 +45,12 @@ class MenuPage extends StatelessWidget {
                   arguments: 'signature'),
               child: Text('Signature')),
           ElevatedButton(
-              onPressed: () => Navigator.pushNamed(context, 'demonstration',
-                  arguments: 'pagination'),
+              onPressed: () => Navigator.pushNamed(context, 'pagination'),
               child: Text('Pagination')),
           ElevatedButton(
               onPressed: () => Navigator.pushNamed(context, 'demonstration',
                   arguments: 'multi'),
-              child: Text('multi')),
+              child: Text('NoPagination')),
         ],
       ),
     );
