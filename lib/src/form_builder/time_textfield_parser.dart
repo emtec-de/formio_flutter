@@ -51,7 +51,7 @@ class _TimeTextFieldCreatorState extends State<TimeTextFieldCreator> {
 
   @override
   Widget build(BuildContext context) {
-    widget.widgetProvider = Provider.of<WidgetProvider>(context);
+    widget.widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
     bool isVisible = true;
     if (widget.map.defaultValue.isNotEmpty) if (widget
         .map.defaultValue.isNotEmpty)

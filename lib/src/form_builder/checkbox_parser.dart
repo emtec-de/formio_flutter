@@ -55,7 +55,7 @@ class _CheckboxCreatorState extends State<CheckboxCreator> {
 
   @override
   void didChangeDependencies() {
-    widget.widgetProvider = Provider.of<WidgetProvider>(context);
+    widget.widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
     super.didChangeDependencies();
   }
 

@@ -58,7 +58,7 @@ class _UrlTextFieldCreatorState extends State<UrlTextFieldCreator> {
 
   @override
   Widget build(BuildContext context) {
-    widget.widgetProvider = Provider.of<WidgetProvider>(context);
+    widget.widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
     bool isVisible = true;
     if (widget.map.calculateValue != null) {
       _keys = parseListStringCalculated(widget.map.calculateValue);

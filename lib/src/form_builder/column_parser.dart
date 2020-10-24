@@ -9,7 +9,7 @@ import 'package:formio_flutter/src/providers/providers.dart';
 class ColumnParser extends WidgetParser {
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener) {
-    return ColumnParserWidget(map: map);
+    return ColumnParserWidget(map: map, listener: listener);
   }
 
   @override
@@ -20,8 +20,9 @@ class ColumnParser extends WidgetParser {
 class ColumnParserWidget extends StatefulWidget {
   final Component map;
   List<Widget> widgets = [];
+  ClickListener listener;
 
-  ColumnParserWidget({this.map});
+  ColumnParserWidget({this.map, this.listener});
 
   @override
   _ColumnParserWidgetState createState() => _ColumnParserWidgetState();
@@ -33,7 +34,7 @@ class _ColumnParserWidgetState extends State<ColumnParserWidget> {
 
   @override
   void didChangeDependencies() {
-    widgetProvider = Provider.of<WidgetProvider>(context);
+    widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
     super.didChangeDependencies();
   }
 
@@ -97,8 +98,8 @@ class _ColumnParserWidgetState extends State<ColumnParserWidget> {
   Future<List<Widget>> _buildWidget(BuildContext context) async {
     widget.map.columns.asMap().forEach((key, value) {
       value.component.asMap().forEach((key, ss) {
-        widget.widgets.add(
-            WidgetParserBuilder.build(ss, context, new DefaultClickListener()));
+        widget.widgets
+            .add(WidgetParserBuilder.build(ss, context, widget.listener));
       });
     });
     return widget.widgets;

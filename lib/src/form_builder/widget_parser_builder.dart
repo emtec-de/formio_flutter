@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:formio_flutter/formio_flutter.dart';
 import 'package:formio_flutter/src/abstraction/abstraction.dart';
+import 'package:formio_flutter/src/form_builder/form_builder.dart';
 import 'package:formio_flutter/src/models/models.dart';
 
 class WidgetParserBuilder {
@@ -26,6 +26,9 @@ class WidgetParserBuilder {
 
   static final _widgetNameParserMap = <String, WidgetParser>{};
   static bool _defaultParserInited = false;
+  static List<Widget> _rt = [];
+  List<Widget> get widgets => _rt;
+  int get size => _rt.length;
 
   static void addParser(WidgetParser parser) {
     _parsers.add(parser);
@@ -52,6 +55,7 @@ class WidgetParserBuilder {
   static Widget buildFromMap(
       Component component, BuildContext context, ClickListener listener) {
     var parser = _widgetNameParserMap[component.type];
+    print("PARSER: $parser");
     return (parser != null)
         ? parser.parse(component, context, listener)
         : Container();
@@ -59,20 +63,21 @@ class WidgetParserBuilder {
 
   static List<Widget> buildWidgetsByComponent(List<Component> components,
       BuildContext context, ClickListener listener) {
-    List<Widget> rt = [];
+    _rt = [];
     if (components.isEmpty) return [];
     components.asMap().forEach((key, value) {
-      rt.add(build(value, context, listener));
+      _rt.add(build(value, context, listener));
     });
-    return rt;
+    return _rt;
   }
 
   static List<Widget> buildWidgets(
       FormCollection collection, BuildContext context, ClickListener listener) {
-    List<Widget> rt = [];
+    _rt = [];
     collection.components.forEach((element) {
-      rt.add(build(element, context, listener));
+      _rt.add(build(element, context, listener));
     });
-    return rt;
+    print("RT: ${_rt.length}");
+    return _rt;
   }
 }

@@ -53,7 +53,7 @@ class _SignatureCreatorState extends State<SignatureCreator> {
 
   @override
   void didChangeDependencies() {
-    widget.widgetProvider = Provider.of<WidgetProvider>(context);
+    widget.widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
     super.didChangeDependencies();
   }
 

@@ -58,7 +58,7 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
 
   @override
   void didChangeDependencies() {
-    widget.widgetProvider = Provider.of<WidgetProvider>(context);
+    widget.widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
     super.didChangeDependencies();
   }
 

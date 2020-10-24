@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
 import 'package:formio_flutter/formio_flutter.dart';
 import 'package:formio_flutter/src/abstraction/abstraction.dart';
 import 'package:formio_flutter/src/models/models.dart';
 import 'package:formio_flutter/src/providers/providers.dart';
+import 'package:provider/provider.dart';
 
 class SelectParser extends WidgetParser {
   @override
@@ -65,7 +64,7 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
 
   @override
   void didChangeDependencies() {
-    widget.widgetProvider = Provider.of<WidgetProvider>(context);
+    widget.widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
     super.didChangeDependencies();
   }
 
@@ -79,35 +78,51 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
           stream: widget.widgetProvider.widgetsStream,
           builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
             if (widget.map.conditional != null)
-              print(
-                  "CONDITIONAL: ${widget.map.conditional.toJson().toString()}");
-            isVisible = (widget.map.conditional != null &&
-                    snapshot.data != null)
-                ? (snapshot.data.containsKey(widget.map.conditional.when) &&
-                        snapshot.data[widget.map.conditional.when].toString() ==
-                            widget.map.conditional.eq)
-                    ? widget.map.conditional.show
-                    : true
-                : true;
+              isVisible = (widget.map.conditional != null &&
+                      snapshot.data != null)
+                  ? (snapshot.data.containsKey(widget.map.conditional.when) &&
+                          snapshot.data[widget.map.conditional.when]
+                                  .toString() ==
+                              widget.map.conditional.eq)
+                      ? widget.map.conditional.show
+                      : true
+                  : true;
             return (!isVisible)
                 ? Container()
-                : DropdownButton<Value>(
-                    hint: Text(widget.map.label),
-                    isExpanded: true,
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
-                    ),
-                    value: widget.selected,
-                    items: _values,
-                    onChanged: !widget.map.disabled
-                        ? (value) {
-                            _mapper.update(widget.map.key, (nVal) => value);
-                            widget.widgetProvider.registerMap(_mapper);
-                            setState(() => widget.selected = value);
-                          }
-                        : null,
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 6.0,
+                      ),
+                      Text(
+                        (widget.map.label == null || widget.map.label.isEmpty)
+                            ? ""
+                            : widget.map.label,
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      DropdownButton<Value>(
+                        hint: Text(widget.map.label),
+                        isExpanded: true,
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                        ),
+                        value: widget.selected,
+                        items: _values,
+                        onChanged: !widget.map.disabled
+                            ? (value) {
+                                _mapper.update(widget.map.key, (nVal) => value);
+                                widget.widgetProvider.registerMap(_mapper);
+                                setState(() => widget.selected = value);
+                              }
+                            : null,
+                      ),
+                    ],
                   );
           }),
     );

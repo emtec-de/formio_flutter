@@ -11,19 +11,11 @@ dependencies:
   flutter:
     sdk: flutter
   provider: ^4.3.2+2
-  device_info: ^0.4.2+9
   image: ^2.1.18
   math_expressions: ^2.0.1
-  location: ^3.0.2
   file_picker: ^2.0.10
-  font_awesome_flutter: ^8.9.0
+  font_awesome_flutter: ^8.10.0
   intl: ^0.16.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-flutter:
-  plugin:
-    platforms:
-      some_platform:
-        pluginClass: somePluginClass

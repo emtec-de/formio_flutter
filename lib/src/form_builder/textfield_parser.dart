@@ -58,7 +58,7 @@ class _TextFieldCreatorState extends State<TextFieldCreator> {
 
   @override
   void didChangeDependencies() {
-    widget.widgetProvider = Provider.of<WidgetProvider>(context);
+    widget.widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
     super.didChangeDependencies();
   }
 
@@ -87,7 +87,6 @@ class _TextFieldCreatorState extends State<TextFieldCreator> {
                   ? widget.map.conditional.show
                   : true
               : true;
-
           if (widget.map.calculateValue != null && snapshot.data != null) {
             _calculate = "";
             _keys.asMap().forEach((value, element) {

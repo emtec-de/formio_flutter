@@ -11,7 +11,8 @@ class ButtonParser extends WidgetParser {
   Widget parse(Component map, BuildContext context, ClickListener listener) {
     String clickEvent = map.action ?? "";
     bool isVisible = true;
-    WidgetProvider widgetProvider = Provider.of<WidgetProvider>(context);
+    WidgetProvider widgetProvider =
+        Provider.of<WidgetProvider>(context, listen: false);
     var button = (map.hidden)
         ? Container()
         : StreamBuilder(

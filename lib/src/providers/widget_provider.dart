@@ -17,6 +17,7 @@ class WidgetProvider {
           ? _mapper.update(key, (newVal) => value)
           : _mapper[key] = value;
     });
+    print("UPDATE");
     widgetsSink(_mapper);
   }
 
