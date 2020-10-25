@@ -11,12 +11,58 @@ dependencies:
 
 for any doubt please check the **example** folder.
 
-[![](https://raw.githubusercontent.com/Crdzbird/floaty_chathead/master/screenshots/floaty_chathead.gif)](https://raw.githubusercontent.com/Crdzbird/floaty_chathead/master/screenshots/floaty_chathead.gif "FormIO.Flutter")
+<p align="start">
+  <img src="https://raw.githubusercontent.com/Crdzbird/formio_flutter/master/screenshots/menu.png" width="456" height="805">
+</p>
 
 ## Examples
 
+### Multiple Textfields
 
+<p align="start">
+  <img src="https://raw.githubusercontent.com/Crdzbird/formio_flutter/master/screenshots/textfields.png" width="456" height="805">
+</p>
 
+### File upload and dynamic conditionals
+
+<p align="start">
+  <img src="https://raw.githubusercontent.com/Crdzbird/formio_flutter/master/screenshots/file_conditional_off.png" width="456" height="805">
+  <img src="https://raw.githubusercontent.com/Crdzbird/formio_flutter/master/screenshots/file_conditional_on.png" width="456" height="805">
+</p>
+
+### Pagination (Wizard)
+
+<p align="start">
+  <img src="https://raw.githubusercontent.com/Crdzbird/formio_flutter/master/screenshots/pagination_1.png" width="456" height="805">
+  <img src="https://raw.githubusercontent.com/Crdzbird/formio_flutter/master/screenshots/pagination_2.png" width="456" height="805">
+  <img src="https://raw.githubusercontent.com/Crdzbird/formio_flutter/master/screenshots/pagination_3.png" width="456" height="805">
+  <img src="https://raw.githubusercontent.com/Crdzbird/formio_flutter/master/screenshots/pagination_4.png" width="456" height="805">
+</p>
+
+### Non-Pagination
+
+<p align="start">
+  <img src="https://raw.githubusercontent.com/Crdzbird/formio_flutter/master/screenshots/non_pagination.png" width="456" height="805">
+</p>
+
+### Signatures
+
+<p align="start">
+  <img src="https://raw.githubusercontent.com/Crdzbird/formio_flutter/master/screenshots/signature.png" width="456" height="805">
+</p>
+
+### Buttons
+
+<p align="start">
+  <img src="https://raw.githubusercontent.com/Crdzbird/formio_flutter/master/screenshots/buttons.png" width="456" height="805">
+</p>
+
+### Validations of all type of widgets
+
+<p align="start">
+  <img src="https://raw.githubusercontent.com/Crdzbird/formio_flutter/master/screenshots/validation_signature.png" width="456" height="805">
+  <img src="https://raw.githubusercontent.com/Crdzbird/formio_flutter/master/screenshots/validation_fields.png" width="456" height="805">
+</p>
 
 DONE:
 - [x] Customization of basic widgets: buttons, texts.
