@@ -1,7 +1,7 @@
 name: formio_flutter
 description: A flutter package to let users consume any form created with formIO.js
 version: 0.7.0
-homepage:
+homepage: https://github.com/Crdzbird/formio_flutter
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
