@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:formio_flutter/formio_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 /// Contains all the data from the created widgets
@@ -36,6 +37,14 @@ const Map<String, int> colorMap = {
   'white': 0xFFFFFF,
   'yellow': 0xFFFF00
 };
+
+/// Returns the currency symbol by a [code]
+/// ```dart
+/// currency("USD") => "$"
+/// currency("EUR") => "€"
+/// ```
+String currencyCode(String code) =>
+    NumberFormat.simpleCurrency(name: code).currencySymbol;
 
 /// Returns a list of [String].
 ///
@@ -121,6 +130,7 @@ Color parseHexColor(String theme) {
 /// ```dart
 /// parseInputType("email") => TextInputType.emailAddress
 /// parseInputType("number") => TextInputType.number
+/// parseInputType("currency") => TextInputType.number
 /// parseInputType("phone") => TextInputType.phone
 /// parseInputType("url") => TextInputType.url
 /// parseInputType("time") => TextInputType.datetime
@@ -136,6 +146,9 @@ TextInputType parsetInputType(String type) {
       _inputType = TextInputType.emailAddress;
       break;
     case "number":
+      _inputType = TextInputType.number;
+      break;
+    case "currency":
       _inputType = TextInputType.number;
       break;
     case "phoneNumber":
@@ -218,6 +231,12 @@ Future<bool> checkFields(List<Widget> widgets) async {
             (await converted.data == null || await converted.data == ""))
           return true;
         break;
+      case CurrencyTextFieldCreator:
+        converted = value as CurrencyTextFieldCreator;
+        if (!converted.map.disabled &&
+            (await converted.data == null || await converted.data == ""))
+          return true;
+        break;
       case TextAreaCreator:
         converted = value as TextAreaCreator;
         if (!converted.map.disabled &&
@@ -244,7 +263,6 @@ Future<bool> checkFields(List<Widget> widgets) async {
         break;
       case EmailTextFieldCreator:
         converted = value as EmailTextFieldCreator;
-        print("STAT: ${converted.map.disabled}");
         if (!converted.map.disabled &&
             (await converted.data == null || await converted.data == ""))
           return true;
@@ -259,11 +277,6 @@ Future<bool> checkFields(List<Widget> widgets) async {
         converted = value as TimeTextFieldCreator;
         if (!converted.map.disabled &&
             (await converted.data == null || await converted.data == ""))
-          return true;
-        break;
-      case SignatureCreator:
-        converted = value as SignatureCreator;
-        if (await converted.data == null || await converted.data == "")
           return true;
         break;
       case PagerParserWidget:
@@ -310,6 +323,10 @@ Future<Map<String, dynamic>> parseWidgets(List<Widget> widgets) async {
           break;
         case NumberTextFieldCreator:
           converted = value as NumberTextFieldCreator;
+          map[converted.keyValue()] = converted.data;
+          break;
+        case CurrencyTextFieldCreator:
+          converted = value as CurrencyTextFieldCreator;
           map[converted.keyValue()] = converted.data;
           break;
         case EmailTextFieldCreator:

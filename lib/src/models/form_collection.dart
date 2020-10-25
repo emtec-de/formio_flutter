@@ -49,6 +49,7 @@ class Component {
     this.defaultValue,
     this.backgroundColor,
     this.storage,
+    this.currency,
     this.fileNameTemplate,
     this.webcam,
     this.data,
@@ -173,6 +174,9 @@ class Component {
   /// set a [Conditional] type.
   Conditional conditional;
 
+  /// Set a [String] for a money code.
+  String currency;
+
   /// set a [String] value.
   String type;
 
@@ -228,6 +232,7 @@ class Component {
             : List<Component>.from(
                 json["columns"].map((x) => Component.fromJson(x))),
         label: json["label"],
+        currency: json["currency"] == null ? null : json["currency"],
         calculateValue:
             json["calculateValue"] == null ? null : json["calculateValue"],
         storage: (json["storage"] == null) ? "base64" : json["storage"],
@@ -295,6 +300,7 @@ class Component {
             ? null
             : List<dynamic>.from(component.map((x) => x)),
         "storage": (storage == null) ? "base64" : storage,
+        "currency": (currency == null) ? "" : currency,
         "fileNameTemplate": (fileNameTemplate == null) ? "" : fileNameTemplate,
         "webcam": (webcam == null) ? false : webcam,
         "label": label,

@@ -23,6 +23,7 @@ class WidgetParserBuilder {
     TimeTextFieldParser(),
     UrlTextFieldParser(),
     NumberTextFieldParser(),
+    CurrencyTextFieldParser(),
     SelectParser(),
     SignatureParser(),
     FileParser(),

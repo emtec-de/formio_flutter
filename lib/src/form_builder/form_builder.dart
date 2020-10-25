@@ -3,6 +3,7 @@ export 'checkbox_parser.dart';
 export 'column_parser.dart';
 export 'date_textfield_parser.dart';
 export 'email_textfield_parser.dart';
+export 'currency_textfield_parser.dart';
 export 'file_parser.dart';
 export 'icons_helper.dart';
 export 'left_icon_widget_parser.dart';
