@@ -6,7 +6,7 @@ Render any form created with [FORM.IO](https://www.form.io) on your mobile/web/d
 
 ```yaml
 dependencies:
-  form_io: ^0.7.0
+  formio_flutter: ^0.7.0
 ```
 
 for any doubt please check the **example** folder.
