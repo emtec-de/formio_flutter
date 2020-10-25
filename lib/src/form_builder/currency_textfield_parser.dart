@@ -125,10 +125,12 @@ class _CurrencyTextFieldCreatorState extends State<CurrencyTextFieldCreator> {
                         ? value
                         : "$_currency$value";
                     Timer(
-                        Duration(milliseconds: 1),
-                        () => widget.controller.selection =
-                            TextSelection.fromPosition(TextPosition(
-                                offset: widget.controller.text.length)));
+                      Duration(milliseconds: 1),
+                      () => widget.controller.selection =
+                          TextSelection.fromPosition(
+                        TextPosition(offset: widget.controller.text.length),
+                      ),
+                    );
                     _mapper.update(widget.map.key, (nVal) => value);
                     widget.widgetProvider.registerMap(_mapper);
                     setState(() {
