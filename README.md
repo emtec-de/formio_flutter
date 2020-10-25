@@ -1,5 +1,5 @@
 # FormIO.Flutter
-Render any form created with [FORM.IO](https://www.form.io) on your mobile/web/desktop app with flutter.
+Render any form created with [FORMIO.JS](https://formio.github.io/formio.js) on your mobile/web/desktop app with flutter.
 
 
 ### To use this please add in your **pubspec.yaml**
