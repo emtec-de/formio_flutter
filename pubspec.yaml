@@ -1,6 +1,6 @@
 name: formio_flutter
 description: A flutter package to let users consume any form created with formIO.js
-version: 0.7.1
+version: 0.7.2
 homepage: https://github.com/Crdzbird/formio_flutter
 
 environment:
@@ -17,6 +17,7 @@ dependencies:
   math_expressions: ^2.0.1
   file_picker: ^2.0.10
   font_awesome_flutter: ^8.10.0
+  universal_io: ^1.0.1
   intl: ^0.16.1
 dev_dependencies:
   flutter_test:

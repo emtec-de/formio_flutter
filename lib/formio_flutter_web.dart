@@ -32,7 +32,8 @@ class FormioFlutterWeb {
       default:
         throw PlatformException(
           code: 'Unimplemented',
-          details: 'formio_flutter for web doesn\'t implement \'${call.method}\'',
+          details:
+              'formio_flutter for web doesn\'t implement \'${call.method}\'',
         );
     }
   }
