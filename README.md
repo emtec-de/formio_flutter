@@ -64,6 +64,16 @@ for any doubt please check the **example** folder.
   <img src="https://raw.githubusercontent.com/Crdzbird/formio_flutter/master/screenshots/validation_fields.png" width="456" height="805">
 </p>
 
+
+### Get Data from Form
+
+To obtain the data from all the hierarchy widget, just do this:
+```dart
+/// This will return a [Map<String, dynamic>] with the respective value of the widget 
+/// nested by their key.
+parseWidgets(WidgetParserBuilder.widgets) => Map<String, dynamic>
+```
+
 DONE:
 - [x] Customization of basic widgets: buttons, texts.
 - [x] Customization of click events at any hierarchy level.
