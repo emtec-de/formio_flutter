@@ -1,11 +1,11 @@
-import 'dart:async';
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:formio_flutter/formio_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:universal_io/io.dart';
+
+import 'package:formio_flutter/formio_flutter.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -39,6 +39,28 @@ void main() {
               throwsA(isInstanceOf<ProviderNotFoundException>()));
           return Placeholder();
         },
+      ),
+    );
+  });
+
+  testWidgets('Check if the provider is correctly assigned',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MultiProvider(
+        providers: [
+          Provider<WidgetProvider>(
+            create: (context) => WidgetProvider(),
+          ),
+        ],
+        child: Builder(
+          builder: (BuildContext context) {
+            _json = directory('test/test_resources/textfield.json');
+            _formCollection = FormCollection.fromJson(json.decode(_json));
+            expect(_formCollection, isA<FormCollection>());
+            expect(Provider.of<WidgetProvider>(context), isA<WidgetProvider>());
+            return Placeholder();
+          },
+        ),
       ),
     );
   });

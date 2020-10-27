@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:formio_flutter_example/menu.dart';
-import 'package:formio_flutter_example/screens/demonstration.dart';
-import 'package:formio_flutter_example/screens/pagination.dart';
+
+import '../menu.dart';
+import '../screens/pagination.dart';
+import '../screens/demonstration.dart';
 
 Route generateRoutes(RouteSettings settings) {
   switch (settings.name) {

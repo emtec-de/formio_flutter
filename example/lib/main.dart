@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:formio_flutter/formio_flutter.dart';
-import 'package:formio_flutter_example/routes/routes.dart';
+
+import 'routes/routes.dart';
 
 void main() {
   runApp(MyApp());

@@ -8,8 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:formio_flutter_example/main.dart';
-import 'package:formio_flutter_example/screens/demonstration.dart';
+import '../lib/screens/demonstration.dart';
 
 void main() {
   testWidgets('Verify Textfield form', (WidgetTester tester) async {
