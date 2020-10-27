@@ -4,7 +4,6 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:formio_flutter/formio_flutter.dart';
-import 'package:provider/provider.dart';
 
 class DemonstrationPage extends StatefulWidget {
   final String argument;
@@ -119,12 +118,12 @@ class _DemonstrationPageState extends State<DemonstrationPage>
     switch (widget.argument) {
       case "validatorSignature":
         (await checkSignatures(WidgetParserBuilder.widgets))
-            ? Scaffold.of(_context).showSnackBar(
+            ? ScaffoldMessenger.of(_context).showSnackBar(
                 SnackBar(
                   content: Text('Please fill all the signature fields'),
                 ),
               )
-            : Scaffold.of(_context).showSnackBar(
+            : ScaffoldMessenger.of(_context).showSnackBar(
                 SnackBar(
                   content: Text('Signatures completed'),
                 ),
@@ -132,12 +131,12 @@ class _DemonstrationPageState extends State<DemonstrationPage>
         break;
       case "validatorFields":
         (await checkFields(WidgetParserBuilder.widgets))
-            ? Scaffold.of(_context).showSnackBar(
+            ? ScaffoldMessenger.of(_context).showSnackBar(
                 SnackBar(
                   content: Text('Please fill all the fields'),
                 ),
               )
-            : Scaffold.of(_context).showSnackBar(
+            : ScaffoldMessenger.of(_context).showSnackBar(
                 SnackBar(
                   content: Text('Fields completed'),
                 ),

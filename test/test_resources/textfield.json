@@ -1,0 +1,20 @@
+{
+    "display": "form",
+    "components": [
+      {
+        "label": "Text Field",
+        "tableView": true,
+        "key": "textField",
+        "type": "textfield",
+        "input": true
+      },
+      {
+        "type": "button",
+        "label": "Submit",
+        "key": "submit",
+        "disableOnInvalid": true,
+        "input": true,
+        "tableView": false
+      }
+    ]
+  }
