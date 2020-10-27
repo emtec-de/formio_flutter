@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:universal_io/io.dart';
@@ -18,7 +18,7 @@ void main() {
   }
 
   test('Returns the object associated with the json as it should be', () async {
-    _json = directory('test/test_resources/textfield.json');
+    _json = directory('test_resources/textfield.json');
     _formCollection = FormCollection.fromJson(json.decode(_json));
     expect(_formCollection, isA<FormCollection>());
   });
@@ -29,7 +29,7 @@ void main() {
     await tester.pumpWidget(
       Builder(
         builder: (BuildContext context) {
-          _json = directory('test/test_resources/textfield.json');
+          _json = directory('test_resources/textfield.json');
           _formCollection = FormCollection.fromJson(json.decode(_json));
           expect(_formCollection, isA<FormCollection>());
 
@@ -54,7 +54,7 @@ void main() {
         ],
         child: Builder(
           builder: (BuildContext context) {
-            _json = directory('test/test_resources/textfield.json');
+            _json = directory('test_resources/textfield.json');
             _formCollection = FormCollection.fromJson(json.decode(_json));
             expect(_formCollection, isA<FormCollection>());
             expect(Provider.of<WidgetProvider>(context), isA<WidgetProvider>());
@@ -67,6 +67,8 @@ void main() {
 
   testWidgets('Check if the provider is correctly assigned',
       (WidgetTester tester) async {
+    _json = directory('test_resources/textfield.json');
+    _formCollection = FormCollection.fromJson(json.decode(_json));
     await tester.pumpWidget(
       MultiProvider(
         providers: [
@@ -76,8 +78,6 @@ void main() {
         ],
         child: Builder(
           builder: (BuildContext context) {
-            _json = directory('test/test_resources/textfield.json');
-            _formCollection = FormCollection.fromJson(json.decode(_json));
             expect(_formCollection, isA<FormCollection>());
             expect(Provider.of<WidgetProvider>(context), isA<WidgetProvider>());
             return Placeholder();
