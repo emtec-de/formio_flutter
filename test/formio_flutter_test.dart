@@ -147,9 +147,7 @@ void main() {
     await tester.pumpWidget(
       MultiProvider(
         providers: [
-          Provider<WidgetProvider>(
-            create: (context) => WidgetProvider(),
-          ),
+          Provider<WidgetProvider>(create: (context) => WidgetProvider()),
         ],
         child: MaterialApp(
           title: 'Material App',
@@ -177,7 +175,5 @@ void main() {
         ),
       ),
     );
-    //final list = find.byType(ListView);
-    //expect(list, ListView());
   });
 }

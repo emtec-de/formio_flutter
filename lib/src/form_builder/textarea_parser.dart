@@ -104,8 +104,8 @@ class _TextAreaCreatorState extends State<TextAreaCreator> {
                   : "";
             },
           );
+          widget.controller.text = parseCalculate(_calculate);
         }
-        widget.controller.text = parseCalculate(_calculate);
         if (!isVisible) widget.controller.text = "";
         return (!isVisible)
             ? Container()

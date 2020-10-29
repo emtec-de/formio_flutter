@@ -1,3 +1,6 @@
+## 0.7.3 - 2020.10.29
+* Fix issues with controller update
+
 ## 0.7.2 - 2020.10.24
 * Added web IO Support
 * Lint on web plugin

@@ -102,8 +102,8 @@ class _PhoneTextFieldCreatorState extends State<PhoneTextFieldCreator> {
                     "$_calculate ${snapshot.data[element]} ${(value < _operators.length) ? (_operators[value]) : ""}")
                 : "";
           });
+          widget.controller.text = parseCalculate(_calculate);
         }
-        widget.controller.text = parseCalculate(_calculate);
         if (!isVisible) widget.controller.text = "";
         return (!isVisible)
             ? Container()
