@@ -44,6 +44,7 @@ class FormCollection {
 /// each time this class is called.
 class Component {
   Component({
+    this.neumorphic = true,
     this.background,
     this.label,
     this.title,
@@ -91,6 +92,9 @@ class Component {
     this.push,
     this.pull,
   });
+
+  /// style
+  bool neumorphic = true;
 
   /// label.
   String label;

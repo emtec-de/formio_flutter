@@ -15,7 +15,8 @@ dependencies:
   provider: ^4.3.2+2
   image: ^2.1.18
   math_expressions: ^2.0.1
-  file_picker: ^2.0.11
+  file_picker: ^2.0.12
+  flutter_neumorphic: ^3.0.3
   font_awesome_flutter: ^8.10.0
   universal_io: ^1.0.1
   intl: ^0.16.1
