@@ -67,6 +67,7 @@ class _DayTextFieldCreatorState extends State<DayTextFieldCreator> {
   @override
   Widget build(BuildContext context) {
     bool isVisible = true;
+    final size = MediaQuery.of(context).size;
     if (widget.map.defaultValue.isNotEmpty)
       (widget.map.defaultValue is List<String>)
           ? widget.controller.text = widget.map.defaultValue
@@ -88,54 +89,58 @@ class _DayTextFieldCreatorState extends State<DayTextFieldCreator> {
           if (!isVisible) widget.controller.text = "";
           return (!isVisible)
               ? Container()
-              : TextField(
-                  enabled: !widget.map.disabled,
-                  obscureText: widget.map.mask,
-                  keyboardType: parsetInputType(widget.map.type),
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.black,
-                  ),
-                  controller: widget.controller,
-                  enableInteractiveSelection: false,
-                  onChanged: (value) {
-                    _mapper.update(widget.map.key, (nVal) => value);
-                    widget.widgetProvider.registerMap(_mapper);
-                    setState(() {
-                      characters = value;
-                    });
-                  },
-                  decoration: InputDecoration(
-                    counter: (widget.map.showWordCount != null)
-                        ? (characters != "")
-                            ? Text('${characters.split(' ').length} words')
-                            : Container()
-                        : null,
-                    prefixText:
-                        (widget.map.prefix != null) ? widget.map.prefix : "",
-                    prefixStyle: TextStyle(
-                      background: Paint()..color = Colors.teal[200],
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
+              : Container(
+                  width: (size.width * (1 / (widget.map.total + 0.5))),
+                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                  child: TextField(
+                    enabled: !widget.map.disabled,
+                    obscureText: widget.map.mask,
+                    keyboardType: parsetInputType(widget.map.type),
+                    style: TextStyle(
                       fontSize: 20.0,
-                    ),
-                    labelText:
-                        (widget.map.label != null) ? widget.map.label : "",
-                    hintText: widget.map.label,
-                    icon: Icon(Icons.calendar_today),
-                    suffixText:
-                        (widget.map.suffix != null) ? widget.map.suffix : "",
-                    suffixStyle: TextStyle(
-                      background: Paint()..color = Colors.teal[200],
                       color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20.0,
                     ),
+                    controller: widget.controller,
+                    enableInteractiveSelection: false,
+                    onChanged: (value) {
+                      _mapper.update(widget.map.key, (nVal) => value);
+                      widget.widgetProvider.registerMap(_mapper);
+                      setState(() {
+                        characters = value;
+                      });
+                    },
+                    decoration: InputDecoration(
+                      counter: (widget.map.showWordCount != null)
+                          ? (characters != "")
+                              ? Text('${characters.split(' ').length} words')
+                              : Container()
+                          : null,
+                      prefixText:
+                          (widget.map.prefix != null) ? widget.map.prefix : "",
+                      prefixStyle: TextStyle(
+                        background: Paint()..color = Colors.teal[200],
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20.0,
+                      ),
+                      labelText:
+                          (widget.map.label != null) ? widget.map.label : "",
+                      hintText: widget.map.label,
+                      icon: Icon(Icons.calendar_today),
+                      suffixText:
+                          (widget.map.suffix != null) ? widget.map.suffix : "",
+                      suffixStyle: TextStyle(
+                        background: Paint()..color = Colors.teal[200],
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20.0,
+                      ),
+                    ),
+                    onTap: () {
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                      _selectDate(context);
+                    },
                   ),
-                  onTap: () {
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                    _selectDate(context);
-                  },
                 );
         });
   }
