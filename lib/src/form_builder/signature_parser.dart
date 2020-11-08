@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 
 import 'package:formio_flutter/formio_flutter.dart';
@@ -87,54 +88,110 @@ class _SignatureCreatorState extends State<SignatureCreator> {
             if (!isVisible) widget.controller.clear();
             return (!isVisible)
                 ? Container()
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        widget.map.label,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 17.0),
-                      ),
-                      Stack(
-                        alignment: Alignment.topLeft,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  style: BorderStyle.solid,
+                : (widget.map.neumorphic)
+                    ? Neumorphic(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 5.0, vertical: 3.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            NeumorphicText(
+                              widget.map.label,
+                              textStyle: NeumorphicTextStyle(
+                                  fontWeight: FontWeight.w600, fontSize: 17.0),
+                              style: NeumorphicStyle(
+                                  depth: 13.0,
+                                  intensity: 0.90,
                                   color: Colors.black),
                             ),
-                            child: Signature(
-                              controller: widget.controller,
-                              width: size.width,
-                              height: size.height * 0.2,
-                              backgroundColor:
-                                  parseRgb(widget.map.backgroundColor),
+                            Stack(
+                              alignment: Alignment.topLeft,
+                              children: [
+                                Neumorphic(
+                                  style: NeumorphicStyle(
+                                    border: NeumorphicBorder(
+                                        width: 0.4, color: Colors.grey),
+                                  ),
+                                  child: Signature(
+                                    controller: widget.controller,
+                                    width: size.width,
+                                    height: size.height * 0.2,
+                                    backgroundColor:
+                                        parseRgb(widget.map.backgroundColor),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: GestureDetector(
+                                    onTap: () => widget.controller.clear(),
+                                    child: CircleAvatar(
+                                      child: Icon(Icons.refresh),
+                                      radius: 15,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
+                            (widget.map.footer == null)
+                                ? Container()
+                                : Text(
+                                    widget.map.footer,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 17.0,
+                                    ),
+                                  ),
+                          ],
+                        ),
+                      )
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            widget.map.label,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 17.0),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: GestureDetector(
-                              onTap: () => widget.controller.clear(),
-                              child: CircleAvatar(
-                                child: Icon(Icons.refresh),
-                                radius: 15,
+                          Stack(
+                            alignment: Alignment.topLeft,
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      style: BorderStyle.solid,
+                                      color: Colors.black),
+                                ),
+                                child: Signature(
+                                  controller: widget.controller,
+                                  width: size.width,
+                                  height: size.height * 0.2,
+                                  backgroundColor:
+                                      parseRgb(widget.map.backgroundColor),
+                                ),
                               ),
-                            ),
+                              Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: GestureDetector(
+                                  onTap: () => widget.controller.clear(),
+                                  child: CircleAvatar(
+                                    child: Icon(Icons.refresh),
+                                    radius: 15,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
+                          (widget.map.footer == null)
+                              ? Container()
+                              : Text(
+                                  widget.map.footer,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 17.0,
+                                  ),
+                                ),
                         ],
-                      ),
-                      (widget.map.footer == null)
-                          ? Container()
-                          : Text(
-                              widget.map.footer,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 17.0,
-                              ),
-                            ),
-                    ],
-                  );
+                      );
           }),
     );
   }

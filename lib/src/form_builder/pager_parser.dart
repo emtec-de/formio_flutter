@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 
 import 'package:formio_flutter/formio_flutter.dart';
@@ -69,12 +70,18 @@ class _PagerParserWidgetState extends State<PagerParserWidget>
     if (!widget.map.title.contains('Page') ||
         !widget.map.title.contains('page'))
       widget.widgets.insert(
-          0,
-          Text(
-            widget.map.title,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20.0),
-          ));
+        0,
+        NeumorphicText(
+          widget.map.title,
+          textAlign: TextAlign.center,
+          textStyle: NeumorphicTextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 20.0,
+          ),
+          style: NeumorphicStyle(
+              depth: 13.0, intensity: 0.90, color: Colors.black),
+        ),
+      );
     bool isVisible = true;
     return StreamBuilder(
         stream: widgetProvider.widgetsStream,
@@ -91,12 +98,23 @@ class _PagerParserWidgetState extends State<PagerParserWidget>
               : SingleChildScrollView(
                   controller: scrollController,
                   physics: BouncingScrollPhysics(),
-                  child: Container(
-                    decoration: BoxDecoration(color: widget.map.background),
-                    child: Column(
-                      children: widget.widgets,
-                    ),
-                  ),
+                  child: (widget.map.neumorphic)
+                      ? Neumorphic(
+                          child: Container(
+                            decoration:
+                                BoxDecoration(color: widget.map.background),
+                            child: Column(
+                              children: widget.widgets,
+                            ),
+                          ),
+                        )
+                      : Container(
+                          decoration:
+                              BoxDecoration(color: widget.map.background),
+                          child: Column(
+                            children: widget.widgets,
+                          ),
+                        ),
                 );
         });
   }
