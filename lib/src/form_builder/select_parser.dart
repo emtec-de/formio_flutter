@@ -107,7 +107,7 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
                             : widget.map.label,
                         style: TextStyle(
                           fontSize: 18.0,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                       DropdownButton<Value>(
@@ -115,7 +115,7 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
                         isExpanded: true,
                         style: TextStyle(
                           fontSize: 14.0,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                           color: Colors.black,
                         ),
                         value: widget.selected,

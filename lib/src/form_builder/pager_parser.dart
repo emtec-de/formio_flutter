@@ -66,6 +66,15 @@ class _PagerParserWidgetState extends State<PagerParserWidget>
     super.build(context);
     widget.widgets = WidgetParserBuilder.buildWidgetsByComponent(
         widget.map.component, context, widget.listener);
+    if (!widget.map.title.contains('Page') ||
+        !widget.map.title.contains('page'))
+      widget.widgets.insert(
+          0,
+          Text(
+            widget.map.title,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20.0),
+          ));
     bool isVisible = true;
     return StreamBuilder(
         stream: widgetProvider.widgetsStream,
@@ -82,8 +91,11 @@ class _PagerParserWidgetState extends State<PagerParserWidget>
               : SingleChildScrollView(
                   controller: scrollController,
                   physics: BouncingScrollPhysics(),
-                  child: Column(
-                    children: widget.widgets,
+                  child: Container(
+                    decoration: BoxDecoration(color: widget.map.background),
+                    child: Column(
+                      children: widget.widgets,
+                    ),
                   ),
                 );
         });

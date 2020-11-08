@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+
 /// Returns a [FormCollection] from a [String] that possees a json.
 FormCollection formCollectionFromJson(String str) =>
     FormCollection.fromJson(json.decode(str));
@@ -42,7 +44,9 @@ class FormCollection {
 /// each time this class is called.
 class Component {
   Component({
+    this.background,
     this.label,
+    this.title,
     this.labelPosition,
     this.columns,
     this.showWordCount,
@@ -88,8 +92,17 @@ class Component {
     this.pull,
   });
 
-  /// label or title.
+  /// label.
   String label;
+
+  /// title.
+  String title;
+
+  /// Set the background color for every [Container]
+  Color background = Colors.cyan;
+
+  /// total of elements in a row-column.
+  int total = 0;
 
   /// set the counter for a [textfield]
   bool showWordCount;
@@ -232,6 +245,7 @@ class Component {
             : List<Component>.from(
                 json["columns"].map((x) => Component.fromJson(x))),
         label: json["label"],
+        title: json["title"],
         currency: json["currency"] == null ? null : json["currency"],
         calculateValue:
             json["calculateValue"] == null ? null : json["calculateValue"],
@@ -304,6 +318,7 @@ class Component {
         "fileNameTemplate": (fileNameTemplate == null) ? "" : fileNameTemplate,
         "webcam": (webcam == null) ? false : webcam,
         "label": label,
+        "title": title,
         "mask": (mask == null) ? false : mask,
         "penColor": (penColor == null) ? "black" : penColor,
         "footer": (footer == null) ? null : footer,

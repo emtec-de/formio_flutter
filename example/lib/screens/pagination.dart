@@ -136,7 +136,7 @@ class _PaginationPageState extends State<PaginationPage>
   }
 
   Future<List<Widget>> _buildWidget(BuildContext context) async {
-    String _json = await rootBundle.loadString('assets/multi.json');
+    String _json = await rootBundle.loadString('assets/rows.json');
     _formCollection = FormCollection.fromJson(json.decode(_json));
     return WidgetParserBuilder.buildWidgets(_formCollection, context, this);
   }

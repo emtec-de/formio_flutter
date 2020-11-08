@@ -58,41 +58,43 @@ class _ColumnParserWidgetState extends State<ColumnParserWidget> {
             : true;
         return (!isVisible)
             ? Container()
-            : Padding(
-                padding: EdgeInsets.symmetric(vertical: 10.0),
-                child: FutureBuilder<List<Widget>>(
-                  future: _widgets,
-                  builder: (context, AsyncSnapshot<List<Widget>> snapshot) {
-                    switch (snapshot.connectionState) {
-                      case ConnectionState.done:
-                        return (snapshot.hasData)
-                            ? ListView.builder(
-                                itemCount: snapshot.data.length,
-                                physics: BouncingScrollPhysics(),
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemBuilder: (context, index) =>
-                                    snapshot.data[index],
-                              )
-                            : Center(
-                                child: CircularProgressIndicator(),
-                              );
-                        break;
-                      case ConnectionState.waiting:
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                        break;
-                      case ConnectionState.none:
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      default:
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                    }
-                  },
+            : Container(
+                decoration: BoxDecoration(
+                  color: widget.map.background,
+                ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 5.0),
+                  child: FutureBuilder<List<Widget>>(
+                    future: _widgets,
+                    builder: (context, AsyncSnapshot<List<Widget>> snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.done:
+                          return (snapshot.hasData)
+                              ? Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: snapshot.data,
+                                )
+                              : Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                          break;
+                        case ConnectionState.waiting:
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                          break;
+                        case ConnectionState.none:
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        default:
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                      }
+                    },
+                  ),
                 ),
               );
       },
@@ -103,6 +105,7 @@ class _ColumnParserWidgetState extends State<ColumnParserWidget> {
   Future<List<Widget>> _buildWidget(BuildContext context) async {
     widget.map.columns.asMap().forEach((key, value) {
       value.component.asMap().forEach((key, ss) {
+        ss.total = widget.map.columns.length;
         widget.widgets
             .add(WidgetParserBuilder.build(ss, context, widget.listener));
       });
