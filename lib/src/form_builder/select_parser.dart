@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:formio_flutter/formio_flutter.dart';
 import 'package:formio_flutter/src/abstraction/abstraction.dart';
 import 'package:formio_flutter/src/models/models.dart';
@@ -95,41 +96,93 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
                   : true;
             return (!isVisible)
                 ? Container()
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 6.0,
-                      ),
-                      Text(
-                        (widget.map.label == null || widget.map.label.isEmpty)
-                            ? ""
-                            : widget.map.label,
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w500,
+                : (widget.map.neumorphic)
+                    ? Neumorphic(
+                        padding: EdgeInsets.symmetric(horizontal: 4.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 6.0,
+                            ),
+                            NeumorphicText(
+                              (widget.map.label == null ||
+                                      widget.map.label.isEmpty)
+                                  ? ""
+                                  : widget.map.label,
+                              textStyle: NeumorphicTextStyle(
+                                  fontSize: 17.0, fontWeight: FontWeight.w500),
+                              style: NeumorphicStyle(
+                                  depth: 13.0,
+                                  intensity: 0.90,
+                                  color: Colors.black),
+                            ),
+                            DropdownButton<Value>(
+                              hint: NeumorphicText(
+                                widget.map.label,
+                                style: NeumorphicStyle(
+                                    depth: 13.0,
+                                    intensity: 0.90,
+                                    color: Colors.black),
+                              ),
+                              isExpanded: true,
+                              style: TextStyle(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                              ),
+                              value: widget.selected,
+                              items: _values,
+                              onChanged: !widget.map.disabled
+                                  ? (value) {
+                                      _mapper.update(
+                                          widget.map.key, (nVal) => value);
+                                      widget.widgetProvider
+                                          .registerMap(_mapper);
+                                      setState(() => widget.selected = value);
+                                    }
+                                  : null,
+                            ),
+                          ],
                         ),
-                      ),
-                      DropdownButton<Value>(
-                        hint: Text(widget.map.label),
-                        isExpanded: true,
-                        style: TextStyle(
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                        ),
-                        value: widget.selected,
-                        items: _values,
-                        onChanged: !widget.map.disabled
-                            ? (value) {
-                                _mapper.update(widget.map.key, (nVal) => value);
-                                widget.widgetProvider.registerMap(_mapper);
-                                setState(() => widget.selected = value);
-                              }
-                            : null,
-                      ),
-                    ],
-                  );
+                      )
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 6.0,
+                          ),
+                          Text(
+                            (widget.map.label == null ||
+                                    widget.map.label.isEmpty)
+                                ? ""
+                                : widget.map.label,
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          DropdownButton<Value>(
+                            hint: Text(widget.map.label),
+                            isExpanded: true,
+                            style: TextStyle(
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black,
+                            ),
+                            value: widget.selected,
+                            items: _values,
+                            onChanged: !widget.map.disabled
+                                ? (value) {
+                                    _mapper.update(
+                                        widget.map.key, (nVal) => value);
+                                    widget.widgetProvider.registerMap(_mapper);
+                                    setState(() => widget.selected = value);
+                                  }
+                                : null,
+                          ),
+                        ],
+                      );
           }),
     );
   }

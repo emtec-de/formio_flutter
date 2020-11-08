@@ -1,3 +1,6 @@
+## 0.8.0 - 2020.10.29
+* Added neumorphic style option
+
 ## 0.7.3 - 2020.10.29
 * Fix issues with controller update
 
