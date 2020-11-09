@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -413,6 +414,17 @@ Future<String> convertSignatureToBase64(SignatureController controller) async {
       ? base64Encode(await controller.toPngBytes())
       : "";
 }
+
+/// Returns an Image based on the [base64] representation.
+Image decodeSignatureFromBase64({String signature, Color color}) =>
+    Image.memory(
+      base64Decode(signature),
+      filterQuality: FilterQuality.high,
+      isAntiAlias: true,
+      color: color,
+      colorBlendMode: BlendMode.modulate,
+      fit: BoxFit.cover,
+    );
 
 /// Returns a [Color] from a [String] with the color name.
 /// the filter is based on the [colorMap] list.

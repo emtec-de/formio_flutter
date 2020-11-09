@@ -138,7 +138,6 @@ class _PaginationPageState extends State<PaginationPage>
   Future<List<Widget>> _buildWidget(BuildContext context) async {
     String _json = await rootBundle.loadString('assets/multi.json');
     _formCollection = FormCollection.fromJson(json.decode(_json));
-
     List<Map<String, dynamic>> defaultMapper = [
       {'textField': 'this is a demo'},
       {'site': 'clm'}

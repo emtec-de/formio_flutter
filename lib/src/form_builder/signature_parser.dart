@@ -46,10 +46,12 @@ class SignatureCreator extends StatefulWidget implements Manager {
 
 class _SignatureCreatorState extends State<SignatureCreator> {
   String characters = "";
+  bool isNewSignature = true;
 
   @override
   void initState() {
     super.initState();
+    isNewSignature = (widget.map.defaultValue != null) ? false : true;
     widget.controller = SignatureController(
       penStrokeWidth: 5,
       penColor: parseColor(widget.map.penColor),
@@ -111,18 +113,49 @@ class _SignatureCreatorState extends State<SignatureCreator> {
                                 border: NeumorphicBorder(
                                     width: 0.4, color: Colors.grey),
                               ),
-                              child: Signature(
-                                controller: widget.controller,
-                                width: size.width,
-                                height: size.height * 0.2,
-                                backgroundColor:
-                                    parseRgb(widget.map.backgroundColor),
-                              ),
+                              child: (widget.map.defaultValue != null &&
+                                      !isNewSignature)
+                                  ? Column(
+                                      children: [
+                                        Container(
+                                          color: Colors.grey,
+                                          width: size.width,
+                                          child: NeumorphicText(
+                                            'Image Signature\n tap on the circular arrow to draw a new signature',
+                                            style: NeumorphicStyle(
+                                                depth: 13.0,
+                                                intensity: 0.90,
+                                                color: Colors.black),
+                                            textStyle: NeumorphicTextStyle(
+                                                fontSize: 15.0,
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                        ),
+                                        Container(
+                                          width: size.width,
+                                          child: decodeSignatureFromBase64(
+                                              signature:
+                                                  widget.map.defaultValue,
+                                              color: parseRgb(
+                                                  widget.map.backgroundColor)),
+                                        ),
+                                      ],
+                                    )
+                                  : Signature(
+                                      controller: widget.controller,
+                                      width: size.width,
+                                      height: size.height * 0.2,
+                                      backgroundColor:
+                                          parseRgb(widget.map.backgroundColor),
+                                    ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: GestureDetector(
-                                onTap: () => widget.controller.clear(),
+                                onTap: () {
+                                  setState(() => isNewSignature = true);
+                                  widget.controller.clear();
+                                },
                                 child: CircleAvatar(
                                   child: Icon(Icons.refresh),
                                   radius: 15,
