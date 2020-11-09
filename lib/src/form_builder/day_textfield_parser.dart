@@ -51,6 +51,18 @@ class _DayTextFieldCreatorState extends State<DayTextFieldCreator> {
   void initState() {
     super.initState();
     _mapper[widget.map.key] = {""};
+    if (widget.map.defaultValue != null)
+      (widget.map.defaultValue is List<String>)
+          ? widget.controller.text = widget.map.defaultValue
+              .asMap()
+              .values
+              .toString()
+              .replaceAll(RegExp('[()]'), '')
+          : widget.controller.text = widget.map.defaultValue.toString();
+    Future.delayed(Duration(milliseconds: 10), () {
+      _mapper.update(widget.map.key, (value) => widget.controller.value.text);
+      widget.widgetProvider?.registerMap(_mapper);
+    });
   }
 
   @override
@@ -69,14 +81,6 @@ class _DayTextFieldCreatorState extends State<DayTextFieldCreator> {
   Widget build(BuildContext context) {
     bool isVisible = true;
     final size = MediaQuery.of(context).size;
-    if (widget.map.defaultValue.isNotEmpty)
-      (widget.map.defaultValue is List<String>)
-          ? widget.controller.text = widget.map.defaultValue
-              .asMap()
-              .values
-              .toString()
-              .replaceAll(RegExp('[()]'), '')
-          : widget.controller.text = widget.map.defaultValue.toString();
     return StreamBuilder(
       stream: widget.widgetProvider.widgetsStream,
       builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {

@@ -45,7 +45,6 @@ class FileCreator extends StatefulWidget implements Manager {
 class _FileCreatorState extends State<FileCreator> {
   List<PlatformFile> _paths;
   String _extension;
-  bool _loadingPath = false;
 
   @override
   void dispose() {
@@ -60,7 +59,6 @@ class _FileCreatorState extends State<FileCreator> {
   }
 
   void _openFileExplorer() async {
-    setState(() => _loadingPath = true);
     try {
       _paths = (await FilePicker.platform.pickFiles(
         allowedExtensions: (_extension?.isNotEmpty ?? false)
@@ -74,65 +72,62 @@ class _FileCreatorState extends State<FileCreator> {
       print(ex);
     }
     if (!mounted) return;
-    setState(() {
-      _loadingPath = false;
-      widget.fileName = _paths != null
-          ? _paths.map((e) => "${e.path}${e.name}").toString()
-          : '...';
-      widget.absolutePath = _paths[0].path;
-    });
+    setState(
+      () {
+        widget.fileName = _paths != null
+            ? _paths.map((e) => "${e.path}${e.name}").toString()
+            : '...';
+        widget.absolutePath = (_paths != null) ? _paths[0].path : "";
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     bool isVisible = true;
     return StreamBuilder(
-        stream: widget.widgetProvider.widgetsStream,
-        builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
-          isVisible = (widget.map.conditional != null && snapshot.data != null)
-              ? (snapshot.data.containsKey(widget.map.conditional.when) &&
-                      snapshot.data[widget.map.conditional.when].toString() ==
-                          widget.map.conditional.eq)
-                  ? widget.map.conditional.show
-                  : true
-              : true;
-          if (!isVisible) widget.fileName = "";
-          return (!isVisible)
-              ? Container()
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 50.0, bottom: 20.0),
-                      child: Column(
-                        children: <Widget>[
-                          RaisedButton(
-                            onPressed: () => _openFileExplorer(),
-                            child: Text("Open file picker"),
-                          ),
-                        ],
-                      ),
+      stream: widget.widgetProvider.widgetsStream,
+      builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
+        isVisible = (widget.map.conditional != null && snapshot.data != null)
+            ? (snapshot.data.containsKey(widget.map.conditional.when) &&
+                    snapshot.data[widget.map.conditional.when].toString() ==
+                        widget.map.conditional.eq)
+                ? widget.map.conditional.show
+                : true
+            : true;
+        if (!isVisible) widget.fileName = "";
+        return (!isVisible)
+            ? Container()
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 50.0, bottom: 20.0),
+                    child: Column(
+                      children: <Widget>[
+                        RaisedButton(
+                          onPressed: () => _openFileExplorer(),
+                          child: Text("Select a file"),
+                        ),
+                      ],
                     ),
-                    Builder(builder: (BuildContext context) {
-                      if (_loadingPath) {
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 10.0),
-                          child: const CircularProgressIndicator(),
-                        );
-                      } else {
-                        final String name = 'File: ' + widget.fileName ?? '...';
-                        return Container(
-                          padding: const EdgeInsets.only(bottom: 30.0),
-                          child: ListTile(
-                            title: Text(
-                              name,
-                            ),
+                  ),
+                  Builder(
+                    builder: (BuildContext context) {
+                      final String name = 'File: ' + widget.fileName ?? '...';
+                      return Container(
+                        padding: const EdgeInsets.only(bottom: 30.0),
+                        child: ListTile(
+                          title: Text(
+                            name,
                           ),
-                        );
-                      }
-                    }),
-                  ],
-                );
-        });
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              );
+      },
+    );
   }
 }

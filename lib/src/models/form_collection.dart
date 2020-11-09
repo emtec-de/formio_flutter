@@ -44,8 +44,6 @@ class FormCollection {
 /// each time this class is called.
 class Component {
   Component({
-    this.neumorphic = true,
-    this.customDefaultValue,
     this.background,
     this.label,
     this.title,
@@ -93,12 +91,6 @@ class Component {
     this.push,
     this.pull,
   });
-
-  /// style
-  bool neumorphic = true;
-
-  /// set a [customDefaultValue] to be added in the list of generated widgets
-  dynamic customDefaultValue;
 
   /// label.
   String label;
@@ -271,7 +263,7 @@ class Component {
         mask: (json["mask"] == null) ? false : json["mask"],
         data: json["data"] == null ? null : Data.fromJson(json["data"]),
         defaultValue: json["defaultValue"] == null
-            ? []
+            ? null
             : (json["defaulValue"] is List<String>)
                 ? List<String>.from(json["defaultValue"].map((x) => x))
                 : json["defaultValue"],

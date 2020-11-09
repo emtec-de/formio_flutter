@@ -48,6 +48,18 @@ class _TimeTextFieldCreatorState extends State<TimeTextFieldCreator> {
   void initState() {
     super.initState();
     _mapper[widget.map.key] = {""};
+    if (widget.map.defaultValue != null) if (widget.map.defaultValue.isNotEmpty)
+      (widget.map.defaultValue is List<String>)
+          ? widget.controller.text = widget.map.defaultValue
+              .asMap()
+              .values
+              .toString()
+              .replaceAll(RegExp('[()]'), '')
+          : widget.controller.text = widget.map.defaultValue.toString();
+    Future.delayed(Duration(milliseconds: 10), () {
+      _mapper.update(widget.map.key, (value) => widget.controller.value.text);
+      widget.widgetProvider?.registerMap(_mapper);
+    });
   }
 
   @override
@@ -60,17 +72,7 @@ class _TimeTextFieldCreatorState extends State<TimeTextFieldCreator> {
     /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
     widget.widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
     final size = MediaQuery.of(context).size;
-
     bool isVisible = true;
-    if (widget.map.defaultValue.isNotEmpty) if (widget
-        .map.defaultValue.isNotEmpty)
-      (widget.map.defaultValue is List<String>)
-          ? widget.controller.text = widget.map.defaultValue
-              .asMap()
-              .values
-              .toString()
-              .replaceAll(RegExp('[()]'), '')
-          : widget.controller.text = widget.map.defaultValue.toString();
     return StreamBuilder(
       stream: widget.widgetProvider.widgetsStream,
       builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {

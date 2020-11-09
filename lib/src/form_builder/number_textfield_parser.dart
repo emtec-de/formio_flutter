@@ -51,6 +51,14 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
   void initState() {
     super.initState();
     _mapper[widget.map.key] = {""};
+    if (widget.map.defaultValue != null)
+      (widget.map.defaultValue is List<String>)
+          ? widget.controller.text = widget.map.defaultValue
+              .asMap()
+              .values
+              .toString()
+              .replaceAll(RegExp('[()]'), '')
+          : widget.controller.text = widget.map.defaultValue.toString();
     Future.delayed(Duration(milliseconds: 10), () {
       _mapper.update(widget.map.key, (value) => widget.controller.value.text);
       widget.widgetProvider?.registerMap(_mapper);
@@ -77,14 +85,6 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
       _keys = parseListStringCalculated(widget.map.calculateValue);
       _operators = parseListStringOperator(widget.map.calculateValue);
     }
-    if (widget.map.defaultValue.isNotEmpty)
-      (widget.map.defaultValue is List<String>)
-          ? widget.controller.text = widget.map.defaultValue
-              .asMap()
-              .values
-              .toString()
-              .replaceAll(RegExp('[()]'), '')
-          : widget.controller.text = widget.map.defaultValue.toString();
     return StreamBuilder(
       stream: widget.widgetProvider.widgetsStream,
       builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
@@ -162,54 +162,51 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
                       ),
                     ),
                   ))
-                : Expanded(
-                    child: Neumorphic(
-                      padding: EdgeInsets.symmetric(horizontal: 5.0),
-                      child: TextField(
-                        enabled: !widget.map.disabled,
-                        obscureText: widget.map.mask,
-                        keyboardType: parsetInputType(widget.map.type),
-                        style: TextStyle(
-                          fontSize: 20.0,
+                : Neumorphic(
+                    padding: EdgeInsets.symmetric(horizontal: 5.0),
+                    child: TextField(
+                      enabled: !widget.map.disabled,
+                      obscureText: widget.map.mask,
+                      keyboardType: parsetInputType(widget.map.type),
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.black,
+                      ),
+                      controller: widget.controller,
+                      onChanged: (value) {
+                        _mapper.update(widget.map.key, (nVal) => value);
+                        widget.widgetProvider.registerMap(_mapper);
+                        setState(() {
+                          characters = value;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        counter: (widget.map.showWordCount != null)
+                            ? (characters != "")
+                                ? Text(
+                                    '${characters.replaceAll(' ', '').length} numbers')
+                                : Container()
+                            : null,
+                        prefixText: (widget.map.prefix != null)
+                            ? widget.map.prefix
+                            : "",
+                        prefixStyle: TextStyle(
+                          background: Paint()..color = Colors.teal[200],
                           color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20.0,
                         ),
-                        controller: widget.controller,
-                        onChanged: (value) {
-                          _mapper.update(widget.map.key, (nVal) => value);
-                          widget.widgetProvider.registerMap(_mapper);
-                          setState(() {
-                            characters = value;
-                          });
-                        },
-                        decoration: InputDecoration(
-                          counter: (widget.map.showWordCount != null)
-                              ? (characters != "")
-                                  ? Text(
-                                      '${characters.replaceAll(' ', '').length} numbers')
-                                  : Container()
-                              : null,
-                          prefixText: (widget.map.prefix != null)
-                              ? widget.map.prefix
-                              : "",
-                          prefixStyle: TextStyle(
-                            background: Paint()..color = Colors.teal[200],
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 20.0,
-                          ),
-                          labelText: (widget.map.label != null)
-                              ? widget.map.label
-                              : "",
-                          hintText: widget.map.label,
-                          suffixText: (widget.map.suffix != null)
-                              ? widget.map.suffix
-                              : "",
-                          suffixStyle: TextStyle(
-                            background: Paint()..color = Colors.teal[200],
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 20.0,
-                          ),
+                        labelText:
+                            (widget.map.label != null) ? widget.map.label : "",
+                        hintText: widget.map.label,
+                        suffixText: (widget.map.suffix != null)
+                            ? widget.map.suffix
+                            : "",
+                        suffixStyle: TextStyle(
+                          background: Paint()..color = Colors.teal[200],
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20.0,
                         ),
                       ),
                     ),

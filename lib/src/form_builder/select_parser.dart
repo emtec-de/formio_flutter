@@ -47,7 +47,19 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
   void initState() {
     super.initState();
     _values = buildDropDownItems(widget.map.data.values);
-    widget.selected = _values[0].value;
+    if (widget.map.defaultValue != null) {
+      int _position = 0;
+      if (widget.map.defaultValue is List<String>) {
+        _position = widget.map.data.values.indexWhere(
+            (element) => element.value == widget.map.defaultValue[0]);
+      } else if (widget.map.defaultValue is String) {
+        _position = widget.map.data.values
+            .indexWhere((element) => element.value == widget.map.defaultValue);
+      }
+      widget.selected = _values[_position].value;
+    } else {
+      widget.selected = _values[0].value;
+    }
   }
 
   @override
