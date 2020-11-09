@@ -16,6 +16,7 @@ class LeftIconWidgetParser extends WidgetParser {
                 ? getIconUsingPrefix(name: map.leftIcon)
                 : Icons.circle,
             size: (map.leftIcon != null) ? 20 : 0,
+            style: NeumorphicStyle(color: Colors.white),
           )
         : Icon(
             (map.leftIcon != null)

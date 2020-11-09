@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:html';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -290,6 +291,33 @@ Future<bool> checkFields(List<Widget> widgets) async {
     }
   }
   return false;
+}
+
+Future<FormCollection> parseFormCollectionDefaultValue(
+    FormCollection formCollection,
+    List<Map<String, dynamic>> defaultMapValue) async {
+  formCollection.components =
+      await parseDefaultValue(formCollection.components, defaultMapValue);
+  return formCollection;
+}
+
+Future<List<Component>> parseDefaultValue(List<Component> components,
+    List<Map<String, dynamic>> defaultMapValue) async {
+  await Future.forEach(components, (element) async {
+    var _component = element as Component;
+    defaultMapValue.forEach((mapElement) {
+      if (mapElement.containsKey(_component.key))
+        _component.customDefaultValue = mapElement[_component.key];
+    });
+    if (_component.columns.isNotEmpty)
+      _component.columns =
+          await parseDefaultValue(_component.columns, defaultMapValue);
+    if (_component.columns.isNotEmpty)
+      _component.component =
+          await parseDefaultValue(_component.component, defaultMapValue);
+    element = _component;
+  });
+  return components;
 }
 
 /// Parse a list of [widgets].

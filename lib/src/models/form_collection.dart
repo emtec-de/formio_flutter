@@ -45,6 +45,7 @@ class FormCollection {
 class Component {
   Component({
     this.neumorphic = true,
+    this.customDefaultValue,
     this.background,
     this.label,
     this.title,
@@ -95,6 +96,9 @@ class Component {
 
   /// style
   bool neumorphic = true;
+
+  /// set a [customDefaultValue] to be added in the list of generated widgets
+  dynamic customDefaultValue;
 
   /// label.
   String label;
