@@ -98,23 +98,14 @@ class _PagerParserWidgetState extends State<PagerParserWidget>
               : SingleChildScrollView(
                   controller: scrollController,
                   physics: BouncingScrollPhysics(),
-                  child: (widget.map.neumorphic)
-                      ? Neumorphic(
-                          child: Container(
-                            decoration:
-                                BoxDecoration(color: widget.map.background),
-                            child: Column(
-                              children: widget.widgets,
-                            ),
-                          ),
-                        )
-                      : Container(
-                          decoration:
-                              BoxDecoration(color: widget.map.background),
-                          child: Column(
-                            children: widget.widgets,
-                          ),
-                        ),
+                  child: Neumorphic(
+                    child: Container(
+                      decoration: BoxDecoration(color: widget.map.background),
+                      child: Column(
+                        children: widget.widgets,
+                      ),
+                    ),
+                  ),
                 );
         });
   }

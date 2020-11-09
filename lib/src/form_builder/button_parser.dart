@@ -32,99 +32,50 @@ class ButtonParser extends WidgetParser {
                   : true;
               return (!isVisible)
                   ? Container()
-                  : (map.neumorphic)
-                      ? Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 5.0, vertical: 5.0),
-                          child: NeumorphicButton(
-                            style: NeumorphicStyle(
-                              color: parseHexColor(map.theme ?? "primary"),
-                              shadowLightColor:
-                                  parseHexColor(map.theme ?? "primary"),
-                            ),
-                            child: (map.leftIcon != null ||
-                                    map.rightIcon != null)
-                                ? SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.5,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        LeftIconWidgetParser()
-                                            .parse(map, context, listener),
-                                        Text(
-                                          map.label,
-                                          softWrap: true,
-                                          style: TextStyle(
-                                            fontSize: 20.0,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        RightIconWidgetParser()
-                                            .parse(map, context, listener),
-                                      ],
-                                    ),
-                                  )
-                                : Text(
-                                    map.label,
-                                    softWrap: true,
-                                    style: TextStyle(
-                                      fontSize: 20.0,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                            onPressed: (map.disabled)
-                                ? null
-                                : () => listener.onClicked(clickEvent),
-                          ),
-                        )
-                      : ElevatedButton(
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(
+                  : Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
+                      child: NeumorphicButton(
+                        style: NeumorphicStyle(
+                          color: parseHexColor(map.theme ?? "primary"),
+                          shadowLightColor:
                               parseHexColor(map.theme ?? "primary"),
-                            ),
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                            ),
-                          ),
-                          child: (map.leftIcon != null || map.rightIcon != null)
-                              ? SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.5,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      LeftIconWidgetParser()
-                                          .parse(map, context, listener),
-                                      Text(
-                                        map.label,
-                                        softWrap: true,
-                                        style: TextStyle(
-                                          fontSize: 20.0,
-                                          color: Colors.white,
-                                        ),
+                        ),
+                        child: (map.leftIcon != null || map.rightIcon != null)
+                            ? SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.5,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    LeftIconWidgetParser()
+                                        .parse(map, context, listener),
+                                    Text(
+                                      map.label,
+                                      softWrap: true,
+                                      style: TextStyle(
+                                        fontSize: 20.0,
+                                        color: Colors.white,
                                       ),
-                                      RightIconWidgetParser()
-                                          .parse(map, context, listener),
-                                    ],
-                                  ),
-                                )
-                              : Text(
-                                  map.label,
-                                  softWrap: true,
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    color: Colors.white,
-                                  ),
+                                    ),
+                                    RightIconWidgetParser()
+                                        .parse(map, context, listener),
+                                  ],
                                 ),
-                          onPressed: (map.disabled)
-                              ? null
-                              : () => listener.onClicked(clickEvent),
-                        );
+                              )
+                            : Text(
+                                map.label,
+                                softWrap: true,
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                  color: Colors.white,
+                                ),
+                              ),
+                        onPressed: (map.disabled)
+                            ? null
+                            : () => listener.onClicked(clickEvent),
+                      ),
+                    );
             },
           );
     return button;

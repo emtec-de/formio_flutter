@@ -86,49 +86,32 @@ class _CheckboxCreatorState extends State<CheckboxCreator> {
                   : true;
               return (!isVisible)
                   ? Container()
-                  : (widget.map.neumorphic)
-                      ? Row(
-                          children: [
-                            NeumorphicText(
-                              (widget.map.label != null)
-                                  ? widget.map.label
-                                  : "",
-                              textStyle: NeumorphicTextStyle(
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              style: NeumorphicStyle(
-                                  depth: 13.0,
-                                  intensity: 0.90,
-                                  color: Colors.black),
-                            ),
-                            SizedBox(width: 7.0),
-                            NeumorphicCheckbox(
-                              value: widget.isSelected,
-                              onChanged: (value) {
-                                setState(() => widget.isSelected = value);
-                                _mapper.update(widget.map.key, (t) => value);
-                                widget.widgetProvider.registerMap(_mapper);
-                              },
-                            ),
-                          ],
-                        )
-                      : CheckboxListTile(
-                          title: Text(
-                            (widget.map.label != null) ? widget.map.label : "",
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              color: Colors.black,
-                            ),
+                  : Row(
+                      children: [
+                        NeumorphicText(
+                          (widget.map.label != null) ? widget.map.label : "",
+                          textStyle: NeumorphicTextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.w500,
                           ),
+                          style: NeumorphicStyle(
+                              depth: 13.0,
+                              intensity: 0.90,
+                              color: Colors.black),
+                        ),
+                        SizedBox(width: 7.0),
+                        NeumorphicCheckbox(
                           value: widget.isSelected,
                           onChanged: (value) {
                             setState(() => widget.isSelected = value);
                             _mapper.update(widget.map.key, (t) => value);
                             widget.widgetProvider.registerMap(_mapper);
                           },
-                        );
-            })
+                        ),
+                      ],
+                    );
+            },
+          )
         : Container();
   }
 }

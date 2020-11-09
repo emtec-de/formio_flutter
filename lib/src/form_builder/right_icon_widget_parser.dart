@@ -10,21 +10,13 @@ class RightIconWidgetParser extends WidgetParser {
   /// Returns a [Widget] of type [Icon]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener) {
-    return (map.neumorphic)
-        ? NeumorphicIcon(
-            (map.rightIcon != null)
-                ? getIconUsingPrefix(name: map.rightIcon)
-                : Icons.circle,
-            size: (map.leftIcon != null) ? 20 : 0,
-            style: NeumorphicStyle(color: Colors.white),
-          )
-        : Icon(
-            (map.rightIcon != null)
-                ? getIconUsingPrefix(name: map.rightIcon)
-                : Icons.circle,
-            size: (map.rightIcon != null) ? 20 : 0,
-            color: Colors.white,
-          );
+    return NeumorphicIcon(
+      (map.rightIcon != null)
+          ? getIconUsingPrefix(name: map.rightIcon)
+          : Icons.circle,
+      size: (map.leftIcon != null) ? 20 : 0,
+      style: NeumorphicStyle(color: Colors.white),
+    );
   }
 
   @override

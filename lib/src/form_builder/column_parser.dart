@@ -59,89 +59,47 @@ class _ColumnParserWidgetState extends State<ColumnParserWidget> {
             : true;
         return (!isVisible)
             ? Container()
-            : (widget.map.neumorphic)
-                ? Neumorphic(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: widget.map.background,
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 5.0),
-                        child: FutureBuilder<List<Widget>>(
-                          future: _widgets,
-                          builder:
-                              (context, AsyncSnapshot<List<Widget>> snapshot) {
-                            switch (snapshot.connectionState) {
-                              case ConnectionState.done:
-                                return (snapshot.hasData)
-                                    ? Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: snapshot.data,
-                                      )
-                                    : Center(
-                                        child: CircularProgressIndicator(),
-                                      );
-                                break;
-                              case ConnectionState.waiting:
-                                return Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                                break;
-                              case ConnectionState.none:
-                                return Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              default:
-                                return Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                            }
-                          },
-                        ),
-                      ),
+            : Neumorphic(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: widget.map.background,
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 5.0),
+                    child: FutureBuilder<List<Widget>>(
+                      future: _widgets,
+                      builder: (context, AsyncSnapshot<List<Widget>> snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.done:
+                            return (snapshot.hasData)
+                                ? Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: snapshot.data,
+                                  )
+                                : Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                            break;
+                          case ConnectionState.waiting:
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                            break;
+                          case ConnectionState.none:
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          default:
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                        }
+                      },
                     ),
-                  )
-                : Container(
-                    decoration: BoxDecoration(
-                      color: widget.map.background,
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 5.0),
-                      child: FutureBuilder<List<Widget>>(
-                        future: _widgets,
-                        builder:
-                            (context, AsyncSnapshot<List<Widget>> snapshot) {
-                          switch (snapshot.connectionState) {
-                            case ConnectionState.done:
-                              return (snapshot.hasData)
-                                  ? Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: snapshot.data,
-                                    )
-                                  : Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                              break;
-                            case ConnectionState.waiting:
-                              return Center(
-                                child: CircularProgressIndicator(),
-                              );
-                              break;
-                            case ConnectionState.none:
-                              return Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            default:
-                              return Center(
-                                child: CircularProgressIndicator(),
-                              );
-                          }
-                        },
-                      ),
-                    ),
-                  );
+                  ),
+                ),
+              );
       },
     );
   }
