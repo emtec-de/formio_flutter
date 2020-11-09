@@ -1,3 +1,6 @@
+## 0.8.2 - 2020.10.29
+* Changed icon parser
+
 ## 0.8.1 - 2020.10.29
 * Added default value to signature
 

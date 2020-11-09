@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 import 'package:formio_flutter/formio_flutter.dart';
 import 'package:formio_flutter/src/abstraction/abstraction.dart';
@@ -10,12 +9,12 @@ class RightIconWidgetParser extends WidgetParser {
   /// Returns a [Widget] of type [Icon]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener) {
-    return NeumorphicIcon(
+    return Icon(
       (map.rightIcon != null)
           ? getIconUsingPrefix(name: map.rightIcon)
           : Icons.circle,
       size: (map.leftIcon != null) ? 20 : 0,
-      style: NeumorphicStyle(color: Colors.white),
+      color: Colors.white,
     );
   }
 
