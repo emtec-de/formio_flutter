@@ -1,7 +1,9 @@
+## 0.8.0.1 - 2020.10.29
+* Added default value to signature
+
 ## 0.8.0 - 2020.10.29
 * Added neumorphic style option
 * Added default values to any widget
-* Added parser to check signature
 
 ## 0.7.3 - 2020.10.29
 * Fix issues with controller update
