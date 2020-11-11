@@ -5,6 +5,7 @@ import 'package:formio_flutter/src/abstraction/abstraction.dart';
 import 'package:formio_flutter/src/models/models.dart';
 import 'package:formio_flutter/src/providers/providers.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 /// Extends the abstract class [WidgetParser]
 class SelectParser extends WidgetParser {
@@ -41,11 +42,24 @@ class SelectParserWidget extends StatefulWidget implements Manager {
 
 class _SelectParserWidgetState extends State<SelectParserWidget> {
   List<DropdownMenuItem<Value>> _values;
+  Future<List<Value>> _futureValues;
   final Map<String, dynamic> _mapper = new Map();
 
-  @override
-  void initState() {
-    super.initState();
+  /// When the [url] isn't null or empty then the data is prefetched for the [Select] widget.
+  Future<List<Value>> _makeRequest() async {
+    if (widget.map.data.url != null || widget.map.data.url != "") {
+      var client = http.Client();
+      final response = await client.get(widget.map.data.url);
+      final result = Value().valuesFromJson(response.body);
+      _values = buildDropDownItems(result);
+      widget.selected = _values[0].value;
+      return result;
+    }
+    return [];
+  }
+
+  /// Setup all the functionlity for the dropDown widget.
+  void setupDropDown() {
     _values = buildDropDownItems(widget.map.data.values);
     if (widget.map.defaultValue != null) {
       int _position = 0;
@@ -63,19 +77,32 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    setupDropDown();
+  }
+
+  @override
   void dispose() {
     super.dispose();
   }
 
   List<DropdownMenuItem<Value>> buildDropDownItems(List listItems) {
     List<DropdownMenuItem<Value>> items = List();
-    for (Value listItem in listItems) {
-      items.add(
-        DropdownMenuItem(
-          child: Text(listItem.label),
-          value: listItem,
-        ),
-      );
+    if (listItems == null || (listItems[0] as Value).value == null) {
+      items.add(DropdownMenuItem(
+        child: Text('Empty'),
+        value: null,
+      ));
+    } else {
+      for (Value listItem in listItems) {
+        items.add(
+          DropdownMenuItem(
+            child: Text(listItem.label),
+            value: listItem,
+          ),
+        );
+      }
     }
     return items;
   }
@@ -89,6 +116,7 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
 
   @override
   Widget build(BuildContext context) {
+    _futureValues ??= _makeRequest();
     _mapper[widget.map.key] = _values[0].value;
     bool isVisible = true;
     return Padding(
@@ -124,29 +152,43 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
                         style: NeumorphicStyle(
                             depth: 13.0, intensity: 0.90, color: Colors.black),
                       ),
-                      DropdownButton<Value>(
-                        hint: NeumorphicText(
-                          widget.map.label,
-                          style: NeumorphicStyle(
-                              depth: 13.0,
-                              intensity: 0.90,
-                              color: Colors.black),
-                        ),
-                        isExpanded: true,
-                        style: TextStyle(
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                        ),
-                        value: widget.selected,
-                        items: _values,
-                        onChanged: !widget.map.disabled
-                            ? (value) {
-                                _mapper.update(widget.map.key, (nVal) => value);
-                                widget.widgetProvider.registerMap(_mapper);
-                                setState(() => widget.selected = value);
-                              }
-                            : null,
+                      FutureBuilder(
+                        future: _futureValues,
+                        builder: (context, snapshot) {
+                          switch (snapshot.connectionState) {
+                            case ConnectionState.done:
+                              return DropdownButton<Value>(
+                                hint: NeumorphicText(
+                                  widget.map.label,
+                                  style: NeumorphicStyle(
+                                      depth: 13.0,
+                                      intensity: 0.90,
+                                      color: Colors.black),
+                                ),
+                                isExpanded: true,
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black,
+                                ),
+                                value: widget.selected,
+                                items: _values,
+                                onChanged: !widget.map.disabled
+                                    ? (value) {
+                                        _mapper.update(
+                                            widget.map.key, (nVal) => value);
+                                        widget.widgetProvider
+                                            .registerMap(_mapper);
+                                        setState(() => widget.selected = value);
+                                      }
+                                    : null,
+                              );
+                              break;
+                            default:
+                              return CircularProgressIndicator();
+                              break;
+                          }
+                        },
                       ),
                     ],
                   ),

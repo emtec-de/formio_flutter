@@ -397,19 +397,25 @@ class Conditional {
 class Data {
   Data({
     this.values,
+    this.url,
   });
 
   /// set a list of [Value]
   List<Value> values;
 
+  /// set a url to fetch data
+  String url;
+
   /// Returns a [Data] from a [String] that possees a json.
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         values: List<Value>.from(json["values"].map((x) => Value.fromJson(x))),
+        url: json["url"],
       );
 
   /// Returns a [Map<String, dynamic>] representation of the [Data] class.
   Map<String, dynamic> toJson() => {
         "values": List<dynamic>.from(values.map((x) => x.toJson())),
+        "url": url == null ? "" : url,
       };
 }
 
@@ -425,6 +431,9 @@ class Value {
 
   /// set a [String]
   String value;
+
+  List<Value> valuesFromJson(String str) =>
+      List<Value>.from(json.decode(str).map((x) => Value.fromJson(x)));
 
   /// Returns a [Value] from a [String] that possees a json.
   factory Value.fromJson(Map<String, dynamic> json) => Value(
