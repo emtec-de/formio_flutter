@@ -409,7 +409,7 @@ class Data {
   /// Returns a [Data] from a [String] that possees a json.
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         values: List<Value>.from(json["values"].map((x) => Value.fromJson(x))),
-        url: json["url"],
+        url: json["url"] == null ? "" : json["url"],
       );
 
   /// Returns a [Map<String, dynamic>] representation of the [Data] class.

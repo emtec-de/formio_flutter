@@ -120,8 +120,7 @@ class _TextAreaCreatorState extends State<TextAreaCreator> {
                     enabled: !widget.map.disabled,
                     obscureText: widget.map.mask,
                     keyboardType: parsetInputType(widget.map.type),
-                    maxLines: null,
-                    expands: true,
+                    maxLines: 8,
                     style: TextStyle(
                       fontSize: 20.0,
                       color: Colors.black,
@@ -132,31 +131,8 @@ class _TextAreaCreatorState extends State<TextAreaCreator> {
                       widget.widgetProvider.registerMap(_mapper);
                       setState(() => characters = value);
                     },
-                    decoration: InputDecoration(
-                      counter: (widget.map.showWordCount != null)
-                          ? (characters != "")
-                              ? Text('${characters.split(' ').length} words')
-                              : Container()
-                          : null,
-                      prefixText:
-                          (widget.map.prefix != null) ? widget.map.prefix : "",
-                      prefixStyle: TextStyle(
-                        background: Paint()..color = Colors.teal[200],
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 20.0,
-                      ),
-                      labelText:
-                          (widget.map.label != null) ? widget.map.label : "",
+                    decoration: InputDecoration.collapsed(
                       hintText: widget.map.label,
-                      suffixText:
-                          (widget.map.suffix != null) ? widget.map.suffix : "",
-                      suffixStyle: TextStyle(
-                        background: Paint()..color = Colors.teal[200],
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 20.0,
-                      ),
                     ),
                   ),
                 ),

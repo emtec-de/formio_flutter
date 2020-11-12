@@ -1,3 +1,6 @@
+## 0.8.4 - 2020.11.12
+* Fixed big issue with textarea causing not render error.
+
 ## 0.8.3 - 2020.11.11
 * Changed icon parser
 

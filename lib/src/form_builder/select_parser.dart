@@ -47,7 +47,7 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
 
   /// When the [url] isn't null or empty then the data is prefetched for the [Select] widget.
   Future<List<Value>> _makeRequest() async {
-    if (widget.map.data.url != null || widget.map.data.url != "") {
+    if (widget.map.data.url != null && widget.map.data.url.isNotEmpty) {
       var client = http.Client();
       final response = await client.get(widget.map.data.url);
       final result = Value().valuesFromJson(response.body);
@@ -89,7 +89,9 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
 
   List<DropdownMenuItem<Value>> buildDropDownItems(List listItems) {
     List<DropdownMenuItem<Value>> items = List();
-    if (listItems == null || (listItems[0] as Value).value == null) {
+    if (listItems == null ||
+        listItems[0] == null ||
+        (listItems[0] as Value).value == null) {
       items.add(DropdownMenuItem(
         child: Text('Empty'),
         value: null,
@@ -152,44 +154,73 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
                         style: NeumorphicStyle(
                             depth: 13.0, intensity: 0.90, color: Colors.black),
                       ),
-                      FutureBuilder(
-                        future: _futureValues,
-                        builder: (context, snapshot) {
-                          switch (snapshot.connectionState) {
-                            case ConnectionState.done:
-                              return DropdownButton<Value>(
-                                hint: NeumorphicText(
-                                  widget.map.label,
-                                  style: NeumorphicStyle(
-                                      depth: 13.0,
-                                      intensity: 0.90,
-                                      color: Colors.black),
-                                ),
-                                isExpanded: true,
-                                style: TextStyle(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black,
-                                ),
-                                value: widget.selected,
-                                items: _values,
-                                onChanged: !widget.map.disabled
-                                    ? (value) {
-                                        _mapper.update(
-                                            widget.map.key, (nVal) => value);
-                                        widget.widgetProvider
-                                            .registerMap(_mapper);
-                                        setState(() => widget.selected = value);
-                                      }
-                                    : null,
-                              );
-                              break;
-                            default:
-                              return CircularProgressIndicator();
-                              break;
-                          }
-                        },
-                      ),
+                      (widget.map.data.url != null &&
+                              widget.map.data.url.isNotEmpty)
+                          ? FutureBuilder(
+                              future: _futureValues,
+                              builder: (context, snapshot) {
+                                switch (snapshot.connectionState) {
+                                  case ConnectionState.done:
+                                    return DropdownButton<Value>(
+                                      hint: NeumorphicText(
+                                        widget.map.label,
+                                        style: NeumorphicStyle(
+                                            depth: 13.0,
+                                            intensity: 0.90,
+                                            color: Colors.black),
+                                      ),
+                                      isExpanded: true,
+                                      style: TextStyle(
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.black,
+                                      ),
+                                      value: widget.selected,
+                                      items: _values,
+                                      onChanged: !widget.map.disabled
+                                          ? (value) {
+                                              _mapper.update(widget.map.key,
+                                                  (nVal) => value);
+                                              widget.widgetProvider
+                                                  .registerMap(_mapper);
+                                              setState(() =>
+                                                  widget.selected = value);
+                                            }
+                                          : null,
+                                    );
+                                    break;
+                                  default:
+                                    return CircularProgressIndicator();
+                                    break;
+                                }
+                              },
+                            )
+                          : DropdownButton<Value>(
+                              hint: NeumorphicText(
+                                widget.map.label,
+                                style: NeumorphicStyle(
+                                    depth: 13.0,
+                                    intensity: 0.90,
+                                    color: Colors.black),
+                              ),
+                              isExpanded: true,
+                              style: TextStyle(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                              ),
+                              value: widget.selected,
+                              items: _values,
+                              onChanged: !widget.map.disabled
+                                  ? (value) {
+                                      _mapper.update(
+                                          widget.map.key, (nVal) => value);
+                                      widget.widgetProvider
+                                          .registerMap(_mapper);
+                                      setState(() => widget.selected = value);
+                                    }
+                                  : null,
+                            ),
                     ],
                   ),
                 );
