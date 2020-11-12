@@ -95,7 +95,9 @@ class _PhoneTextFieldCreatorState extends State<PhoneTextFieldCreator> {
                 : true
             : true;
 
-        if (widget.map.calculateValue != null && snapshot.data != null) {
+        if (widget.map.calculateValue != null &&
+            widget.map.calculateValue.isNotEmpty &&
+            snapshot.data != null) {
           _calculate = "";
           _keys.asMap().forEach((value, element) {
             widget.controller.text = (snapshot.data.containsKey(element))

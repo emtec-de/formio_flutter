@@ -138,13 +138,18 @@ class _PaginationPageState extends State<PaginationPage>
   Future<List<Widget>> _buildWidget(BuildContext context) async {
     String _json = await rootBundle.loadString('assets/multi.json');
     _formCollection = FormCollection.fromJson(json.decode(_json));
-    List<Map<String, dynamic>> defaultMapper = [
-      {'textField': 'this is a demo'},
-      {'site': 'clm'}
-    ];
-    _formCollection =
-        await parseFormCollectionDefaultValue(_formCollection, defaultMapper);
-    return WidgetParserBuilder.buildWidgets(_formCollection, context, this);
+    Map<String, dynamic> defaultMapper = {
+      "foamingDetergentUsed": "9999999999999999999999999999999999",
+      "concentration1": "1e+34",
+      "gmPsPerformance": "9999999999999999999999999999999999",
+      "testedBy": "9999999999999999999999999999999999",
+      "waterTemperature": "acceptable",
+      "dryPickup": "unacceptable",
+      "collected": "1e+34"
+    };
+    var tempo = await parseFormCollectionDefaultValueMap(
+        _formCollection, defaultMapper);
+    return WidgetParserBuilder.buildWidgets(tempo, context, this);
   }
 
   Widget _buildPageIndicator(bool isCurrentPage) {

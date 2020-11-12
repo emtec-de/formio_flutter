@@ -100,7 +100,9 @@ class _CurrencyTextFieldCreatorState extends State<CurrencyTextFieldCreator> {
                 ? widget.map.conditional.show
                 : true
             : true;
-        if (widget.map.calculateValue != null && snapshot.data != null) {
+        if (widget.map.calculateValue != null &&
+            widget.map.calculateValue.isNotEmpty &&
+            snapshot.data != null) {
           _calculate = "";
           _keys.asMap().forEach((value, element) {
             _calculate = (snapshot.data.containsKey(element))

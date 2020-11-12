@@ -96,7 +96,9 @@ class _TextFieldCreatorState extends State<TextFieldCreator> {
                 ? widget.map.conditional.show
                 : true
             : true;
-        if (widget.map.calculateValue != null && snapshot.data != null) {
+        if (widget.map.calculateValue != null &&
+            widget.map.calculateValue.isNotEmpty &&
+            snapshot.data != null) {
           _calculate = "";
           _keys.asMap().forEach((value, element) {
             widget.controller.text = (snapshot.data.containsKey(element))
