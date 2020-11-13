@@ -1,4 +1,4 @@
-## 0.8.6 - 2020.11.12
+## 0.8.7 - 2020.11.12
 * Fixed big issue with textarea causing not render error.
 * Added option to parse default value by only a Map.
 * Fixed issue of calculated value overwritting field.

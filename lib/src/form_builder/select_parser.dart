@@ -61,7 +61,7 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
   /// Setup all the functionlity for the dropDown widget.
   void setupDropDown() {
     _values = buildDropDownItems(widget.map.data.values);
-    if (widget.map.defaultValue != null && widget.map.defaultValue) {
+    if (widget.map.defaultValue != null) {
       int _position = 0;
       if (widget.map.defaultValue is List<String>) {
         _position = widget.map.data.values.indexWhere(
