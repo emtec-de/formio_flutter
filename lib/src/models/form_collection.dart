@@ -63,7 +63,6 @@ class Component {
     this.suffix,
     this.penColor,
     this.inputMask,
-    this.tableView,
     this.key,
     this.conditional,
     this.type,
@@ -75,21 +74,14 @@ class Component {
     this.action,
     this.showValidations,
     this.theme,
-    this.size,
     this.block,
     this.leftIcon,
     this.rightIcon,
     this.shortcut,
     this.description,
     this.tooltip,
-    this.tabindex,
-    this.modalEdit,
     this.component,
     this.tags,
-    this.width,
-    this.offset,
-    this.push,
-    this.pull,
   });
 
   /// label.
@@ -115,18 +107,6 @@ class Component {
 
   /// similar to [components], but is based on a column key.
   List<Component> columns;
-
-  /// set the [width] of the widget.
-  int width;
-
-  /// set the [offset] of the widget.
-  int offset;
-
-  /// set a [int]
-  int push;
-
-  /// set a [int]
-  int pull;
 
   /// set a [String] with a calculated value.
   /// ```dart
@@ -170,9 +150,6 @@ class Component {
   /// set a [String] to create a [Regex] with a custom [mask]
   String inputMask;
 
-  /// set a [bool]
-  bool tableView;
-
   /// set a [bool] if the component is gonna be displayed.
   bool hidden;
 
@@ -205,7 +182,6 @@ class Component {
   /// set a [bool] value.
   bool showValidations;
   String theme;
-  String size;
 
   /// set a [bool] value.
   bool block;
@@ -224,12 +200,6 @@ class Component {
 
   /// set a [String] value.
   String tooltip;
-
-  /// set a [String] value.
-  String tabindex;
-
-  /// set a [bool] value.
-  bool modalEdit;
 
   /// set a [List<String>]
   List<String> tags;
@@ -272,7 +242,6 @@ class Component {
         prefix: json["prefix"] == null ? null : json["prefix"],
         suffix: json["suffix"] == null ? null : json["suffix"],
         inputMask: json["inputMask"] == null ? null : json["inputMask"],
-        tableView: json["tableView"],
         key: json["key"],
         conditional: json["conditional"] == null
             ? null
@@ -287,19 +256,11 @@ class Component {
         showValidations:
             json["showValidations"] == null ? null : json["showValidations"],
         theme: json["theme"] == null ? null : json["theme"],
-        size: json["size"] == null ? null : json["size"],
-        width: json["width"] == null ? 0 : json["width"],
-        offset: json["offset"] == null ? 0 : json["offset"],
-        push: json["push"] == null ? 0 : json["push"],
-        pull: json["pull"] == null ? 0 : json["pull"],
         block: json["block"] == null ? null : json["block"],
         leftIcon: json["leftIcon"] == null ? null : json["leftIcon"],
         rightIcon: json["rightIcon"] == null ? null : json["rightIcon"],
-        shortcut: json["shortcut"] == null ? null : json["shortcut"],
         description: json["description"] == null ? null : json["description"],
         tooltip: json["tooltip"] == null ? null : json["tooltip"],
-        tabindex: json["tabindex"] == null ? null : json["tabindex"],
-        modalEdit: json["modalEdit"] == null ? null : json["modalEdit"],
         tags: json["tags"] == null
             ? null
             : List<String>.from(json["tags"].map((x) => x)),
@@ -335,31 +296,23 @@ class Component {
         "prefix": (prefix == null) ? null : prefix,
         "suffix": (suffix == null) ? null : suffix,
         "inputMask": (inputMask == null) ? null : inputMask,
-        "tableView": tableView,
         "key": key,
         "conditional": (conditional == null) ? null : conditional,
         "hidden": (hidden == null) ? false : hidden,
         "disabled": (disabled == null) ? false : disabled,
-        "type": type,
-        "input": input,
+        "type": (type == null) ? null : type,
+        "input": (input == null) ? null : input,
         "calculateValue": calculateValue == null ? null : calculateValue,
         "disableOnInvalid": disableOnInvalid == null ? null : disableOnInvalid,
         "action": action == null ? null : action,
         "showValidations": showValidations == null ? null : showValidations,
         "theme": theme == null ? null : theme,
-        "size": size == null ? null : size,
-        "width": width == null ? 0 : width,
-        "offset": offset == null ? 0 : offset,
-        "push": push == null ? 0 : push,
-        "pull": pull == null ? 0 : pull,
         "block": block == null ? null : block,
         "leftIcon": leftIcon == null ? null : leftIcon,
         "rightIcon": rightIcon == null ? null : rightIcon,
         "shortcut": shortcut == null ? null : shortcut,
         "description": description == null ? null : description,
         "tooltip": tooltip == null ? null : tooltip,
-        "tabindex": tabindex == null ? null : tabindex,
-        "modalEdit": modalEdit == null ? null : modalEdit,
         "tags": tags == null ? null : List<dynamic>.from(tags.map((x) => x)),
       };
 }

@@ -6,7 +6,7 @@ Render any form created with [FORMIO.JS](https://formio.github.io/formio.js) on 
 
 ```yaml
 dependencies:
-  formio_flutter: ^0.8.7
+  formio_flutter: ^0.8.9
 ```
 
 for any doubt please check the **example** folder.

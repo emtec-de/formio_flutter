@@ -126,30 +126,8 @@ class _DemonstrationPageState extends State<DemonstrationPage>
   void onClicked(String event) async {
     switch (widget.argument) {
       case "validatorSignature":
-        (await checkSignatures(WidgetParserBuilder.widgets))
-            ? ScaffoldMessenger.of(_context).showSnackBar(
-                SnackBar(
-                  content: Text('Please fill all the signature fields'),
-                ),
-              )
-            : ScaffoldMessenger.of(_context).showSnackBar(
-                SnackBar(
-                  content: Text('Signatures completed'),
-                ),
-              );
         break;
       case "validatorFields":
-        (await checkFields(WidgetParserBuilder.widgets))
-            ? ScaffoldMessenger.of(_context).showSnackBar(
-                SnackBar(
-                  content: Text('Please fill all the fields'),
-                ),
-              )
-            : ScaffoldMessenger.of(_context).showSnackBar(
-                SnackBar(
-                  content: Text('Fields completed'),
-                ),
-              );
         break;
       default:
     }
