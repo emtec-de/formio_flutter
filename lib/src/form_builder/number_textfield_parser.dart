@@ -88,9 +88,6 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
     return StreamBuilder(
       stream: widget.widgetProvider.widgetBloc.widgetsStream,
       builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
-        if (snapshot.hasData) {
-          print("DATA: ${snapshot.data.toString()}");
-        }
         isVisible = (widget.map.conditional != null && snapshot.data != null)
             ? (snapshot.data.containsKey(widget.map.conditional.when) &&
                     snapshot.data[widget.map.conditional.when].toString() ==

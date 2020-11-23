@@ -1,4 +1,4 @@
-## 0.9.1 - 2020.11.21
+## 0.9.2 - 2020.11.21
 * Validated null fields.
 * Updated neumorphic_ui.
 * Updated stream now using a more simple architecture.
