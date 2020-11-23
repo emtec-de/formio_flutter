@@ -48,7 +48,7 @@ class _ColumnParserWidgetState extends State<ColumnParserWidget> {
     bool isVisible = true;
     _widgets ??= _buildWidget(context);
     return StreamBuilder(
-      stream: widgetProvider.widgetsStream,
+      stream: widgetProvider.widgetBloc.widgetsStream,
       builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
         isVisible = (widget.map.conditional != null && snapshot.data != null)
             ? (snapshot.data.containsKey(widget.map.conditional.when) &&

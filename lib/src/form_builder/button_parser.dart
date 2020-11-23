@@ -21,7 +21,7 @@ class ButtonParser extends WidgetParser {
     var button = (map.hidden)
         ? Container()
         : StreamBuilder(
-            stream: widgetProvider.widgetsStream,
+            stream: widgetProvider.widgetBloc.widgetsStream,
             builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
               isVisible = (map.conditional != null && snapshot.data != null)
                   ? (snapshot.data.containsKey(map.conditional.when) &&

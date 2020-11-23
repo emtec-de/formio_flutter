@@ -125,7 +125,7 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10.0),
       child: StreamBuilder(
-        stream: widget.widgetProvider.widgetsStream,
+        stream: widget.widgetProvider.widgetBloc.widgetsStream,
         builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
           if (widget.map.conditional != null)
             isVisible = (widget.map.conditional != null &&
@@ -182,7 +182,7 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
                                           ? (value) {
                                               _mapper.update(widget.map.key,
                                                   (nVal) => value);
-                                              widget.widgetProvider
+                                              widget.widgetProvider.widgetBloc
                                                   .registerMap(_mapper);
                                               setState(() =>
                                                   widget.selected = value);
@@ -216,7 +216,7 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
                                   ? (value) {
                                       _mapper.update(
                                           widget.map.key, (nVal) => value);
-                                      widget.widgetProvider
+                                      widget.widgetProvider.widgetBloc
                                           .registerMap(_mapper);
                                       setState(() => widget.selected = value);
                                     }

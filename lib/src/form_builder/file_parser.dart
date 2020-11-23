@@ -86,7 +86,7 @@ class _FileCreatorState extends State<FileCreator> {
   Widget build(BuildContext context) {
     bool isVisible = true;
     return StreamBuilder(
-      stream: widget.widgetProvider.widgetsStream,
+      stream: widget.widgetProvider.widgetBloc.widgetsStream,
       builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
         isVisible = (widget.map.conditional != null && snapshot.data != null)
             ? (snapshot.data.containsKey(widget.map.conditional.when) &&

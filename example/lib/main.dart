@@ -24,8 +24,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<WidgetProvider>(
-          create: (context) => WidgetProvider(),
+        Provider(
+          create: (_) => WidgetProvider(),
+          lazy: false,
         ),
       ],
       child: MaterialApp(

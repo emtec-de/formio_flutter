@@ -52,7 +52,7 @@ class _CheckboxCreatorState extends State<CheckboxCreator> {
         : false;
     _mapper[widget.map.key] = widget.isSelected;
     Future.delayed(Duration(milliseconds: 10), () {
-      widget.widgetProvider?.registerMap(_mapper);
+      widget.widgetProvider.widgetBloc?.registerMap(_mapper);
     });
   }
 
@@ -73,7 +73,7 @@ class _CheckboxCreatorState extends State<CheckboxCreator> {
     bool isVisible = true;
     return (!widget.map.disabled)
         ? StreamBuilder(
-            stream: widget.widgetProvider.widgetsStream,
+            stream: widget.widgetProvider.widgetBloc.widgetsStream,
             builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
               isVisible = (widget.map.conditional != null &&
                       snapshot.data != null)
@@ -105,7 +105,8 @@ class _CheckboxCreatorState extends State<CheckboxCreator> {
                           onChanged: (value) {
                             setState(() => widget.isSelected = value);
                             _mapper.update(widget.map.key, (t) => value);
-                            widget.widgetProvider.registerMap(_mapper);
+                            widget.widgetProvider.widgetBloc
+                                .registerMap(_mapper);
                           },
                         ),
                       ],

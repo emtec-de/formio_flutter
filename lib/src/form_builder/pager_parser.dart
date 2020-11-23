@@ -84,7 +84,7 @@ class _PagerParserWidgetState extends State<PagerParserWidget>
       );
     bool isVisible = true;
     return StreamBuilder(
-        stream: widgetProvider.widgetsStream,
+        stream: widgetProvider.widgetBloc.widgetsStream,
         builder: (context, snapshot) {
           isVisible = (widget.map.conditional != null && snapshot.data != null)
               ? (snapshot.data.containsKey(widget.map.conditional.when) &&

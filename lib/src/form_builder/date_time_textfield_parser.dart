@@ -62,7 +62,7 @@ class _DateTimeTextFieldCreatorState extends State<DateTimeTextFieldCreator> {
           : widget.controller.text = widget.map.defaultValue.toString();
     Future.delayed(Duration(milliseconds: 10), () {
       _mapper.update(widget.map.key, (value) => widget.controller.value.text);
-      widget.widgetProvider?.registerMap(_mapper);
+      widget.widgetProvider.widgetBloc.registerMap(_mapper);
     });
   }
 
@@ -83,7 +83,7 @@ class _DateTimeTextFieldCreatorState extends State<DateTimeTextFieldCreator> {
     bool isVisible = true;
     final size = MediaQuery.of(context).size;
     return StreamBuilder(
-      stream: widget.widgetProvider.widgetsStream,
+      stream: widget.widgetProvider.widgetBloc.widgetsStream,
       builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
         isVisible = (widget.map.conditional != null && snapshot.data != null)
             ? (snapshot.data.containsKey(widget.map.conditional.when) &&
@@ -111,7 +111,7 @@ class _DateTimeTextFieldCreatorState extends State<DateTimeTextFieldCreator> {
                     enableInteractiveSelection: false,
                     onChanged: (value) {
                       _mapper.update(widget.map.key, (nVal) => value);
-                      widget.widgetProvider.registerMap(_mapper);
+                      widget.widgetProvider.widgetBloc.registerMap(_mapper);
                       setState(() {
                         characters = value;
                       });

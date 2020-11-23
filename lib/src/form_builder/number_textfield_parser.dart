@@ -61,7 +61,7 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
           : widget.controller.text = widget.map.defaultValue.toString();
     Future.delayed(Duration(milliseconds: 10), () {
       _mapper.update(widget.map.key, (value) => widget.controller.value.text);
-      widget.widgetProvider?.registerMap(_mapper);
+      widget.widgetProvider.widgetBloc.registerMap(_mapper);
     });
   }
 
@@ -86,8 +86,11 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
       _operators = parseListStringOperator(widget.map.calculateValue);
     }
     return StreamBuilder(
-      stream: widget.widgetProvider.widgetsStream,
+      stream: widget.widgetProvider.widgetBloc.widgetsStream,
       builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
+        if (snapshot.hasData) {
+          print("DATA: ${snapshot.data.toString()}");
+        }
         isVisible = (widget.map.conditional != null && snapshot.data != null)
             ? (snapshot.data.containsKey(widget.map.conditional.when) &&
                     snapshot.data[widget.map.conditional.when].toString() ==
@@ -126,7 +129,7 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
                         controller: widget.controller,
                         onChanged: (value) {
                           _mapper.update(widget.map.key, (nVal) => value);
-                          widget.widgetProvider.registerMap(_mapper);
+                          widget.widgetProvider.widgetBloc.registerMap(_mapper);
                           setState(() {
                             characters = value;
                           });
@@ -177,7 +180,7 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
                       controller: widget.controller,
                       onChanged: (value) {
                         _mapper.update(widget.map.key, (nVal) => value);
-                        widget.widgetProvider.registerMap(_mapper);
+                        widget.widgetProvider.widgetBloc.registerMap(_mapper);
                         setState(() {
                           characters = value;
                         });

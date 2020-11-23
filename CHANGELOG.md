@@ -1,6 +1,8 @@
-## 0.9.0 - 2020.11.21
+## 0.9.1 - 2020.11.21
 * Validated null fields.
 * Updated neumorphic_ui.
+* Updated stream now using a more simple architecture.
+
 ## 0.8.8 - 2020.11.13
 * Fixed big issue with textarea causing not render error.
 * Added option to parse default value by only a Map.

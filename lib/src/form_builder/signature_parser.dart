@@ -77,7 +77,7 @@ class _SignatureCreatorState extends State<SignatureCreator> {
     bool isVisible = true;
     return Container(
       child: StreamBuilder(
-          stream: widget.widgetProvider.widgetsStream,
+          stream: widget.widgetProvider.widgetBloc.widgetsStream,
           builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
             isVisible = (widget.map.conditional != null &&
                     snapshot.data != null)

@@ -297,15 +297,17 @@ Future<bool> checkFields(List<Widget> widgets) async {
 Future<FormCollection> parseFormCollectionDefaultValueListMap(
     FormCollection formCollection,
     List<Map<String, dynamic>> defaultMapValue) async {
-  formCollection.components =
-      await parseDefaultValue(formCollection.components, defaultMapValue);
-  return formCollection;
+  var _formComponent = formCollection;
+  _formComponent.components =
+      await parseDefaultValue(_formComponent.components, defaultMapValue);
+  return _formComponent;
 }
 
 /// Returns a [FormCollection] with a injected [Map<String, dynamic>]
 Future<FormCollection> parseFormCollectionDefaultValueMap(
     FormCollection formCollection, Map<String, dynamic> defaultMapValue) async {
-  formCollection.components =
+  var _formComponent = formCollection;
+  _formComponent.components =
       await parseByMap(formCollection.components, defaultMapValue);
   return formCollection;
 }
@@ -313,30 +315,32 @@ Future<FormCollection> parseFormCollectionDefaultValueMap(
 /// Inject a default value from a [Map<String, dynamic>] into each [Component]
 Future<List<Component>> parseByMap(
     List<Component> components, Map<String, dynamic> defaultMapper) async {
+  var _components = components;
   await Future.forEach(components, (element) async {
     var index =
-        components.indexWhere((indexElement) => indexElement == element);
-    components[index].defaultValue =
-        (defaultMapper.containsKey(components[index].key) &&
-                defaultMapper[components[index].key] != null)
-            ? defaultMapper[components[index].key]
-            : components[index].defaultValue;
-    if (components[index].component != null) {
-      components[index].component =
-          await parseByMap(components[index].component, defaultMapper);
+        _components.indexWhere((indexElement) => indexElement == element);
+    _components[index].defaultValue =
+        (defaultMapper.containsKey(_components[index].key) &&
+                defaultMapper[_components[index].key] != null)
+            ? defaultMapper[_components[index].key]
+            : _components[index].defaultValue;
+    if (_components[index].component != null) {
+      _components[index].component =
+          await parseByMap(_components[index].component, defaultMapper);
     }
-    if (components[index].columns != null) {
-      components[index].columns =
-          await parseByMap(components[index].columns, defaultMapper);
+    if (_components[index].columns != null) {
+      _components[index].columns =
+          await parseByMap(_components[index].columns, defaultMapper);
     }
   });
-  return components;
+  return _components;
 }
 
 /// Inject a default value from a [List<Map<String, dynamic>>] into each [Component]
 Future<List<Component>> parseDefaultValue(List<Component> components,
     List<Map<String, dynamic>> defaultMapValue) async {
-  await Future.forEach(components, (element) async {
+  var _components = components;
+  await Future.forEach(_components, (element) async {
     var _component = element as Component;
     defaultMapValue.forEach((mapElement) {
       if (mapElement.containsKey(_component.key)) {
@@ -353,7 +357,7 @@ Future<List<Component>> parseDefaultValue(List<Component> components,
           await parseDefaultValue(_component.component, defaultMapValue);
     element = _component;
   });
-  return components;
+  return _components;
 }
 
 /// Parse a list of [widgets].
