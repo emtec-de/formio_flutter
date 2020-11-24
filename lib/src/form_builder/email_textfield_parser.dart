@@ -99,10 +99,11 @@ class _EmailTextFieldCreatorState extends State<EmailTextFieldCreator> {
             snapshot.data != null) {
           _calculate = "";
           _keys.asMap().forEach((value, element) {
-            widget.controller.text = (snapshot.data.containsKey(element))
-                ? parseCalculate(
-                    "$_calculate ${snapshot.data[element]} ${(value < _operators.length) ? (_operators[value]) : ""}")
-                : "";
+            _calculate = (snapshot.data.containsKey(element))
+                ? "$_calculate ${snapshot.data[element]} ${(value < _operators.length) ? (_operators[value]) : ""}"
+                : double.tryParse(element) != null
+                    ? "$_calculate $element ${(value < _operators.length) ? (_operators[value]) : ""}"
+                    : "$_calculate 0 ${(value < _operators.length) ? (_operators[value]) : ""}";
           });
           widget.controller.text = parseCalculate(_calculate);
         }

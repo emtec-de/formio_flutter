@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -56,7 +55,11 @@ List<String> parseListStringCalculated(String value) {
   if (value.isEmpty) return [];
   List<String> _retainer = [];
   value.split(regex).forEach((element) {
-    _retainer.add(element.substring(element.indexOf('.') + 1));
+    if (double.tryParse(element) != null) {
+      _retainer.add(element);
+    } else {
+      _retainer.add(element.substring(element.indexOf('.') + 1));
+    }
   });
   return _retainer;
 }

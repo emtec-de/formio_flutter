@@ -102,7 +102,9 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
           _keys.asMap().forEach((value, element) {
             _calculate = (snapshot.data.containsKey(element))
                 ? "$_calculate ${snapshot.data[element]} ${(value < _operators.length) ? (_operators[value]) : ""}"
-                : "";
+                : double.tryParse(element) != null
+                    ? "$_calculate $element ${(value < _operators.length) ? (_operators[value]) : ""}"
+                    : "$_calculate 0 ${(value < _operators.length) ? (_operators[value]) : ""}";
           });
           widget.controller.text = parseCalculate(_calculate);
         }
@@ -110,8 +112,7 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
         return (!isVisible)
             ? Container()
             : (widget.map.total != 0)
-                ? Expanded(
-                    child: Neumorphic(
+                ? Neumorphic(
                     child: Container(
                       width: (size.width * (1 / (widget.map.total + 0.5))),
                       padding: EdgeInsets.symmetric(horizontal: 4.0),
@@ -163,7 +164,7 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
                         ),
                       ),
                     ),
-                  ))
+                  )
                 : Neumorphic(
                     padding: EdgeInsets.symmetric(horizontal: 5.0),
                     child: TextField(

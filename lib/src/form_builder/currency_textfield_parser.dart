@@ -107,7 +107,9 @@ class _CurrencyTextFieldCreatorState extends State<CurrencyTextFieldCreator> {
           _keys.asMap().forEach((value, element) {
             _calculate = (snapshot.data.containsKey(element))
                 ? "$_calculate ${snapshot.data[element]} ${(value < _operators.length) ? (_operators[value]) : ""}"
-                : "";
+                : double.tryParse(element) != null
+                    ? "$_calculate $element ${(value < _operators.length) ? (_operators[value]) : ""}"
+                    : "$_calculate 0 ${(value < _operators.length) ? (_operators[value]) : ""}";
           });
           widget.controller.text = parseCalculate(_calculate);
         }

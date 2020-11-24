@@ -65,14 +65,15 @@ class _ColumnParserWidgetState extends State<ColumnParserWidget> {
                     color: widget.map.background,
                   ),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5.0),
+                    padding: EdgeInsets.symmetric(vertical: 3.0),
                     child: FutureBuilder<List<Widget>>(
                       future: _widgets,
                       builder: (context, AsyncSnapshot<List<Widget>> snapshot) {
                         switch (snapshot.connectionState) {
                           case ConnectionState.done:
                             return (snapshot.hasData)
-                                ? Row(
+                                ? Flex(
+                                    direction: Axis.horizontal,
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: snapshot.data,
@@ -109,8 +110,9 @@ class _ColumnParserWidgetState extends State<ColumnParserWidget> {
     widget.map.columns.asMap().forEach((key, value) {
       value.component.asMap().forEach((key, ss) {
         ss.total = widget.map.columns.length;
-        widget.widgets
-            .add(WidgetParserBuilder.build(ss, context, widget.listener));
+        widget.widgets.add(Flexible(
+            fit: FlexFit.loose,
+            child: WidgetParserBuilder.build(ss, context, widget.listener)));
       });
     });
     return widget.widgets;
