@@ -51,7 +51,10 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
     final response = await client.get(widget.map.data.url);
     final result = Value().valuesFromJson(response.body);
     if (result.isNotEmpty) setupDropDown(result);
-    if (result.isNotEmpty) _mapper[widget.map.key] = result.first.value;
+    if (result.isNotEmpty) {
+      _mapper[widget.map.key] = result.first.value;
+      widget.widgetProvider.widgetBloc.registerMap(_mapper);
+    }
     return result;
   }
 
@@ -67,7 +70,11 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
     if (widget.map.data.url.isEmpty &&
         widget.map.data.values.first.value != null) {
       setupDropDown(widget.map.data.values);
-      _mapper[widget.map.key] = _values[0].value;
+      _mapper[widget.map.key] = _values[0].value.value;
+      Future.delayed(
+        Duration(milliseconds: 10),
+        () => widget.widgetProvider.widgetBloc.registerMap(_mapper),
+      );
     }
   }
 
@@ -169,7 +176,7 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
                                       onChanged: !widget.map.disabled
                                           ? (value) {
                                               _mapper.update(widget.map.key,
-                                                  (nVal) => value);
+                                                  (nVal) => value.value);
                                               widget.widgetProvider.widgetBloc
                                                   .registerMap(_mapper);
                                               setState(() =>
@@ -203,7 +210,6 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
                                   items: _values,
                                   onChanged: !widget.map.disabled
                                       ? (value) {
-                                          print("VALUE: ${value.value}");
                                           _mapper.update(widget.map.key,
                                               (nVal) => value.value);
                                           widget.widgetProvider.widgetBloc

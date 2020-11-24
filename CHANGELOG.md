@@ -1,3 +1,9 @@
+## 0.9.21 - 2020.11.24
+* FIxed null render error on rows.
+* Fixed problems on calculated values that uses numeric vals.
+* Fixed null render on multi rows.
+* Added change detection on select, when has a condition on first load.
+
 ## 0.9.2 - 2020.11.21
 * Validated null fields.
 * Updated neumorphic_ui.
