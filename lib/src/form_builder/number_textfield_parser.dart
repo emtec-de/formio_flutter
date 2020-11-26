@@ -7,13 +7,17 @@ import 'package:formio_flutter/src/abstraction/abstraction.dart';
 import 'package:formio_flutter/src/models/models.dart';
 import 'package:formio_flutter/src/providers/providers.dart';
 
+import '../utils/utils.dart';
+
 /// Extends the abstract class [WidgetParser]
 class NumberTextFieldParser extends WidgetParser {
   /// Returns a [Widget] of type [NumberTextField]
   @override
-  Widget parse(Component map, BuildContext context, ClickListener listener) {
+  Widget parse(Component map, BuildContext context, ClickListener listener,
+      WidgetProvider widgetProvider) {
     return NumberTextFieldCreator(
       map: map,
+      widgetProvider: widgetProvider,
     );
   }
 
@@ -26,8 +30,8 @@ class NumberTextFieldParser extends WidgetParser {
 class NumberTextFieldCreator extends StatefulWidget implements Manager {
   final Component map;
   final controller = TextEditingController();
-  WidgetProvider widgetProvider;
-  NumberTextFieldCreator({this.map});
+  final WidgetProvider widgetProvider;
+  NumberTextFieldCreator({this.map, this.widgetProvider});
   @override
   _NumberTextFieldCreatorState createState() => _NumberTextFieldCreatorState();
 
@@ -58,7 +62,10 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
               .values
               .toString()
               .replaceAll(RegExp('[()]'), '')
-          : widget.controller.text = widget.map.defaultValue.toString();
+          : widget.controller.text = (widget.map.defaultValue != "")
+              ? double.parse(widget.map.defaultValue.toString())
+                  .toStringAsFixed(widget.map.decimalLimit)
+              : "";
     Future.delayed(Duration(milliseconds: 10), () {
       _mapper.update(widget.map.key, (value) => widget.controller.value.text);
       widget.widgetProvider.widgetBloc.registerMap(_mapper);
@@ -68,13 +75,6 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
   @override
   void dispose() {
     super.dispose();
-  }
-
-  @override
-  void didChangeDependencies() {
-    /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
-    widget.widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
-    super.didChangeDependencies();
   }
 
   @override
@@ -106,7 +106,11 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
                     ? "$_calculate $element ${(value < _operators.length) ? (_operators[value]) : ""}"
                     : "$_calculate 0 ${(value < _operators.length) ? (_operators[value]) : ""}";
           });
-          widget.controller.text = parseCalculate(_calculate);
+          widget.controller.text =
+              double.tryParse(parseCalculate(_calculate)) == null
+                  ? ""
+                  : double.parse(parseCalculate(_calculate))
+                      .toStringAsFixed(widget.map.decimalLimit);
         }
         if (!isVisible) widget.controller.text = "";
         return (!isVisible)
@@ -126,6 +130,10 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
                         ),
                         controller: widget.controller,
                         onChanged: (value) {
+                          value = (value != "")
+                              ? double.parse(parseCalculate(value))
+                                  .toStringAsFixed(widget.map.decimalLimit)
+                              : value;
                           _mapper.update(widget.map.key, (nVal) => value);
                           widget.widgetProvider.widgetBloc.registerMap(_mapper);
                           setState(() {
@@ -177,6 +185,8 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
                       ),
                       controller: widget.controller,
                       onChanged: (value) {
+                        value = double.parse(parseCalculate(value))
+                            .toStringAsFixed(widget.map.decimalLimit);
                         _mapper.update(widget.map.key, (nVal) => value);
                         widget.widgetProvider.widgetBloc.registerMap(_mapper);
                         setState(() {

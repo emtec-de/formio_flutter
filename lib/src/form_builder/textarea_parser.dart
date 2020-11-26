@@ -11,9 +11,11 @@ import 'package:formio_flutter/src/providers/providers.dart';
 class TextAreaParser extends WidgetParser {
   /// Returns a [Widget] of type [TextArea]
   @override
-  Widget parse(Component map, BuildContext context, ClickListener listener) {
+  Widget parse(Component map, BuildContext context, ClickListener listener,
+      WidgetProvider widgetProvider) {
     return TextAreaCreator(
       map: map,
+      widgetProvider: widgetProvider,
     );
   }
 
@@ -25,9 +27,9 @@ class TextAreaParser extends WidgetParser {
 // ignore: must_be_immutable
 class TextAreaCreator extends StatefulWidget implements Manager {
   final Component map;
-  WidgetProvider widgetProvider;
+  final WidgetProvider widgetProvider;
   final controller = TextEditingController();
-  TextAreaCreator({this.map});
+  TextAreaCreator({this.map, this.widgetProvider});
   @override
   _TextAreaCreatorState createState() => _TextAreaCreatorState();
 
@@ -63,13 +65,6 @@ class _TextAreaCreatorState extends State<TextAreaCreator> {
       _mapper.update(widget.map.key, (value) => widget.controller.value.text);
       widget.widgetProvider.widgetBloc.registerMap(_mapper);
     });
-  }
-
-  @override
-  void didChangeDependencies() {
-    /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
-    widget.widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
-    super.didChangeDependencies();
   }
 
   @override

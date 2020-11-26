@@ -11,8 +11,13 @@ import 'package:formio_flutter/src/providers/providers.dart';
 class ColumnParser extends WidgetParser {
   /// Returns a [Widget] of type [Column]
   @override
-  Widget parse(Component map, BuildContext context, ClickListener listener) {
-    return ColumnParserWidget(map: map, listener: listener);
+  Widget parse(Component map, BuildContext context, ClickListener listener,
+      WidgetProvider widgetProvider) {
+    return ColumnParserWidget(
+      map: map,
+      listener: listener,
+      widgetProvider: widgetProvider,
+    );
   }
 
   /// [widgetName] => "columns"
@@ -23,10 +28,15 @@ class ColumnParser extends WidgetParser {
 // ignore: must_be_immutable
 class ColumnParserWidget extends StatefulWidget {
   final Component map;
+  final WidgetProvider widgetProvider;
   List<Widget> widgets = [];
   ClickListener listener;
 
-  ColumnParserWidget({this.map, this.listener});
+  ColumnParserWidget({
+    this.map,
+    this.listener,
+    this.widgetProvider,
+  });
 
   @override
   _ColumnParserWidgetState createState() => _ColumnParserWidgetState();
@@ -34,21 +44,13 @@ class ColumnParserWidget extends StatefulWidget {
 
 class _ColumnParserWidgetState extends State<ColumnParserWidget> {
   Future<List<Widget>> _widgets;
-  WidgetProvider widgetProvider;
-
-  @override
-  void didChangeDependencies() {
-    /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
-    widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
-    super.didChangeDependencies();
-  }
 
   @override
   Widget build(BuildContext context) {
     bool isVisible = true;
     _widgets ??= _buildWidget(context);
     return StreamBuilder(
-      stream: widgetProvider.widgetBloc.widgetsStream,
+      stream: widget.widgetProvider.widgetBloc.widgetsStream,
       builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
         isVisible = (widget.map.conditional != null && snapshot.data != null)
             ? (snapshot.data.containsKey(widget.map.conditional.when) &&
@@ -107,14 +109,26 @@ class _ColumnParserWidgetState extends State<ColumnParserWidget> {
 
   /// Returns a [List<Widget>] contained in [Component.map.columns] and [Component.map.component]
   Future<List<Widget>> _buildWidget(BuildContext context) async {
-    widget.map.columns.asMap().forEach((key, value) {
-      value.component.asMap().forEach((key, ss) {
-        ss.total = widget.map.columns.length;
-        widget.widgets.add(Flexible(
-            fit: FlexFit.loose,
-            child: WidgetParserBuilder.build(ss, context, widget.listener)));
-      });
-    });
+    widget.map.columns.asMap().forEach(
+      (key, value) {
+        value.component.asMap().forEach(
+          (key, ss) {
+            ss.total = widget.map.columns.length;
+            widget.widgets.add(
+              Flexible(
+                fit: FlexFit.loose,
+                child: WidgetParserBuilder.build(
+                  ss,
+                  context,
+                  widget.listener,
+                  widget.widgetProvider,
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
     return widget.widgets;
   }
 }

@@ -11,9 +11,11 @@ import 'package:formio_flutter/src/providers/providers.dart';
 class EmailTextFieldParser extends WidgetParser {
   /// Returns a [Widget] of type [EmailTextField]
   @override
-  Widget parse(Component map, BuildContext context, ClickListener listener) {
+  Widget parse(Component map, BuildContext context, ClickListener listener,
+      WidgetProvider widgetProvider) {
     return EmailTextFieldCreator(
       map: map,
+      widgetProvider: widgetProvider,
     );
   }
 
@@ -26,8 +28,8 @@ class EmailTextFieldParser extends WidgetParser {
 class EmailTextFieldCreator extends StatefulWidget implements Manager {
   final Component map;
   final controller = TextEditingController();
-  WidgetProvider widgetProvider;
-  EmailTextFieldCreator({this.map});
+  final WidgetProvider widgetProvider;
+  EmailTextFieldCreator({this.map, this.widgetProvider});
   @override
   _EmailTextFieldCreatorState createState() => _EmailTextFieldCreatorState();
 
@@ -68,13 +70,6 @@ class _EmailTextFieldCreatorState extends State<EmailTextFieldCreator> {
   @override
   void dispose() {
     super.dispose();
-  }
-
-  @override
-  void didChangeDependencies() {
-    /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
-    widget.widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
-    super.didChangeDependencies();
   }
 
   @override

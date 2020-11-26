@@ -12,9 +12,11 @@ import 'package:formio_flutter/src/providers/providers.dart';
 class DayTextFieldParser extends WidgetParser {
   /// Returns a [Widget] of type [DayTextField]
   @override
-  Widget parse(Component map, BuildContext context, ClickListener listener) {
+  Widget parse(Component map, BuildContext context, ClickListener listener,
+      WidgetProvider widgetProvider) {
     return DayTextFieldCreator(
       map: map,
+      widgetProvider: widgetProvider,
     );
   }
 
@@ -27,8 +29,11 @@ class DayTextFieldParser extends WidgetParser {
 class DayTextFieldCreator extends StatefulWidget implements Manager {
   final Component map;
   final controller = TextEditingController();
-  WidgetProvider widgetProvider;
-  DayTextFieldCreator({this.map});
+  final WidgetProvider widgetProvider;
+  DayTextFieldCreator({
+    this.map,
+    this.widgetProvider,
+  });
   @override
   _DayTextFieldCreatorState createState() => _DayTextFieldCreatorState();
 
@@ -68,13 +73,6 @@ class _DayTextFieldCreatorState extends State<DayTextFieldCreator> {
   @override
   void dispose() {
     super.dispose();
-  }
-
-  @override
-  void didChangeDependencies() {
-    /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
-    widget.widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
-    super.didChangeDependencies();
   }
 
   @override

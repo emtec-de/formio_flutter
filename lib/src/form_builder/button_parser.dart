@@ -11,13 +11,12 @@ import 'package:formio_flutter/src/providers/providers.dart';
 class ButtonParser extends WidgetParser {
   /// Returns a [Widget] of type [Button]
   @override
-  Widget parse(Component map, BuildContext context, ClickListener listener) {
+  Widget parse(Component map, BuildContext context, ClickListener listener,
+      WidgetProvider widgetProvider) {
     String clickEvent = map.action ?? "";
     bool isVisible = true;
 
     /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
-    WidgetProvider widgetProvider =
-        Provider.of<WidgetProvider>(context, listen: false);
     var button = (map.hidden)
         ? Container()
         : StreamBuilder(
@@ -48,8 +47,8 @@ class ButtonParser extends WidgetParser {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    LeftIconWidgetParser()
-                                        .parse(map, context, listener),
+                                    LeftIconWidgetParser().parse(
+                                        map, context, listener, widgetProvider),
                                     Text(
                                       map.label,
                                       softWrap: true,
@@ -58,8 +57,8 @@ class ButtonParser extends WidgetParser {
                                         color: Colors.white,
                                       ),
                                     ),
-                                    RightIconWidgetParser()
-                                        .parse(map, context, listener),
+                                    RightIconWidgetParser().parse(
+                                        map, context, listener, widgetProvider),
                                   ],
                                 ),
                               )

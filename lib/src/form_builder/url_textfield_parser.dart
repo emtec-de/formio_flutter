@@ -11,9 +11,11 @@ import 'package:formio_flutter/src/providers/providers.dart';
 class UrlTextFieldParser extends WidgetParser {
   /// Returns a [Widget] of type [UrlTextField]
   @override
-  Widget parse(Component map, BuildContext context, ClickListener listener) {
+  Widget parse(Component map, BuildContext context, ClickListener listener,
+      WidgetProvider widgetProvider) {
     return UrlTextFieldCreator(
       map: map,
+      widgetProvider: widgetProvider,
     );
   }
 
@@ -26,8 +28,8 @@ class UrlTextFieldParser extends WidgetParser {
 class UrlTextFieldCreator extends StatefulWidget implements Manager {
   final Component map;
   final controller = TextEditingController();
-  WidgetProvider widgetProvider;
-  UrlTextFieldCreator({this.map});
+  final WidgetProvider widgetProvider;
+  UrlTextFieldCreator({this.map, this.widgetProvider});
   @override
   _UrlTextFieldCreatorState createState() => _UrlTextFieldCreatorState();
 
@@ -73,7 +75,6 @@ class _UrlTextFieldCreatorState extends State<UrlTextFieldCreator> {
   @override
   Widget build(BuildContext context) {
     /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
-    widget.widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
     bool isVisible = true;
     if (widget.map.calculateValue != null) {
       _keys = parseListStringCalculated(widget.map.calculateValue);

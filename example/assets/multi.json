@@ -688,7 +688,8 @@
                                             "showCharCount": false,
                                             "showWordCount": false,
                                             "allowMultipleMasks": false,
-                                            "id": "edrnz5m",
+                                            "id": "eps74dd",
+                                            "decimalLimit": 4,
                                             "defaultValue": null
                                         }
                                     ],
@@ -964,7 +965,7 @@
                                             "multiple": false,
                                             "persistent": true,
                                             "delimiter": false,
-                                            "requireDecimal": false,
+                                            "requireDecimal": true,
                                             "inputFormat": "plain",
                                             "protected": false,
                                             "dbIndex": false,
@@ -1017,7 +1018,8 @@
                                             "showCharCount": false,
                                             "showWordCount": false,
                                             "allowMultipleMasks": false,
-                                            "id": "eyamue8",
+                                            "id": "e7gnx2",
+                                            "decimalLimit": 2,
                                             "defaultValue": null
                                         }
                                     ],
@@ -2786,6 +2788,12 @@
                             "key": "waterPressure",
                             "tags": [],
                             "properties": {},
+                            "conditional": {
+                                "show": null,
+                                "when": null,
+                                "eq": "",
+                                "json": ""
+                            },
                             "customConditional": "",
                             "logic": [],
                             "attributes": {},

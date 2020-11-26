@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:formio_flutter/formio_flutter.dart';
+import 'package:provider/provider.dart';
 
 class PaginationPage extends StatefulWidget {
   @override
@@ -13,6 +14,7 @@ class _PaginationPageState extends State<PaginationPage>
     implements ClickListener {
   PageController controller;
   FormCollection _formCollection;
+  WidgetProvider widgetProvider;
   Future<List<Widget>> _widgets;
   int _index = 0;
 
@@ -24,6 +26,7 @@ class _PaginationPageState extends State<PaginationPage>
 
   @override
   Widget build(BuildContext context) {
+    widgetProvider = Provider.of<WidgetProvider>(context);
     _widgets ??= _buildWidget(context);
     return Scaffold(
       appBar: AppBar(
@@ -149,7 +152,8 @@ class _PaginationPageState extends State<PaginationPage>
     };
     var tempo = await parseFormCollectionDefaultValueMap(
         _formCollection, defaultMapper);
-    return WidgetParserBuilder.buildWidgets(tempo, context, this);
+    return WidgetParserBuilder.buildWidgets(
+        tempo, context, this, widgetProvider);
   }
 
   Widget _buildPageIndicator(bool isCurrentPage) {

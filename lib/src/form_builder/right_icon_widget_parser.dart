@@ -8,7 +8,8 @@ import 'package:formio_flutter/src/models/models.dart';
 class RightIconWidgetParser extends WidgetParser {
   /// Returns a [Widget] of type [Icon]
   @override
-  Widget parse(Component map, BuildContext context, ClickListener listener) {
+  Widget parse(Component map, BuildContext context, ClickListener listener,
+      WidgetProvider widgetProvider) {
     return Icon(
       (map.rightIcon != null)
           ? getIconUsingPrefix(name: map.rightIcon)

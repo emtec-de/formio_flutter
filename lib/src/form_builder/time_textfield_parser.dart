@@ -11,9 +11,11 @@ import 'package:formio_flutter/src/providers/providers.dart';
 class TimeTextFieldParser extends WidgetParser {
   /// Returns a [Widget] of type [TimeTextField]
   @override
-  Widget parse(Component map, BuildContext context, ClickListener listener) {
+  Widget parse(Component map, BuildContext context, ClickListener listener,
+      WidgetProvider widgetProvider) {
     return TimeTextFieldCreator(
       map: map,
+      widgetProvider: widgetProvider,
     );
   }
 
@@ -26,8 +28,8 @@ class TimeTextFieldParser extends WidgetParser {
 class TimeTextFieldCreator extends StatefulWidget implements Manager {
   final Component map;
   final controller = TextEditingController();
-  WidgetProvider widgetProvider;
-  TimeTextFieldCreator({this.map});
+  final WidgetProvider widgetProvider;
+  TimeTextFieldCreator({this.map, this.widgetProvider});
   @override
   _TimeTextFieldCreatorState createState() => _TimeTextFieldCreatorState();
 
@@ -70,7 +72,6 @@ class _TimeTextFieldCreatorState extends State<TimeTextFieldCreator> {
   @override
   Widget build(BuildContext context) {
     /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
-    widget.widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
     final size = MediaQuery.of(context).size;
     bool isVisible = true;
     return StreamBuilder(

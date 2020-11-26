@@ -74,7 +74,7 @@ List<String> parseListStringCalculated(String value) {
 String parseCalculate(String operation) {
   try {
     Expression exp = Parser().parse(operation);
-    return exp.evaluate(EvaluationType.REAL, null).toString();
+    return (exp.evaluate(EvaluationType.REAL, null)).toString();
   } catch (ex) {
     return "";
   }

@@ -11,10 +11,12 @@ import 'package:formio_flutter/src/providers/providers.dart';
 class PagerParser extends WidgetParser {
   /// Returns a [Widget] of type [Pager]
   @override
-  Widget parse(Component map, BuildContext context, ClickListener listener) {
+  Widget parse(Component map, BuildContext context, ClickListener listener,
+      WidgetProvider widgetProvider) {
     return PagerParserWidget(
       map: map,
       listener: listener,
+      widgetProvider: widgetProvider,
     );
   }
 
@@ -27,9 +29,10 @@ class PagerParser extends WidgetParser {
 class PagerParserWidget extends StatefulWidget {
   final Component map;
   final ClickListener listener;
+  final WidgetProvider widgetProvider;
   List<Widget> widgets = [];
 
-  PagerParserWidget({this.map, this.listener});
+  PagerParserWidget({this.map, this.listener, this.widgetProvider});
 
   @override
   _PagerParserWidgetState createState() => _PagerParserWidgetState();
@@ -54,19 +57,12 @@ class _PagerParserWidgetState extends State<PagerParserWidget>
   @override
   bool get wantKeepAlive => true;
 
-  @override
-  void didChangeDependencies() {
-    /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
-    widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
-    super.didChangeDependencies();
-  }
-
   /// Returns a [SingleChildScrollView] that has a [List<Widget>] contained in [Component.map.component]
   @override
   Widget build(BuildContext context) {
     super.build(context);
     widget.widgets = WidgetParserBuilder.buildWidgetsByComponent(
-        widget.map.component, context, widget.listener);
+        widget.map.component, context, widget.listener, widget.widgetProvider);
     if (!widget.map.title.contains('Page') ||
         !widget.map.title.contains('page'))
       widget.widgets.insert(
@@ -84,7 +80,7 @@ class _PagerParserWidgetState extends State<PagerParserWidget>
       );
     bool isVisible = true;
     return StreamBuilder(
-        stream: widgetProvider.widgetBloc.widgetsStream,
+        stream: widgetProvider?.widgetBloc?.widgetsStream,
         builder: (context, snapshot) {
           isVisible = (widget.map.conditional != null && snapshot.data != null)
               ? (snapshot.data.containsKey(widget.map.conditional.when) &&

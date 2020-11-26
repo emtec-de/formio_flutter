@@ -1,3 +1,6 @@
+import 'dart:collection';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:formio_flutter/formio_flutter.dart';
@@ -11,8 +14,9 @@ import 'package:http/http.dart' as http;
 class SelectParser extends WidgetParser {
   /// Returns a [Widget] of type [DropDown/Selector]
   @override
-  Widget parse(Component map, BuildContext context, ClickListener listener) {
-    return SelectParserWidget(map: map);
+  Widget parse(Component map, BuildContext context, ClickListener listener,
+      WidgetProvider widgetProvider) {
+    return SelectParserWidget(map: map, widgetProvider: widgetProvider);
   }
 
   /// [widgetName] => "select"
@@ -24,9 +28,9 @@ class SelectParser extends WidgetParser {
 class SelectParserWidget extends StatefulWidget implements Manager {
   final Component map;
   Value selected;
-  WidgetProvider widgetProvider;
+  final WidgetProvider widgetProvider;
 
-  SelectParserWidget({this.map});
+  SelectParserWidget({this.map, this.widgetProvider});
 
   @override
   _SelectParserWidgetState createState() => _SelectParserWidgetState();
@@ -37,7 +41,7 @@ class SelectParserWidget extends StatefulWidget implements Manager {
 
   /// Current value of the [Widget]
   @override
-  get data => selected.value ?? "";
+  get data => selected != null ? selected.toMap() : "";
 }
 
 class _SelectParserWidgetState extends State<SelectParserWidget> {
@@ -50,8 +54,8 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
     var client = http.Client();
     final response = await client.get(widget.map.data.url);
     final result = Value().valuesFromJson(response.body);
-    if (result.isNotEmpty) setupDropDown(result);
     if (result.isNotEmpty) {
+      setupDropDown(result);
       _mapper[widget.map.key] = result.first.value;
       widget.widgetProvider.widgetBloc.registerMap(_mapper);
     }
@@ -61,7 +65,20 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
   /// Setup all the functionlity for the dropDown widget.
   setupDropDown(List<Value> values) {
     _values = buildDropDownItems(values);
-    widget.selected = _values[0].value;
+    if (widget.map.defaultValue != null && widget.map.defaultValue != "") {
+      int _position = 0;
+      if (widget.map.defaultValue is Map<String, dynamic>) {
+        _position = values.indexWhere(
+            (element) => element.value == widget.map.defaultValue['value']);
+      } else if (widget.map.defaultValue is String) {
+        _position = values
+            .indexWhere((element) => element.value == widget.map.defaultValue);
+      }
+      widget.selected =
+          (_position == -1) ? _values[0].value : _values[_position].value;
+    } else {
+      widget.selected = _values.first.value;
+    }
   }
 
   @override
@@ -106,13 +123,6 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
   }
 
   @override
-  void didChangeDependencies() {
-    /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
-    widget.widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
-    super.didChangeDependencies();
-  }
-
-  @override
   Widget build(BuildContext context) {
     if (widget.map.data.url.isNotEmpty) _futureValues ??= _makeRequest();
     bool isVisible = true;
@@ -154,9 +164,6 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
                                   AsyncSnapshot<List<Value>> snapshot) {
                                 switch (snapshot.connectionState) {
                                   case ConnectionState.done:
-                                    if (snapshot.hasData)
-                                      _values =
-                                          buildDropDownItems(snapshot.data);
                                     return DropdownButton<Value>(
                                       hint: NeumorphicText(
                                         widget.map.label,

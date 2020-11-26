@@ -1,5 +1,6 @@
-## 0.9.21 - 2020.11.24
-* FIxed null render error on rows.
+## 0.9.22 - 2020.11.25
+* Improved performance on every widget.
+* Fixed null render error on rows.
 * Fixed problems on calculated values that uses numeric vals.
 * Fixed null render on multi rows.
 * Added change detection on select, when has a condition on first load.

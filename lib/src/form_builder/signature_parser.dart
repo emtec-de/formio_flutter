@@ -11,9 +11,11 @@ import 'package:formio_flutter/src/providers/providers.dart';
 class SignatureParser extends WidgetParser {
   /// Returns a [Widget] of type [Signature]
   @override
-  Widget parse(Component map, BuildContext context, ClickListener listener) {
+  Widget parse(Component map, BuildContext context, ClickListener listener,
+      WidgetProvider widgetProvider) {
     return SignatureCreator(
       map: map,
+      widgetProvider: widgetProvider,
     );
   }
 
@@ -27,10 +29,11 @@ class SignatureCreator extends StatefulWidget implements Manager {
   SignatureController controller = new SignatureController();
 
   final Component map;
-  WidgetProvider widgetProvider;
+  final WidgetProvider widgetProvider;
 
   SignatureCreator({
     this.map,
+    this.widgetProvider,
   });
   @override
   _SignatureCreatorState createState() => _SignatureCreatorState();
@@ -57,13 +60,6 @@ class _SignatureCreatorState extends State<SignatureCreator> {
       penColor: parseColor(widget.map.penColor),
       exportBackgroundColor: Colors.white,
     );
-  }
-
-  @override
-  void didChangeDependencies() {
-    /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
-    widget.widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
-    super.didChangeDependencies();
   }
 
   @override

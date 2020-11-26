@@ -13,9 +13,11 @@ import 'package:formio_flutter/src/providers/providers.dart';
 class CurrencyTextFieldParser extends WidgetParser {
   /// Returns a [Widget] of type [CurrencyTextField]
   @override
-  Widget parse(Component map, BuildContext context, ClickListener listener) {
+  Widget parse(Component map, BuildContext context, ClickListener listener,
+      WidgetProvider widgetProvider) {
     return CurrencyTextFieldCreator(
       map: map,
+      widgetProvider: widgetProvider,
     );
   }
 
@@ -28,8 +30,8 @@ class CurrencyTextFieldParser extends WidgetParser {
 class CurrencyTextFieldCreator extends StatefulWidget implements Manager {
   final Component map;
   final controller = TextEditingController();
-  WidgetProvider widgetProvider;
-  CurrencyTextFieldCreator({this.map});
+  final WidgetProvider widgetProvider;
+  CurrencyTextFieldCreator({this.map, this.widgetProvider});
   @override
   _CurrencyTextFieldCreatorState createState() =>
       _CurrencyTextFieldCreatorState();
@@ -72,13 +74,6 @@ class _CurrencyTextFieldCreatorState extends State<CurrencyTextFieldCreator> {
   @override
   void dispose() {
     super.dispose();
-  }
-
-  @override
-  void didChangeDependencies() {
-    /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
-    widget.widgetProvider = Provider.of<WidgetProvider>(context, listen: false);
-    super.didChangeDependencies();
   }
 
   @override

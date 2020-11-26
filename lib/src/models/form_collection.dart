@@ -50,6 +50,7 @@ class Component {
     this.labelPosition,
     this.columns,
     this.showWordCount,
+    this.decimalLimit,
     this.defaultValue,
     this.backgroundColor,
     this.storage,
@@ -86,6 +87,9 @@ class Component {
 
   /// label.
   String label;
+
+  /// decimalLimit.
+  int decimalLimit;
 
   /// title.
   String title;
@@ -225,6 +229,8 @@ class Component {
         webcam: (json["webcam"] == null) ? false : json["webcam"],
         showWordCount:
             (json["showWordCount"] == null) ? null : json["showWordCount"],
+        decimalLimit:
+            json.containsKey('decimalLimit') ? json['decimalLimit'] ?? 4 : 4,
         penColor: (json["penColor"] == null) ? "black" : json["penColor"],
         footer: (json["footer"] == null) ? null : json["footer"],
         backgroundColor: (json["backgroundColor"] == null)
@@ -274,6 +280,7 @@ class Component {
         "columns": (columns == null)
             ? null
             : List<dynamic>.from(component.map((x) => x)),
+        "decimalLimit": decimalLimit ?? 4,
         "storage": (storage == null) ? "base64" : storage,
         "currency": (currency == null) ? "" : currency,
         "fileNameTemplate": (fileNameTemplate == null) ? "" : fileNameTemplate,
@@ -393,6 +400,14 @@ class Value {
         label: json["label"],
         value: json["value"],
       );
+
+  /// Returns a [Map<String, dynamic>] using the values of [DepartmentHour]
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'label': label,
+      'value': value,
+    };
+  }
 
   /// Returns a [Map<String, dynamic>] representation of the [Value] class.
   Map<String, dynamic> toJson() => {

@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:formio_flutter/formio_flutter.dart';
+import 'package:provider/provider.dart';
 
 class DemonstrationPage extends StatefulWidget {
   final String argument;
@@ -18,9 +19,11 @@ class _DemonstrationPageState extends State<DemonstrationPage>
     implements ClickListener {
   Future<List<Widget>> _widgets;
   BuildContext _context;
+  WidgetProvider widgetProvider;
 
   @override
   Widget build(BuildContext context) {
+    widgetProvider = Provider.of<WidgetProvider>(context);
     _widgets ??= _buildWidget(context);
     return Scaffold(
       appBar: AppBar(
@@ -119,7 +122,8 @@ class _DemonstrationPageState extends State<DemonstrationPage>
     ];
     formCollection = await parseFormCollectionDefaultValueListMap(
         formCollection, defaultMapper);
-    return WidgetParserBuilder.buildWidgets(formCollection, context, this);
+    return WidgetParserBuilder.buildWidgets(
+        formCollection, context, this, widgetProvider);
   }
 
   @override
