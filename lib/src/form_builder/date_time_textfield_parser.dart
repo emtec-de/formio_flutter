@@ -109,7 +109,8 @@ class _DateTimeTextFieldCreatorState extends State<DateTimeTextFieldCreator> {
                       });
                     },
                     decoration: InputDecoration(
-                      counter: (widget.map.showWordCount != null)
+                      counter: (widget.map.showWordCount != null &&
+                              widget.map.showWordCount)
                           ? (characters != "")
                               ? Text('${characters.split(' ').length} words')
                               : Container()

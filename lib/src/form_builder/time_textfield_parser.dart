@@ -113,7 +113,8 @@ class _TimeTextFieldCreatorState extends State<TimeTextFieldCreator> {
                       setState(() => characters = value);
                     },
                     decoration: InputDecoration(
-                      counter: (widget.map.showWordCount != null)
+                      counter: (widget.map.showWordCount != null &&
+                              widget.map.showWordCount)
                           ? (characters != "")
                               ? Text('${characters.split(' ').length} words')
                               : Container()

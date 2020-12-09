@@ -130,7 +130,8 @@ class _UrlTextFieldCreatorState extends State<UrlTextFieldCreator> {
                     });
                   },
                   decoration: InputDecoration(
-                    counter: (widget.map.showWordCount != null)
+                    counter: (widget.map.showWordCount != null &&
+                            widget.map.showWordCount)
                         ? (characters != "")
                             ? Text('${characters.split(' ').length} words')
                             : Container()

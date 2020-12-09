@@ -133,7 +133,8 @@ class _TextFieldCreatorState extends State<TextFieldCreator> {
                           setState(() => characters = value);
                         },
                         decoration: InputDecoration(
-                          counter: (widget.map.showWordCount != null)
+                          counter: (widget.map.showWordCount != null &&
+                                  widget.map.showWordCount)
                               ? (characters != "")
                                   ? Text(
                                       '${characters.split(' ').length} words')
@@ -187,7 +188,8 @@ class _TextFieldCreatorState extends State<TextFieldCreator> {
                         setState(() => characters = value);
                       },
                       decoration: InputDecoration(
-                        counter: (widget.map.showWordCount != null)
+                        counter: (widget.map.showWordCount != null &&
+                                widget.map.showWordCount)
                             ? (characters != "")
                                 ? Text('${characters.split(' ').length} words')
                                 : Container()

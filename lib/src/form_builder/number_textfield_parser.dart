@@ -141,7 +141,8 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
                           });
                         },
                         decoration: InputDecoration(
-                          counter: (widget.map.showWordCount != null)
+                          counter: (widget.map.showWordCount != null &&
+                                  widget.map.showWordCount)
                               ? (characters != "")
                                   ? Text(
                                       '${characters.replaceAll(' ', '').length} numbers')
@@ -194,7 +195,8 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
                         });
                       },
                       decoration: InputDecoration(
-                        counter: (widget.map.showWordCount != null)
+                        counter: (widget.map.showWordCount != null &&
+                                widget.map.showWordCount)
                             ? (characters != "")
                                 ? Text(
                                     '${characters.replaceAll(' ', '').length} numbers')

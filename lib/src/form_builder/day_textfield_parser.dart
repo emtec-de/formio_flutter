@@ -114,7 +114,8 @@ class _DayTextFieldCreatorState extends State<DayTextFieldCreator> {
                       });
                     },
                     decoration: InputDecoration(
-                      counter: (widget.map.showWordCount != null)
+                      counter: (widget.map.showWordCount != null &&
+                              widget.map.showWordCount)
                           ? (characters != "")
                               ? Text('${characters.split(' ').length} words')
                               : Container()
