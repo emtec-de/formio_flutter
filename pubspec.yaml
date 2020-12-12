@@ -15,9 +15,9 @@ dependencies:
   provider: ^4.3.2+2
   rxdart: ^0.24.1
   http: ^0.12.2
-  image: ^2.1.18
+  image: ^2.1.19
   math_expressions: ^2.0.1
-  file_picker: ^2.0.12
+  file_picker: ^2.1.1
   flutter_neumorphic: ^3.0.3
   font_awesome_flutter: ^8.10.0
   universal_io: ^1.0.1

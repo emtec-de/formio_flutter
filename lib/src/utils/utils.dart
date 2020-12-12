@@ -369,72 +369,72 @@ Future<List<Component>> parseDefaultValue(List<Component> components,
 /// from that widget.
 Future<Map<String, dynamic>> parseWidgets(List<Widget> widgets) async {
   dynamic converted;
-  widgets.asMap().forEach(
-    (key, value) async {
-      switch (value.runtimeType) {
-        case FileCreator:
-          converted = value as FileCreator;
-          map[converted.keyValue()] = converted.data;
-          break;
-        case TextFieldCreator:
-          converted = value as TextFieldCreator;
-          map[converted.keyValue()] = converted.data;
-          break;
-        case TextAreaCreator:
-          converted = value as TextAreaCreator;
-          map[converted.keyValue()] = converted.data;
-          break;
-        case UrlTextFieldCreator:
-          converted = value as UrlTextFieldCreator;
-          map[converted.keyValue()] = converted.data;
-          break;
-        case PhoneTextFieldCreator:
-          converted = value as PhoneTextFieldCreator;
-          map[converted.keyValue()] = converted.data;
-          break;
-        case NumberTextFieldCreator:
-          converted = value as NumberTextFieldCreator;
-          map[converted.keyValue()] = converted.data;
-          break;
-        case CurrencyTextFieldCreator:
-          converted = value as CurrencyTextFieldCreator;
-          map[converted.keyValue()] = converted.data;
-          break;
-        case EmailTextFieldCreator:
-          converted = value as EmailTextFieldCreator;
-          map[converted.keyValue()] = converted.data;
-          break;
-        case DateTextFieldCreator:
-          converted = value as DateTextFieldCreator;
-          map[converted.keyValue()] = converted.data;
-          break;
-        case CheckboxCreator:
-          converted = value as CheckboxCreator;
-          map[converted.keyValue()] = converted.data;
-          break;
-        case TimeTextFieldCreator:
-          converted = value as TimeTextFieldCreator;
-          map[converted.keyValue()] = converted.data;
-          break;
-        case SignatureCreator:
-          converted = value as SignatureCreator;
-          map[converted.keyValue()] = converted.data;
-          break;
-        case SelectParserWidget:
-          converted = value as SelectParserWidget;
-          map[converted.keyValue()] = converted.data;
-          break;
-        case PagerParserWidget:
-          converted = value as PagerParserWidget;
-          parseWidgets(converted.widgets);
-          break;
-        case ColumnParserWidget:
-          converted = value as ColumnParserWidget;
-          parseWidgets(converted.widgets);
-          break;
-      }
-    },
-  );
+  await Future.forEach(widgets, (element) async {
+    switch (element.runtimeType) {
+      case FileCreator:
+        converted = element as FileCreator;
+        map[converted.keyValue()] = converted.data;
+        break;
+      case TextFieldCreator:
+        converted = element as TextFieldCreator;
+        map[converted.keyValue()] = converted.data;
+        break;
+      case TextAreaCreator:
+        converted = element as TextAreaCreator;
+        map[converted.keyValue()] = converted.data;
+        break;
+      case UrlTextFieldCreator:
+        converted = element as UrlTextFieldCreator;
+        map[converted.keyValue()] = converted.data;
+        break;
+      case PhoneTextFieldCreator:
+        converted = element as PhoneTextFieldCreator;
+        map[converted.keyValue()] = converted.data;
+        break;
+      case NumberTextFieldCreator:
+        converted = element as NumberTextFieldCreator;
+        map[converted.keyValue()] = converted.data;
+        break;
+      case CurrencyTextFieldCreator:
+        converted = element as CurrencyTextFieldCreator;
+        map[converted.keyValue()] = converted.data;
+        break;
+      case EmailTextFieldCreator:
+        converted = element as EmailTextFieldCreator;
+        map[converted.keyValue()] = converted.data;
+        break;
+      case DateTextFieldCreator:
+        converted = element as DateTextFieldCreator;
+        map[converted.keyValue()] = await converted.data;
+        break;
+      case CheckboxCreator:
+        converted = element as CheckboxCreator;
+        map[converted.keyValue()] = await converted.data;
+        break;
+      case TimeTextFieldCreator:
+        converted = element as TimeTextFieldCreator;
+        map[converted.keyValue()] = await converted.data;
+        break;
+      case SignatureCreator:
+        converted = element as SignatureCreator;
+        var d = await convertSignatureToBase64(
+            (element as SignatureCreator).controller);
+        map[converted.keyValue()] = d;
+        break;
+      case SelectParserWidget:
+        converted = element as SelectParserWidget;
+        map[converted.keyValue()] = converted.data;
+        break;
+      case PagerParserWidget:
+        converted = element as PagerParserWidget;
+        await parseWidgets(converted.widgets);
+        break;
+      case ColumnParserWidget:
+        converted = element as ColumnParserWidget;
+        await parseWidgets(converted.widgets);
+        break;
+    }
+  });
   return map;
 }
 

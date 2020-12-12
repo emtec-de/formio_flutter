@@ -62,7 +62,7 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
     return result;
   }
 
-  /// Setup all the functionlity for the dropDown widget.
+  /// Setup all the functionality for the dropDown widget.
   setupDropDown(List<Value> values) {
     _values = buildDropDownItems(values);
     if (widget.map.defaultValue != null && widget.map.defaultValue != "") {

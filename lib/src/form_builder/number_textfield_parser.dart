@@ -136,9 +136,7 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
                               : value;
                           _mapper.update(widget.map.key, (nVal) => value);
                           widget.widgetProvider.widgetBloc.registerMap(_mapper);
-                          setState(() {
-                            characters = value;
-                          });
+                          setState(() => characters = value);
                         },
                         decoration: InputDecoration(
                           counter: (widget.map.showWordCount != null &&
@@ -190,9 +188,7 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
                             .toStringAsFixed(widget.map.decimalLimit);
                         _mapper.update(widget.map.key, (nVal) => value);
                         widget.widgetProvider.widgetBloc.registerMap(_mapper);
-                        setState(() {
-                          characters = value;
-                        });
+                        setState(() => characters = value);
                       },
                       decoration: InputDecoration(
                         counter: (widget.map.showWordCount != null &&
