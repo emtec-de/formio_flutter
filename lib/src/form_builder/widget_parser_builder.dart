@@ -4,7 +4,6 @@ import 'package:formio_flutter/src/abstraction/implements/non_response_click.dar
 import 'package:formio_flutter/src/form_builder/form_builder.dart';
 import 'package:formio_flutter/src/models/models.dart';
 import 'package:formio_flutter/src/providers/providers.dart';
-import 'package:provider/provider.dart';
 
 /// [WidgetParserBuilder] contains all the logic to build the [hierarchy widgets]
 class WidgetParserBuilder {

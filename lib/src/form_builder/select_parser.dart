@@ -7,7 +7,6 @@ import 'package:formio_flutter/formio_flutter.dart';
 import 'package:formio_flutter/src/abstraction/abstraction.dart';
 import 'package:formio_flutter/src/models/models.dart';
 import 'package:formio_flutter/src/providers/providers.dart';
-import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
 /// Extends the abstract class [WidgetParser]
