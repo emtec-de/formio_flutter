@@ -1,5 +1,6 @@
-## 0.9.23 - 2020.12.12
+## 0.9.24 - 2020.12.12
 * Fix on information data parser.
+* Added more secured listener.
 
 ## 0.9.22 - 2020.11.25
 * Improved performance on every widget.

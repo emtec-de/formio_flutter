@@ -117,7 +117,7 @@ class _SignatureCreatorState extends State<SignatureCreator> {
                                           color: Colors.grey,
                                           width: size.width,
                                           child: NeumorphicText(
-                                            'Image Signature\n tap on the circular arrow to draw a new signature',
+                                            'Signature Recorded',
                                             style: NeumorphicStyle(
                                                 depth: 13.0,
                                                 intensity: 0.90,
@@ -146,7 +146,7 @@ class _SignatureCreatorState extends State<SignatureCreator> {
                                     ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(5.0),
+                              padding: EdgeInsets.all(5.0),
                               child: GestureDetector(
                                 onTap: () {
                                   setState(() => isNewSignature = true);
