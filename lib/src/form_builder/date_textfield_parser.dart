@@ -64,6 +64,9 @@ class _DateTextFieldCreatorState extends State<DateTextFieldCreator> {
               .toString()
               .replaceAll(RegExp('[()]'), '')
           : widget.controller.text = widget.map.defaultValue.toString();
+    widget.controller.addListener(() {
+      _mapper.update(widget.map.key, (value) => widget.controller.value.text);
+    });
     Future.delayed(Duration(milliseconds: 10), () {
       _mapper.update(widget.map.key, (value) => widget.controller.value.text);
       widget.widgetProvider.widgetBloc.registerMap(_mapper);
@@ -176,6 +179,8 @@ class _DateTextFieldCreatorState extends State<DateTextFieldCreator> {
       setState(() {
         selectedDT =
             "$selectedDT ${picked.hour}:${picked.minute} ${(picked.period == DayPeriod.am) ? "am" : "pm"}";
+        _mapper.update(widget.map.key, (value) => selectedDT);
+        widget.widgetProvider.widgetBloc.registerMap(_mapper);
         widget.controller.text = selectedDT;
       });
     }

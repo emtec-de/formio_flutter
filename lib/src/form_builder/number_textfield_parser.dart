@@ -66,6 +66,9 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
               ? double.parse(widget.map.defaultValue.toString())
                   .toStringAsFixed(widget.map.decimalLimit)
               : "";
+    widget.controller.addListener(() {
+      _mapper.update(widget.map.key, (value) => widget.controller.value.text);
+    });
     Future.delayed(Duration(milliseconds: 10), () {
       _mapper.update(widget.map.key, (value) => widget.controller.value.text);
       widget.widgetProvider.widgetBloc.registerMap(_mapper);

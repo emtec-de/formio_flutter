@@ -58,6 +58,9 @@ class _TimeTextFieldCreatorState extends State<TimeTextFieldCreator> {
               .toString()
               .replaceAll(RegExp('[()]'), '')
           : widget.controller.text = widget.map.defaultValue.toString();
+    widget.controller.addListener(() {
+      _mapper.update(widget.map.key, (value) => widget.controller.value.text);
+    });
     Future.delayed(Duration(milliseconds: 10), () {
       _mapper.update(widget.map.key, (value) => widget.controller.value.text);
       widget.widgetProvider.widgetBloc.registerMap(_mapper);
@@ -158,8 +161,11 @@ class _TimeTextFieldCreatorState extends State<TimeTextFieldCreator> {
           TimeOfDay(hour: DateTime.now().hour, minute: DateTime.now().minute),
     );
     if (picked != null) {
-      setState(() => widget.controller.text =
-          "${picked.hour}:${picked.minute} ${(picked.period == DayPeriod.am) ? "am" : "pm"}");
+      var time =
+          "${picked.hour}:${picked.minute} ${(picked.period == DayPeriod.am) ? "am" : "pm"}";
+      _mapper.update(widget.map.key, (value) => time);
+      widget.widgetProvider.widgetBloc.registerMap(_mapper);
+      setState(() => widget.controller.text = time);
     }
   }
 }
