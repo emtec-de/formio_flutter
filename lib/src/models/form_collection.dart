@@ -29,7 +29,7 @@ class FormCollection {
   /// Returns a [FormCollection] from a [Map<String, dynamic>].
   factory FormCollection.fromJson(Map<String, dynamic> json) => FormCollection(
         display: json["display"],
-        components: List<Component>.from(
+        components:  List<Component>.from(
             json["components"].map((x) => Component.fromJson(x))),
       );
 
@@ -210,11 +210,11 @@ class Component {
 
   /// Returns a [Component] from a [String] that possees a json.
   factory Component.fromJson(Map<String, dynamic> json) => Component(
-        component: (json["components"] == null)
+        component: (json["components"] == null || !json.containsKey('components'))
             ? null
             : List<Component>.from(
                 json["components"].map((x) => Component.fromJson(x))),
-        columns: (json["columns"] == null)
+        columns: (json["columns"] == null || !json.containsKey('columns'))
             ? null
             : List<Component>.from(
                 json["columns"].map((x) => Component.fromJson(x))),
@@ -238,7 +238,7 @@ class Component {
             : json["backgroundColor"],
         mask: (json["mask"] == null) ? false : json["mask"],
         data: json["data"] == null ? null : Data.fromJson(json["data"]),
-        defaultValue: json["defaultValue"] == null
+        defaultValue: json["defaultValue"] == null  || !json.containsKey('defaultValue')
             ? null
             : (json["defaulValue"] is List<String>)
                 ? List<String>.from(json["defaultValue"].map((x) => x))
@@ -267,7 +267,7 @@ class Component {
         rightIcon: json["rightIcon"] == null ? null : json["rightIcon"],
         description: json["description"] == null ? null : json["description"],
         tooltip: json["tooltip"] == null ? null : json["tooltip"],
-        tags: json["tags"] == null
+        tags: json["tags"] == null  || !json.containsKey('tags')
             ? null
             : List<String>.from(json["tags"].map((x) => x)),
       );
@@ -368,7 +368,7 @@ class Data {
 
   /// Returns a [Data] from a [String] that possees a json.
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        values: List<Value>.from(json["values"].map((x) => Value.fromJson(x))),
+        values: json.containsKey('values') ? List<Value>.from(json["values"].map((x) => Value.fromJson(x))) : [],
         url: json["url"] == null ? "" : json["url"],
       );
 

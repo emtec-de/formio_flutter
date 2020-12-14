@@ -1,3 +1,6 @@
+## 0.9.25 - 2020.12.14
+* Fix breaking issue on selector with null/empty array and object
+
 ## 0.9.24 - 2020.12.12
 * Fix on information data parser.
 * Added more secured listener.
