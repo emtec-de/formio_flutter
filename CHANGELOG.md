@@ -1,3 +1,5 @@
+## 0.9.26 - 2020.12.15
+* Added duality on display widget segment.
 ## 0.9.25 - 2020.12.14
 * Fix breaking issue on selector with null/empty array and object
 

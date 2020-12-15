@@ -83,7 +83,8 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
   @override
   void initState() {
     super.initState();
-    if (widget.map.data.url.isEmpty && widget.map.data.values.isNotEmpty &&
+    if (widget.map.data.url.isEmpty &&
+        widget.map.data.values.isNotEmpty &&
         widget.map.data.values.first.value != null) {
       setupDropDown(widget.map.data.values);
       _mapper[widget.map.key] = _values[0].value.value;
@@ -137,7 +138,7 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
                         snapshot.data[widget.map.conditional.when].toString() ==
                             widget.map.conditional.eq)
                     ? widget.map.conditional.show
-                    : true
+                    : !widget.map.conditional.show
                 : true;
           return (!isVisible)
               ? Container()
@@ -197,7 +198,8 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
                                 }
                               },
                             )
-                          : (widget.map.data.values.isNotEmpty && widget.map.data.values.first.value != null)
+                          : (widget.map.data.values.isNotEmpty &&
+                                  widget.map.data.values.first.value != null)
                               ? DropdownButton<Value>(
                                   hint: NeumorphicText(
                                     widget.map.label,

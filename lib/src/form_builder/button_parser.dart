@@ -26,7 +26,7 @@ class ButtonParser extends WidgetParser {
                           snapshot.data[map.conditional.when].toString() ==
                               map.conditional.eq)
                       ? map.conditional.show
-                      : true
+                      : !map.conditional.show
                   : true;
               return (!isVisible)
                   ? Container()

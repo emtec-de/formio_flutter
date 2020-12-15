@@ -87,7 +87,7 @@ class _FileCreatorState extends State<FileCreator> {
                     snapshot.data[widget.map.conditional.when].toString() ==
                         widget.map.conditional.eq)
                 ? widget.map.conditional.show
-                : true
+                : !widget.map.conditional.show
             : true;
         if (!isVisible) widget.fileName = "";
         return (!isVisible)

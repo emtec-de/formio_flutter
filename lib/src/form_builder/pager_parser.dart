@@ -86,7 +86,7 @@ class _PagerParserWidgetState extends State<PagerParserWidget>
                       snapshot.data[widget.map.conditional.when].toString() ==
                           widget.map.conditional.eq)
                   ? widget.map.conditional.show
-                  : true
+                  : !widget.map.conditional.show
               : true;
           return (!isVisible)
               ? Container()
