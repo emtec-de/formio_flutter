@@ -417,9 +417,9 @@ Future<Map<String, dynamic>> parseWidgets(List<Widget> widgets) async {
         break;
       case SignatureCreator:
         converted = element as SignatureCreator;
-        var d = await convertSignatureToBase64(
+        var signature = await convertSignatureToBase64WithEncodeText(
             (element as SignatureCreator).controller);
-        map[converted.keyValue()] = d;
+        map[converted.keyValue()] = signature;
         break;
       case SelectParserWidget:
         converted = element as SelectParserWidget;
@@ -453,16 +453,29 @@ Future<String> convertSignatureToBase64(SignatureController controller) async {
       : "";
 }
 
+/// Similar to [convertFileToBase64], but instead check a [Signature Widget]
+/// and returns the [base64] representation wht the Encoding Tag.
+Future<String> convertSignatureToBase64WithEncodeText(
+    SignatureController controller) async {
+  var _signature = (await controller.toPngBytes() != null)
+      ? base64Encode(await controller.toPngBytes())
+      : "";
+  return _signature != "" ? "data:image/jpeg;base64,$_signature" : "";
+}
+
 /// Returns an Image based on the [base64] representation.
-Image decodeSignatureFromBase64({String signature, Color color}) =>
-    Image.memory(
-      base64Decode(signature),
-      filterQuality: FilterQuality.high,
-      isAntiAlias: true,
-      color: color,
-      colorBlendMode: BlendMode.modulate,
-      fit: BoxFit.cover,
-    );
+Image decodeSignatureFromBase64({String signature, Color color}) {
+  var _signatureCleaner =
+      signature.replaceFirst(RegExp(r"/data:image\/jpeg;base64,/gm"), "");
+  return Image.memory(
+    base64Decode(_signatureCleaner),
+    filterQuality: FilterQuality.high,
+    isAntiAlias: true,
+    color: color,
+    colorBlendMode: BlendMode.modulate,
+    fit: BoxFit.cover,
+  );
+}
 
 /// Returns a [Color] from a [String] with the color name.
 /// the filter is based on the [colorMap] list.

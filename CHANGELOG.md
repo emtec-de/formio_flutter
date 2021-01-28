@@ -1,3 +1,6 @@
+## 0.9.26+1 - 2021.01.28
+* Created base64 structure to handle signature more easy for web interaction.
+
 ## 0.9.26 - 2020.12.15
 * Added duality on display widget segment.
 ## 0.9.25 - 2020.12.14
