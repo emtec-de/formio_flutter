@@ -1,13 +1,11 @@
-import 'dart:collection';
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:http/http.dart' as http;
+
 import 'package:formio_flutter/formio_flutter.dart';
 import 'package:formio_flutter/src/abstraction/abstraction.dart';
 import 'package:formio_flutter/src/models/models.dart';
 import 'package:formio_flutter/src/providers/providers.dart';
-import 'package:http/http.dart' as http;
 
 /// Extends the abstract class [WidgetParser]
 class SelectParser extends WidgetParser {

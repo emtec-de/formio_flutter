@@ -12,15 +12,15 @@ dependencies:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
-  provider: ^4.3.2+2
-  rxdart: ^0.24.1
+  provider: ^4.3.3
+  rxdart: ^0.25.0
   http: ^0.12.2
   image: ^2.1.19
-  math_expressions: ^2.0.1
-  file_picker: ^2.1.1
+  math_expressions: ^2.0.2
+  file_picker: ^2.1.6
   flutter_neumorphic: ^3.0.3
-  font_awesome_flutter: ^8.10.0
-  universal_io: ^1.0.1
+  font_awesome_flutter: ^8.11.0
+  universal_io: ^1.0.2
   intl: ^0.16.1
 dev_dependencies:
   flutter_test:

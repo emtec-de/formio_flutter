@@ -128,11 +128,17 @@ class _SignatureCreatorState extends State<SignatureCreator> {
                                         ),
                                         Container(
                                           width: size.width,
-                                          child: decodeSignatureFromBase64(
+                                          child: Center(
+                                            child: decodeSignatureFromBase64(
                                               signature:
                                                   widget.map.defaultValue,
                                               color: parseRgb(
-                                                  widget.map.backgroundColor)),
+                                                widget.map.backgroundColor,
+                                              ),
+                                              width: size.width,
+                                              height: size.height * 0.2,
+                                            ),
+                                          ),
                                         ),
                                       ],
                                     )

@@ -18,6 +18,7 @@ class DemonstrationPage extends StatefulWidget {
 class _DemonstrationPageState extends State<DemonstrationPage>
     implements ClickListener {
   Future<List<Widget>> _widgets;
+  // ignore: unused_field
   BuildContext _context;
   WidgetProvider widgetProvider;
 

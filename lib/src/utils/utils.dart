@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:formio_flutter/formio_flutter.dart';
+import 'package:formio_flutter/src/models/fileModel.dart';
 import 'package:intl/intl.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'package:universal_io/io.dart';
@@ -363,6 +365,19 @@ Future<List<Component>> parseDefaultValue(List<Component> components,
   return _components;
 }
 
+/// Returns a [List<Map<String, dynamic>>] which contains the information related to the file
+Future<List<Map<String, dynamic>>> parseToFileList(
+    PlatformFile platformFile, String fileBase64) async {
+  var _fileExtension = FileModel(
+      name: platformFile.name,
+      originalName: platformFile.name,
+      size: platformFile.size,
+      storage: 'base64',
+      type: platformFile.extension,
+      url: "data:image/jpeg;base64,$fileBase64");
+  return [_fileExtension.toJson()];
+}
+
 /// Parse a list of [widgets].
 ///
 /// returns a [Map<String, dynamic>] that contains the [key] and [value]
@@ -373,7 +388,8 @@ Future<Map<String, dynamic>> parseWidgets(List<Widget> widgets) async {
     switch (element.runtimeType) {
       case FileCreator:
         converted = element as FileCreator;
-        map[converted.keyValue()] = converted.data;
+        var _mapped = await parseToFileList(converted.platform, converted.data);
+        map[converted.keyValue()] = _mapped;
         break;
       case TextFieldCreator:
         converted = element as TextFieldCreator;
@@ -464,16 +480,21 @@ Future<String> convertSignatureToBase64WithEncodeText(
 }
 
 /// Returns an Image based on the [base64] representation.
-Image decodeSignatureFromBase64({String signature, Color color}) {
-  var _signatureCleaner =
-      signature.replaceFirst(RegExp(r"/data:image\/jpeg;base64,/gm"), "");
+Image decodeSignatureFromBase64(
+    {String signature, Color color, double width, double height}) {
+  var _signatureCleaner = signature.contains('data:image')
+      ? signature.replaceRange(0, 22, "")
+      : signature;
   return Image.memory(
     base64Decode(_signatureCleaner),
     filterQuality: FilterQuality.high,
+    width: width,
+    height: height,
     isAntiAlias: true,
+    excludeFromSemantics: true,
     color: color,
     colorBlendMode: BlendMode.modulate,
-    fit: BoxFit.cover,
+    fit: BoxFit.fill,
   );
 }
 

@@ -1,6 +1,7 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 import 'package:formio_flutter/formio_flutter.dart';
 import 'package:formio_flutter/src/abstraction/abstraction.dart';
@@ -27,9 +28,8 @@ class FileParser extends WidgetParser {
 // ignore: must_be_immutable
 class FileCreator extends StatefulWidget implements Manager {
   final Component map;
-  String fileName = "";
-  String absolutePath;
   final WidgetProvider widgetProvider;
+  PlatformFile _platformFile;
   FileCreator({this.map, this.widgetProvider});
   @override
   _FileCreatorState createState() => _FileCreatorState();
@@ -38,9 +38,12 @@ class FileCreator extends StatefulWidget implements Manager {
   @override
   String keyValue() => map.key ?? "fileField";
 
+  /// Retrieve the file.
+  get platform => _platformFile;
+
   /// Current value of the [Widget]
   @override
-  get data => convertFileToBase64(absolutePath) ?? "";
+  get data => convertFileToBase64("${_platformFile.path}") ?? "";
 }
 
 class _FileCreatorState extends State<FileCreator> {
@@ -58,6 +61,8 @@ class _FileCreatorState extends State<FileCreator> {
         allowedExtensions: (_extension?.isNotEmpty ?? false)
             ? _extension?.replaceAll(' ', '')?.split(',')
             : null,
+        allowCompression: true,
+        allowMultiple: false,
       ))
           ?.files;
     } on PlatformException catch (e) {
@@ -66,14 +71,12 @@ class _FileCreatorState extends State<FileCreator> {
       print(ex);
     }
     if (!mounted) return;
-    setState(
-      () {
-        widget.fileName = _paths != null
-            ? _paths.map((e) => "${e.path}${e.name}").toString()
-            : '...';
-        widget.absolutePath = (_paths != null) ? _paths[0].path : "";
-      },
-    );
+    if (_paths != null && _paths.isNotEmpty) {
+      _paths.forEach((path) {
+        widget._platformFile = path;
+      });
+      setState(() {});
+    }
   }
 
   @override
@@ -89,37 +92,62 @@ class _FileCreatorState extends State<FileCreator> {
                 ? widget.map.conditional.show
                 : !widget.map.conditional.show
             : true;
-        if (!isVisible) widget.fileName = "";
         return (!isVisible)
             ? Container()
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 50.0, bottom: 20.0),
-                    child: Column(
-                      children: <Widget>[
-                        RaisedButton(
-                          onPressed: () => _openFileExplorer(),
-                          child: Text("Select a file"),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Builder(
-                    builder: (BuildContext context) {
-                      final String name = 'File: ' + widget.fileName ?? '...';
-                      return Container(
-                        padding: const EdgeInsets.only(bottom: 30.0),
+            : Padding(
+                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                child: Flex(
+                  direction: Axis.horizontal,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Flexible(
+                      child: Container(
                         child: ListTile(
-                          title: Text(
-                            name,
+                          leading: NeumorphicButton(
+                            onPressed: () => _openFileExplorer(),
+                            child: Flex(
+                              mainAxisSize: MainAxisSize.min,
+                              direction: Axis.horizontal,
+                              children: [
+                                Text("Upload"),
+                                Icon(Icons.file_upload),
+                              ],
+                            ),
                           ),
+                          isThreeLine: true,
+                          title: widget._platformFile != null &&
+                                  widget._platformFile.name.isNotEmpty
+                              ? Align(
+                                  alignment: Alignment(-1.0, 0),
+                                  child: NeumorphicText(
+                                    widget._platformFile.name.length > 25
+                                        ? "${widget._platformFile.name.substring(1, 25)}..."
+                                        : widget._platformFile.name,
+                                    style: NeumorphicStyle(color: Colors.black),
+                                    textStyle: NeumorphicTextStyle(
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                )
+                              : Container(),
+                          subtitle: widget._platformFile != null &&
+                                  widget._platformFile.name.isNotEmpty
+                              ? Align(
+                                  alignment: Alignment(-1.0, 0),
+                                  child: NeumorphicText(
+                                    "extension: ${widget._platformFile.extension}",
+                                    style: NeumorphicStyle(color: Colors.black),
+                                    textStyle: NeumorphicTextStyle(
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                )
+                              : Container(),
                         ),
-                      );
-                    },
-                  ),
-                ],
+                      ),
+                    ),
+                  ],
+                ),
               );
       },
     );

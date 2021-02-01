@@ -1,4 +1,3 @@
-import 'package:formio_flutter/src/models/form_collection.dart';
 import 'package:rxdart/rxdart.dart';
 
 class WidgetBloc {
