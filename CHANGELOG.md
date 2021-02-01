@@ -1,3 +1,7 @@
+## 0.9.26+2 - 2021.02.01
+* Handler signature parser from web or mobile.
+* Handler a more detailed file upload widget.
+
 ## 0.9.26+1 - 2021.01.28
 * Created base64 structure to handle signature more easy for web interaction.
 
