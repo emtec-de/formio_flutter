@@ -585,6 +585,10 @@
                                     {
                                         "label": "Active Alkalinity",
                                         "value": "activeAlkalinity"
+                                    },
+                                    {
+                                        "label": "Active Alkalinity2",
+                                        "value": "activeAlkalinity2"
                                     }
                                 ]
                             },

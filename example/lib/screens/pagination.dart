@@ -62,7 +62,7 @@ class _PaginationPageState extends State<PaginationPage>
                                     : () {
                                         controller.animateToPage(
                                           _index - 1,
-                                          duration: Duration(milliseconds: 400),
+                                          duration: Duration(milliseconds: 200),
                                           curve: Curves.linear,
                                         );
                                       },
@@ -89,9 +89,11 @@ class _PaginationPageState extends State<PaginationPage>
                               ),
                               FlatButton(
                                 onPressed: (_index != snapshot.data.length - 1)
-                                    ? () => controller.animateToPage(_index + 1,
-                                        duration: Duration(milliseconds: 500),
-                                        curve: Curves.linear)
+                                    ? () => controller.animateToPage(
+                                          _index + 1,
+                                          duration: Duration(milliseconds: 500),
+                                          curve: Curves.linear,
+                                        )
                                     : () => onClicked(""),
                                 splashColor: Colors.blue[50],
                                 child: (_index != snapshot.data.length - 1)
@@ -141,19 +143,19 @@ class _PaginationPageState extends State<PaginationPage>
   Future<List<Widget>> _buildWidget(BuildContext context) async {
     String _json = await rootBundle.loadString('assets/multi.json');
     _formCollection = FormCollection.fromJson(json.decode(_json));
-    Map<String, dynamic> defaultMapper = {
-      "foamingDetergentUsed": "9999999999999999999999999999999999",
-      "concentration1": "1e+34",
-      "gmPsPerformance": "9999999999999999999999999999999999",
-      "testedBy": "9999999999999999999999999999999999",
-      "waterTemperature": "acceptable",
-      "dryPickup": "unacceptable",
-      "collected": "1e+34"
-    };
-    var tempo = await parseFormCollectionDefaultValueMap(
-        _formCollection, defaultMapper);
+    // Map<String, dynamic> defaultMapper = {
+    //   "foamingDetergentUsed": "9999999999999999999999999999999999",
+    //   "concentration1": "1e+34",
+    //   "gmPsPerformance": "9999999999999999999999999999999999",
+    //   "testedBy": "9999999999999999999999999999999999",
+    //   "waterTemperature": "acceptable",
+    //   "dryPickup": "unacceptable",
+    //   "collected": "1e+34"
+    // };
+    // var tempo = await parseFormCollectionDefaultValueMap(
+    //     _formCollection, defaultMapper);
     return WidgetParserBuilder.buildWidgets(
-        tempo, context, this, widgetProvider);
+        _formCollection, context, this, widgetProvider);
   }
 
   Widget _buildPageIndicator(bool isCurrentPage) {
