@@ -59,9 +59,10 @@ class _ColumnParserWidgetState extends State<ColumnParserWidget> {
                 : !widget.map.conditional.show
             : true;
         return (!isVisible)
-            ? Container()
+            ? SizedBox.shrink()
             : Neumorphic(
                 child: Container(
+                  //height: 200,
                   decoration: BoxDecoration(
                     color: widget.map.background,
                   ),
@@ -74,7 +75,8 @@ class _ColumnParserWidgetState extends State<ColumnParserWidget> {
                           case ConnectionState.done:
                             return (snapshot.hasData)
                                 ? Flex(
-                                    direction: Axis.horizontal,
+                                    mainAxisSize: MainAxisSize.min,
+                                    direction: Axis.vertical,
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: snapshot.data,

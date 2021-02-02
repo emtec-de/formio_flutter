@@ -93,7 +93,7 @@ class _FileCreatorState extends State<FileCreator> {
                 : !widget.map.conditional.show
             : true;
         return (!isVisible)
-            ? Container()
+            ? SizedBox.shrink()
             : Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
                 child: Flex(

@@ -88,7 +88,7 @@ class _TimeTextFieldCreatorState extends State<TimeTextFieldCreator> {
             : true;
         if (!isVisible) widget.controller.text = "";
         return (!isVisible)
-            ? Container()
+            ? SizedBox.shrink()
             : Neumorphic(
                 margin: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
@@ -97,7 +97,8 @@ class _TimeTextFieldCreatorState extends State<TimeTextFieldCreator> {
                       NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
                 ),
                 child: Container(
-                  width: (size.width * (1 / (widget.map.total + 0.5))),
+                  //width: (size.width * (1 / (widget.map.total + 0.5))),
+                  width: size.width,
                   padding: EdgeInsets.symmetric(horizontal: 10.0),
                   child: TextField(
                     enabled: !widget.map.disabled,

@@ -93,7 +93,7 @@ class _DateTextFieldCreatorState extends State<DateTextFieldCreator> {
               : true;
           if (!isVisible) widget.controller.text = "";
           return (!isVisible)
-              ? Container()
+              ? SizedBox.shrink()
               : Neumorphic(
                   child: Container(
                     width: (size.width * (1 / (widget.map.total + 0.5))),

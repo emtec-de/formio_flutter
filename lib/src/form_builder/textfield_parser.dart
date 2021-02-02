@@ -108,7 +108,7 @@ class _TextFieldCreatorState extends State<TextFieldCreator> {
         }
         if (!isVisible) widget.controller.text = "";
         return (!isVisible)
-            ? Container()
+            ? SizedBox.shrink()
             : (widget.map.total != 0)
                 ? Neumorphic(
                     margin: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -118,7 +118,8 @@ class _TextFieldCreatorState extends State<TextFieldCreator> {
                           BorderRadius.circular(12)),
                     ),
                     child: Container(
-                      width: (size.width * (1 / (0.5 + widget.map.total))),
+                      //width: (size.width * (1 / (0.5 + widget.map.total))),
+                      width: size.width,
                       padding: EdgeInsets.symmetric(horizontal: 4.0),
                       child: TextField(
                         enabled: !widget.map.disabled,

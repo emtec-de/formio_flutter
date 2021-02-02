@@ -107,10 +107,11 @@ class _TextAreaCreatorState extends State<TextAreaCreator> {
         }
         if (!isVisible) widget.controller.text = "";
         return (!isVisible)
-            ? Container()
+            ? SizedBox.shrink()
             : Neumorphic(
                 child: Container(
-                  width: (size.width * (1 / (widget.map.total))),
+                  //width: (size.width * (1 / (widget.map.total))),
+                  width: size.width,
                   height: 200,
                   padding: EdgeInsets.symmetric(horizontal: 10.0),
                   child: TextField(

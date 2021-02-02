@@ -82,7 +82,7 @@ class _CheckboxCreatorState extends State<CheckboxCreator> {
                       : !widget.map.conditional.show
                   : true;
               return (!isVisible)
-                  ? Container()
+                  ? SizedBox.shrink()
                   : Row(
                       children: [
                         NeumorphicText(

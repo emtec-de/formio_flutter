@@ -17,7 +17,7 @@ class ButtonParser extends WidgetParser {
 
     /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
     var button = (map.hidden)
-        ? Container()
+        ? SizedBox.shrink()
         : StreamBuilder(
             stream: widgetProvider.widgetBloc.widgetsStream,
             builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
@@ -29,7 +29,7 @@ class ButtonParser extends WidgetParser {
                       : !map.conditional.show
                   : true;
               return (!isVisible)
-                  ? Container()
+                  ? SizedBox.shrink()
                   : Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),

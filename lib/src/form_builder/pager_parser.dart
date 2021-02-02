@@ -89,7 +89,7 @@ class _PagerParserWidgetState extends State<PagerParserWidget>
                   : !widget.map.conditional.show
               : true;
           return (!isVisible)
-              ? Container()
+              ? SizedBox.shrink()
               : SingleChildScrollView(
                   controller: scrollController,
                   physics: BouncingScrollPhysics(),

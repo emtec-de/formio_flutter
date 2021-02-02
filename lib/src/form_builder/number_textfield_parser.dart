@@ -116,11 +116,12 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
         }
         if (!isVisible) widget.controller.text = "";
         return (!isVisible)
-            ? Container()
+            ? SizedBox.shrink()
             : (widget.map.total != 0)
                 ? Neumorphic(
                     child: Container(
-                      width: (size.width * (1 / (widget.map.total + 0.5))),
+                      //width: (size.width * (1 / (widget.map.total + 0.5))),
+                      width: size.width,
                       padding: EdgeInsets.symmetric(horizontal: 4.0),
                       child: TextField(
                         enabled: !widget.map.disabled,

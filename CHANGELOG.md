@@ -1,3 +1,10 @@
+## 0.9.26+4 - 2021.02.02
+* Fixed issue with signature widget parser, when color isn't lowerCase.
+
+## 0.9.26+3 - 2021.02.01
+* Replaced empty containers with sizedbox.shrink()
+* Temporary changed the Row parser into a column parser, due to a failed component load when more than 4 items share a single Row Segment.
+
 ## 0.9.26+2 - 2021.02.01
 * Handler signature parser from web or mobile.
 * Handler a more detailed file upload widget.

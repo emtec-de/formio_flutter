@@ -139,7 +139,7 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
                     : !widget.map.conditional.show
                 : true;
           return (!isVisible)
-              ? Container()
+              ? SizedBox.shrink()
               : Neumorphic(
                   padding: EdgeInsets.symmetric(horizontal: 4.0),
                   child: Flex(

@@ -84,7 +84,7 @@ class _SignatureCreatorState extends State<SignatureCreator> {
                 : true;
             if (!isVisible) widget.controller.clear();
             return (!isVisible)
-                ? Container()
+                ? SizedBox.shrink()
                 : Neumorphic(
                     padding:
                         EdgeInsets.symmetric(horizontal: 5.0, vertical: 3.0),

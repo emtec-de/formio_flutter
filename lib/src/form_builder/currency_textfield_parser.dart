@@ -109,7 +109,7 @@ class _CurrencyTextFieldCreatorState extends State<CurrencyTextFieldCreator> {
         }
         if (!isVisible) widget.controller.text = "";
         return (!isVisible)
-            ? Container()
+            ? SizedBox.shrink()
             : Neumorphic(
                 margin: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
