@@ -494,11 +494,11 @@ Future<String> convertSignatureToBase64WithEncodeText(
 Image decodeSignatureFromBase64(
     {String signature, Color color, double width, double height}) {
   var _signatureCleaner;
-  try {
+  if (signature.contains('jpeg')) {
     _signatureCleaner = signature.contains('data:image')
         ? signature.replaceRange(0, 23, "")
         : signature;
-  } catch (FormatException) {
+  } else {
     _signatureCleaner = signature.contains('data:image')
         ? signature.replaceRange(0, 22, "")
         : signature;
