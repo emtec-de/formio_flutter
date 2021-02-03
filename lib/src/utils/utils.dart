@@ -388,40 +388,50 @@ Future<Map<String, dynamic>> parseWidgets(List<Widget> widgets) async {
     switch (element.runtimeType) {
       case FileCreator:
         converted = element as FileCreator;
-        var _mapped = await parseToFileList(converted.platform, converted.data);
+        var _mapped = converted.data.isEmpty
+            ? null
+            : await parseToFileList(converted.platform, converted.data);
         map[converted.keyValue()] = _mapped;
         break;
       case TextFieldCreator:
         converted = element as TextFieldCreator;
-        map[converted.keyValue()] = converted.data;
+        map[converted.keyValue()] =
+            converted.data.isEmpty ? null : converted.data;
         break;
       case TextAreaCreator:
         converted = element as TextAreaCreator;
-        map[converted.keyValue()] = converted.data;
+        map[converted.keyValue()] =
+            converted.data.isEmpty ? null : converted.data;
         break;
       case UrlTextFieldCreator:
         converted = element as UrlTextFieldCreator;
-        map[converted.keyValue()] = converted.data;
+        map[converted.keyValue()] =
+            converted.data.isEmpty ? null : converted.data;
         break;
       case PhoneTextFieldCreator:
         converted = element as PhoneTextFieldCreator;
-        map[converted.keyValue()] = converted.data;
+        map[converted.keyValue()] =
+            converted.data.isEmpty ? null : converted.data;
         break;
       case NumberTextFieldCreator:
         converted = element as NumberTextFieldCreator;
-        map[converted.keyValue()] = converted.data;
+        map[converted.keyValue()] =
+            converted.data.isEmpty ? null : converted.data;
         break;
       case CurrencyTextFieldCreator:
         converted = element as CurrencyTextFieldCreator;
-        map[converted.keyValue()] = converted.data;
+        map[converted.keyValue()] =
+            converted.data.isEmpty ? null : converted.data;
         break;
       case EmailTextFieldCreator:
         converted = element as EmailTextFieldCreator;
-        map[converted.keyValue()] = converted.data;
+        map[converted.keyValue()] =
+            converted.data.isEmpty ? null : converted.data;
         break;
       case DateTextFieldCreator:
         converted = element as DateTextFieldCreator;
-        map[converted.keyValue()] = await converted.data;
+        map[converted.keyValue()] =
+            await converted.data.isEmpty ? null : converted.data;
         break;
       case CheckboxCreator:
         converted = element as CheckboxCreator;
@@ -429,13 +439,14 @@ Future<Map<String, dynamic>> parseWidgets(List<Widget> widgets) async {
         break;
       case TimeTextFieldCreator:
         converted = element as TimeTextFieldCreator;
-        map[converted.keyValue()] = await converted.data;
+        map[converted.keyValue()] =
+            await converted.data.isEmpty ? null : converted.data;
         break;
       case SignatureCreator:
         converted = element as SignatureCreator;
         var signature = await convertSignatureToBase64WithEncodeText(
             (element as SignatureCreator).controller);
-        map[converted.keyValue()] = signature;
+        map[converted.keyValue()] = signature.isEmpty ? null : signature;
         break;
       case SelectParserWidget:
         converted = element as SelectParserWidget;
@@ -482,9 +493,16 @@ Future<String> convertSignatureToBase64WithEncodeText(
 /// Returns an Image based on the [base64] representation.
 Image decodeSignatureFromBase64(
     {String signature, Color color, double width, double height}) {
-  var _signatureCleaner = signature.contains('data:image')
-      ? signature.replaceRange(0, 22, "")
-      : signature;
+  var _signatureCleaner;
+  try {
+    _signatureCleaner = signature.contains('data:image')
+        ? signature.replaceRange(0, 23, "")
+        : signature;
+  } catch (FormatException) {
+    _signatureCleaner = signature.contains('data:image')
+        ? signature.replaceRange(0, 22, "")
+        : signature;
+  }
   return Image.memory(
     base64Decode(_signatureCleaner),
     filterQuality: FilterQuality.high,

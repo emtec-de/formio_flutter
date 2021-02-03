@@ -49,16 +49,22 @@ class SignatureCreator extends StatefulWidget implements Manager {
 class _SignatureCreatorState extends State<SignatureCreator> {
   String characters = "";
   bool isNewSignature = true;
+  final Map<String, dynamic> _mapper = new Map();
 
   @override
   void initState() {
     super.initState();
+    _mapper[widget.map.key] = {""};
     isNewSignature = (widget.map.defaultValue != null) ? false : true;
     widget.controller = SignatureController(
       penStrokeWidth: 5,
       penColor: parseColor(widget.map.penColor),
       exportBackgroundColor: Colors.white,
     );
+    Future.delayed(Duration(milliseconds: 10), () {
+      _mapper.update(widget.map.key, (value) => '');
+      widget.widgetProvider.widgetBloc.registerMap(_mapper);
+    });
   }
 
   @override

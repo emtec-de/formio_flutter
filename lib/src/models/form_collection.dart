@@ -410,8 +410,16 @@ class Value {
   /// Returns a [Map<String, dynamic>] using the values of [DepartmentHour]
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'label': label,
-      'value': value,
+      'label': label == null
+          ? "N/A"
+          : label.isEmpty
+              ? "N/A"
+              : label,
+      'value': value == null
+          ? "N/A"
+          : value.isEmpty
+              ? "N/A"
+              : value,
     };
   }
 

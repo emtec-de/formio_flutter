@@ -43,12 +43,15 @@ class FileCreator extends StatefulWidget implements Manager {
 
   /// Current value of the [Widget]
   @override
-  get data => convertFileToBase64("${_platformFile.path}") ?? "";
+  get data => _platformFile != null
+      ? convertFileToBase64("${_platformFile.path}") ?? ""
+      : "";
 }
 
 class _FileCreatorState extends State<FileCreator> {
   List<PlatformFile> _paths;
   String _extension;
+  final Map<String, dynamic> _mapper = new Map();
 
   @override
   void dispose() {
@@ -74,9 +77,22 @@ class _FileCreatorState extends State<FileCreator> {
     if (_paths != null && _paths.isNotEmpty) {
       _paths.forEach((path) {
         widget._platformFile = path;
+        _mapper.update(widget.map.key,
+            (nVal) => convertFileToBase64("${path.path}") ?? "");
+        widget.widgetProvider.widgetBloc.registerMap(_mapper);
       });
       setState(() {});
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _mapper[widget.map.key] = {""};
+    Future.delayed(Duration(milliseconds: 10), () {
+      _mapper.update(widget.map.key, (value) => '');
+      widget.widgetProvider.widgetBloc.registerMap(_mapper);
+    });
   }
 
   @override

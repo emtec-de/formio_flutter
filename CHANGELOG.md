@@ -1,3 +1,6 @@
+## 0.9.26+5 - 2021.02.03
+* Validate file is null, validate if signature has required fields and check if format is 22 or 23 on length.
+
 ## 0.9.26+4 - 2021.02.02
 * Fixed issue with signature widget parser, when color isn't lowerCase.
 
