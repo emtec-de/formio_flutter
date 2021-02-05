@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -367,14 +368,14 @@ Future<List<Component>> parseDefaultValue(List<Component> components,
 
 /// Returns a [List<Map<String, dynamic>>] which contains the information related to the file
 Future<List<Map<String, dynamic>>> parseToFileList(
-    PlatformFile platformFile, String fileBase64) async {
+    PlatformFile platformFile, String fileBase64, String mimeType) async {
   var _fileExtension = FileModel(
       name: platformFile.name,
       originalName: platformFile.name,
       size: platformFile.size,
       storage: 'base64',
       type: platformFile.extension,
-      url: "data:image/jpeg;base64,$fileBase64");
+      url: "data:$mimeType;base64,$fileBase64");
   return [_fileExtension.toJson()];
 }
 
@@ -388,9 +389,11 @@ Future<Map<String, dynamic>> parseWidgets(List<Widget> widgets) async {
     switch (element.runtimeType) {
       case FileCreator:
         converted = element as FileCreator;
-        var _mapped = converted.data.isEmpty
+        var _data = await converted.data;
+        var _mapped = _data.isEmpty
             ? null
-            : await parseToFileList(converted.platform, converted.data);
+            : await parseToFileList(
+                converted.platform, _data, converted.mimeType);
         map[converted.keyValue()] = _mapped;
         break;
       case TextFieldCreator:
@@ -466,10 +469,25 @@ Future<Map<String, dynamic>> parseWidgets(List<Widget> widgets) async {
 }
 
 /// Returns a [String] with the [base64] representation of the related file.
-String convertFileToBase64(String filename) {
-  return (filename == null || filename.isEmpty)
-      ? ""
-      : (base64Encode(File(filename).readAsBytesSync()));
+Future<String> convertFileToBase64(String filename) async {
+  if (filename == null || filename.isEmpty) {
+    return "";
+  }
+  var _bytes = await readFileByte(filename);
+  return base64Encode(_bytes);
+}
+
+Future<Uint8List> readFileByte(String filePath) async {
+  Uri myUri = Uri.parse(filePath);
+  File audioFile = new File.fromUri(myUri);
+  Uint8List bytes;
+  await audioFile.readAsBytes().then((value) {
+    bytes = Uint8List.fromList(value);
+    print('reading of bytes is completed');
+  }).catchError((onError) {
+    return null;
+  });
+  return bytes;
 }
 
 /// Similar to [convertFileToBase64], but instead check a [Signature Widget]
@@ -511,7 +529,7 @@ Image decodeSignatureFromBase64(
     isAntiAlias: true,
     excludeFromSemantics: true,
     color: color,
-    colorBlendMode: BlendMode.modulate,
+    colorBlendMode: BlendMode.overlay,
     fit: BoxFit.fill,
   );
 }

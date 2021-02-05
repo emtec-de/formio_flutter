@@ -7,6 +7,7 @@ import 'package:formio_flutter/formio_flutter.dart';
 import 'package:formio_flutter/src/abstraction/abstraction.dart';
 import 'package:formio_flutter/src/models/models.dart';
 import 'package:formio_flutter/src/providers/providers.dart';
+import 'package:formio_flutter/src/utils/mimes/mime_extension.dart' as mime;
 
 /// Extends the abstract class [WidgetParser]
 class FileParser extends WidgetParser {
@@ -41,11 +42,17 @@ class FileCreator extends StatefulWidget implements Manager {
   /// Retrieve the file.
   get platform => _platformFile;
 
+  get mimeType => mime.contentType(_platformFile.extension);
+
   /// Current value of the [Widget]
   @override
-  get data => _platformFile != null
-      ? convertFileToBase64("${_platformFile.path}") ?? ""
-      : "";
+  get data async {
+    if (_platformFile == null) {
+      return "";
+    }
+    var _conversion = await convertFileToBase64("${_platformFile.path}");
+    return _conversion ?? "";
+  }
 }
 
 class _FileCreatorState extends State<FileCreator> {
@@ -75,10 +82,10 @@ class _FileCreatorState extends State<FileCreator> {
     }
     if (!mounted) return;
     if (_paths != null && _paths.isNotEmpty) {
-      _paths.forEach((path) {
+      await Future.forEach(_paths, (path) async {
         widget._platformFile = path;
-        _mapper.update(widget.map.key,
-            (nVal) => convertFileToBase64("${path.path}") ?? "");
+        var base64 = await convertFileToBase64("${path.path}");
+        _mapper.update(widget.map.key, (nVal) => base64 ?? "");
         widget.widgetProvider.widgetBloc.registerMap(_mapper);
       });
       setState(() {});

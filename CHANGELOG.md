@@ -1,3 +1,6 @@
+## 0.9.26+6 - 2021.02.05
+* Added handler for mimetype related with any file upload.
+
 ## 0.9.26+51 - 2021.02.03
 * Validate file is null, validate if signature has required fields and check if format is 22 or 23 on length.
 
