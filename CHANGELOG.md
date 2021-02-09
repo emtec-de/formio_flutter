@@ -1,4 +1,7 @@
-## 0.9.26+6 - 2021.02.05
+## 0.9.40 - 2021.02.09
+* Fixed issue related with multi rows components shrinking.
+
+## 0.9.27 - 2021.02.05
 * Added handler for mimetype related with any file upload.
 
 ## 0.9.26+51 - 2021.02.03

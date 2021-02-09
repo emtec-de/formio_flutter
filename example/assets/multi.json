@@ -2355,19 +2355,20 @@
             ]
         },
         {
-            "title": "Signature&Files",
-            "label": "Page 4",
+            "title": "Signature&Upload",
+            "label": "Signature&Upload",
             "type": "panel",
-            "key": "page4",
+            "key": "Signature",
             "components": [
                 {
                     "label": "Signature",
-                    "penColor": "Red",
                     "hideLabel": true,
                     "tableView": false,
                     "modalEdit": true,
-                    "protected": true,
-                    "key": "Signature",
+                    "validate": {
+                        "required": true
+                    },
+                    "key": "signature",
                     "type": "signature",
                     "input": true
                 },
@@ -2375,6 +2376,7 @@
                     "label": "Upload",
                     "hideLabel": true,
                     "tableView": false,
+                    "modalEdit": true,
                     "storage": "base64",
                     "uploadOnly": true,
                     "webcam": false,
@@ -2384,9 +2386,9 @@
                             "value": ""
                         }
                     ],
-                    "fileMaxSize": "500MB",
-                    "multiple": true,
-                    "protected": true,
+                    "validate": {
+                        "required": true
+                    },
                     "key": "file",
                     "type": "file",
                     "input": true
@@ -2394,6 +2396,7 @@
             ],
             "input": false,
             "tableView": false,
+            "hideLabel": true,
             "breadcrumbClickable": true,
             "buttonSettings": {
                 "previous": true,

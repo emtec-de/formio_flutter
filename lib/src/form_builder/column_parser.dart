@@ -5,6 +5,7 @@ import 'package:formio_flutter/formio_flutter.dart';
 import 'package:formio_flutter/src/abstraction/abstraction.dart';
 import 'package:formio_flutter/src/models/models.dart';
 import 'package:formio_flutter/src/providers/providers.dart';
+import 'package:assorted_layout_widgets/assorted_layout_widgets.dart';
 
 /// Extends the abstract class [WidgetParser]
 class ColumnParser extends WidgetParser {
@@ -74,11 +75,9 @@ class _ColumnParserWidgetState extends State<ColumnParserWidget> {
                         switch (snapshot.connectionState) {
                           case ConnectionState.done:
                             return (snapshot.hasData)
-                                ? Flex(
-                                    mainAxisSize: MainAxisSize.min,
-                                    direction: Axis.vertical,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                ? WrapSuper(
+                                    wrapType: WrapType.balanced,
+                                    alignment: WrapSuperAlignment.center,
                                     children: snapshot.data,
                                   )
                                 : Center(
@@ -116,14 +115,11 @@ class _ColumnParserWidgetState extends State<ColumnParserWidget> {
           (key, ss) {
             ss.total = widget.map.columns.length;
             widget.widgets.add(
-              Flexible(
-                fit: FlexFit.loose,
-                child: WidgetParserBuilder.build(
-                  ss,
-                  context,
-                  widget.listener,
-                  widget.widgetProvider,
-                ),
+              WidgetParserBuilder.build(
+                ss,
+                context,
+                widget.listener,
+                widget.widgetProvider,
               ),
             );
           },

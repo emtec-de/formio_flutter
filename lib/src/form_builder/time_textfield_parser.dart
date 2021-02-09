@@ -97,8 +97,7 @@ class _TimeTextFieldCreatorState extends State<TimeTextFieldCreator> {
                       NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
                 ),
                 child: Container(
-                  //width: (size.width * (1 / (widget.map.total + 0.5))),
-                  width: size.width,
+                  width: (size.width * 0.5),
                   padding: EdgeInsets.symmetric(horizontal: 10.0),
                   child: TextField(
                     enabled: !widget.map.disabled,

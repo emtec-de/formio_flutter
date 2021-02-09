@@ -110,8 +110,8 @@ class _TextAreaCreatorState extends State<TextAreaCreator> {
             ? SizedBox.shrink()
             : Neumorphic(
                 child: Container(
-                  //width: (size.width * (1 / (widget.map.total))),
-                  width: size.width,
+                  //width: (size.width * (1 / (widget.map.total + 0.5))),
+                  width: (size.width * 0.5),
                   height: 200,
                   padding: EdgeInsets.symmetric(horizontal: 10.0),
                   child: TextField(
