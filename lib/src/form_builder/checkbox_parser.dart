@@ -83,30 +83,43 @@ class _CheckboxCreatorState extends State<CheckboxCreator> {
                   : true;
               return (!isVisible)
                   ? SizedBox.shrink()
-                  : Row(
-                      children: [
-                        NeumorphicText(
-                          (widget.map.label != null) ? widget.map.label : "",
-                          textStyle: NeumorphicTextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.w500,
+                  : Container(
+                      margin: widget.map.marginData != null
+                          ? EdgeInsets.only(
+                              top: widget.map.marginData.top,
+                              left: widget.map.marginData.left,
+                              right: widget.map.marginData.right,
+                              bottom: widget.map.marginData.bottom,
+                            )
+                          : EdgeInsets.all(0.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              (widget.map.label != null)
+                                  ? widget.map.label
+                                  : "",
+                              style: TextStyle(
+                                fontSize: 17.0,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
-                          style: NeumorphicStyle(
-                              depth: 13.0,
-                              intensity: 0.90,
-                              color: Colors.black),
-                        ),
-                        SizedBox(width: 7.0),
-                        NeumorphicCheckbox(
-                          value: widget.isSelected,
-                          onChanged: (value) {
-                            setState(() => widget.isSelected = value);
-                            _mapper.update(widget.map.key, (t) => value);
-                            widget.widgetProvider.widgetBloc
-                                .registerMap(_mapper);
-                          },
-                        ),
-                      ],
+                          SizedBox(width: 7.0),
+                          Checkbox(
+                            value: widget.isSelected,
+                            onChanged: (value) {
+                              setState(() => widget.isSelected = value);
+                              _mapper.update(widget.map.key, (t) => value);
+                              widget.widgetProvider.widgetBloc
+                                  .registerMap(_mapper);
+                            },
+                          ),
+                        ],
+                      ),
                     );
             },
           )

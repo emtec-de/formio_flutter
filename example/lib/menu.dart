@@ -7,6 +7,20 @@ class MenuPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('FormIO.Flutter'),
         centerTitle: true,
+        actions: [
+          InkWell(
+            onTap: () => Navigator.pushNamed(
+              context,
+              'custom_form',
+            ),
+            child: Container(
+              width: 50,
+              height: 30,
+              color: Colors.black38,
+              child: Icon(Icons.edit),
+            ),
+          ),
+        ],
       ),
       body: ListView(
         physics: BouncingScrollPhysics(),

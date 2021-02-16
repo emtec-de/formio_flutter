@@ -9,6 +9,18 @@ import 'package:formio_flutter/src/providers/providers.dart';
 /// Extends the abstract class [WidgetParser]
 class ButtonParser extends WidgetParser {
   /// Returns a [Widget] of type [Button]
+
+  Color parseRgb(String input) {
+    var startIndex = input.indexOf("(") + 1;
+    var endIndex = input.indexOf(")");
+    var values = input
+        .substring(startIndex, endIndex)
+        .split(",")
+        .map((v) => int.parse(v));
+    return Color.fromARGB(
+        255, values.elementAt(0), values.elementAt(1), values.elementAt(2));
+  }
+
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener,
       WidgetProvider widgetProvider) {
@@ -31,49 +43,104 @@ class ButtonParser extends WidgetParser {
               return (!isVisible)
                   ? SizedBox.shrink()
                   : Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
-                      child: NeumorphicButton(
-                        style: NeumorphicStyle(
-                          color: parseHexColor(map.theme ?? "primary"),
-                          shadowLightColor:
-                              parseHexColor(map.theme ?? "primary"),
+                      padding: map.marginData != null
+                          ? EdgeInsets.only(
+                              top: map.marginData.top,
+                              left: map.marginData.left,
+                              right: map.marginData.right,
+                              bottom: map.marginData.bottom,
+                            )
+                          : EdgeInsets.zero,
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: map.borderData != null &&
+                                      map.borderData.borderRadius != null
+                                  ? BorderRadius.circular(
+                                      map.borderData.borderRadius,
+                                    )
+                                  : BorderRadius.zero,
+                            ),
+                          ),
+                          backgroundColor: MaterialStateProperty.all(
+                            parseHexColor(map.theme ?? "primary"),
+                          ),
                         ),
-                        child: (map.leftIcon != null || map.rightIcon != null)
-                            ? SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.5,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    LeftIconWidgetParser().parse(
-                                        map, context, listener, widgetProvider),
-                                    Text(
-                                      map.label,
-                                      softWrap: true,
-                                      style: TextStyle(
-                                        fontSize: 20.0,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    RightIconWidgetParser().parse(
-                                        map, context, listener, widgetProvider),
-                                  ],
-                                ),
-                              )
-                            : Text(
+                        child: Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              map.leftIcon != null
+                                  ? LeftIconWidgetParser()
+                                      .parse(map, context, null, null)
+                                  : SizedBox.shrink(),
+                              Text(
                                 map.label,
                                 softWrap: true,
                                 style: TextStyle(
-                                  fontSize: 20.0,
-                                  color: Colors.white,
+                                  fontSize: map.textStyleData.fontSize,
+                                  color: map.textStyleData.color != null
+                                      ? parseRgb(map.textStyleData.color)
+                                      : Colors.white,
                                 ),
                               ),
+                              map.rightIcon != null
+                                  ? RightIconWidgetParser()
+                                      .parse(map, context, null, null)
+                                  : SizedBox.shrink(),
+                            ],
+                          ),
+                        ),
                         onPressed: (map.disabled)
                             ? null
                             : () => listener.onClicked(clickEvent),
                       ),
                     );
+              // Padding(
+              //     padding:
+              //         EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
+              //     child: NeumorphicButton(
+              //       style: NeumorphicStyle(
+              //         color: parseHexColor(map.theme ?? "primary"),
+              //         shadowLightColor:
+              //             parseHexColor(map.theme ?? "primary"),
+              //       ),
+              //       child: (map.leftIcon != null || map.rightIcon != null)
+              //           ? SizedBox(
+              //               width: MediaQuery.of(context).size.width * 0.5,
+              //               child: Row(
+              //                 mainAxisAlignment:
+              //                     MainAxisAlignment.spaceBetween,
+              //                 children: [
+              //                   LeftIconWidgetParser().parse(
+              //                       map, context, listener, widgetProvider),
+              //                   Text(
+              //                     map.label,
+              //                     softWrap: true,
+              //                     style: TextStyle(
+              //                       fontSize: 20.0,
+              //                       color: Colors.white,
+              //                     ),
+              //                   ),
+              //                   RightIconWidgetParser().parse(
+              //                       map, context, listener, widgetProvider),
+              //                 ],
+              //               ),
+              //             )
+              //           : Text(
+              //               map.label,
+              //               softWrap: true,
+              //               style: TextStyle(
+              //                 fontSize: 20.0,
+              //                 color: Colors.white,
+              //               ),
+              //             ),
+              //       onPressed: (map.disabled)
+              //           ? null
+              //           : () => listener.onClicked(clickEvent),
+              //     ),
+              //   );
             },
           );
     return button;

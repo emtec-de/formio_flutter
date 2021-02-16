@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:formio_flutter/src/widgets/custom_drop_down.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:formio_flutter/formio_flutter.dart';
@@ -120,6 +121,17 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
     return items;
   }
 
+  Color parseRgb(String input) {
+    var startIndex = input.indexOf("(") + 1;
+    var endIndex = input.indexOf(")");
+    var values = input
+        .substring(startIndex, endIndex)
+        .split(",")
+        .map((v) => int.parse(v));
+    return Color.fromARGB(
+        255, values.elementAt(0), values.elementAt(1), values.elementAt(2));
+  }
+
   @override
   Widget build(BuildContext context) {
     if (widget.map.data.url.isNotEmpty) _futureValues ??= _makeRequest();
@@ -140,21 +152,40 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
                 : true;
           return (!isVisible)
               ? SizedBox.shrink()
-              : Neumorphic(
-                  padding: EdgeInsets.symmetric(horizontal: 4.0),
+              : Container(
+                  margin: widget.map.marginData != null
+                      ? EdgeInsets.only(
+                          top: widget.map.marginData.top != null
+                              ? widget.map.marginData.top
+                              : 0.0,
+                          left: widget.map.marginData.left != null
+                              ? widget.map.marginData.left
+                              : 0.0,
+                          right: widget.map.marginData.right != null
+                              ? widget.map.marginData.right
+                              : 0.0,
+                          bottom: widget.map.marginData.bottom != null
+                              ? widget.map.marginData.bottom
+                              : 0.0,
+                        )
+                      : EdgeInsets.all(0.0),
                   child: Flex(
                     direction: Axis.vertical,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      NeumorphicText(
+                      Text(
                         (widget.map.label == null || widget.map.label.isEmpty)
                             ? ""
                             : widget.map.label,
-                        textStyle: NeumorphicTextStyle(
-                            fontSize: 17.0, fontWeight: FontWeight.w500),
-                        style: NeumorphicStyle(
-                            depth: 13.0, intensity: 0.90, color: Colors.black),
+                        style: TextStyle(
+                          fontSize: widget.map.textStyleData != null &&
+                                  widget.map.textStyleData.fontSize != null
+                              ? widget.map.textStyleData.fontSize
+                              : 17.0,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
+                      SizedBox(height: 6),
                       (widget.map.data.url.isNotEmpty)
                           ? FutureBuilder(
                               future: _futureValues,
@@ -162,20 +193,8 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
                                   AsyncSnapshot<List<Value>> snapshot) {
                                 switch (snapshot.connectionState) {
                                   case ConnectionState.done:
-                                    return DropdownButton<Value>(
-                                      hint: NeumorphicText(
-                                        widget.map.label,
-                                        style: NeumorphicStyle(
-                                            depth: 13.0,
-                                            intensity: 0.90,
-                                            color: Colors.black),
-                                      ),
-                                      isExpanded: true,
-                                      style: TextStyle(
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.black,
-                                      ),
+                                    return CustomDropDown(
+                                      hint: widget.map.hint,
                                       value: widget.selected,
                                       items: _values,
                                       onChanged: !widget.map.disabled
@@ -188,7 +207,79 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
                                                   widget.selected = value);
                                             }
                                           : null,
+                                      leftIcon: widget.map.leftIcon != null
+                                          ? LeftIconWidgetParser().parse(
+                                              widget.map,
+                                              context,
+                                              null,
+                                              null,
+                                            )
+                                          : null,
+                                      borderColor: widget.map.borderData !=
+                                                  null &&
+                                              widget.map.borderData
+                                                      .borderColor !=
+                                                  null
+                                          ? parseRgb(
+                                              widget.map.borderData.borderColor,
+                                            )
+                                          : Colors.black38,
+                                      borderRadius: widget.map.borderData !=
+                                                  null &&
+                                              widget.map.borderData
+                                                      .borderRadius !=
+                                                  null
+                                          ? widget.map.borderData.borderRadius
+                                          : 0.0,
+                                      borderWidth: widget.map.borderData !=
+                                                  null &&
+                                              widget.map.borderData
+                                                      .borderWidth !=
+                                                  null
+                                          ? widget.map.borderData.borderWidth
+                                          : 0.0,
+                                      textSize: widget.map.textStyleData !=
+                                                  null &&
+                                              widget.map.textStyleData
+                                                      .fontSize !=
+                                                  null
+                                          ? widget.map.textStyleData.fontSize
+                                          : 15.0,
+                                      textColor: widget.map.textStyleData !=
+                                                  null &&
+                                              widget.map.textStyleData.color !=
+                                                  null
+                                          ? parseRgb(
+                                              widget.map.textStyleData.color,
+                                            )
+                                          : Colors.black,
                                     );
+                                    // return DropdownButton<Value>(
+                                    //   hint: Text(
+                                    //     widget.map.label,
+                                    //     style: TextStyle(
+                                    //       color: Colors.black,
+                                    //     ),
+                                    //   ),
+                                    //   isExpanded: true,
+                                    //   style: TextStyle(
+                                    //     fontSize: 14.0,
+                                    //     fontWeight: FontWeight.w400,
+                                    //     color: Colors.black,
+                                    //   ),
+                                    //   value: widget.selected,
+                                    //   items: _values,
+                                    //   onChanged: !widget.map.disabled
+                                    //       ? (value) {
+                                    //           _mapper.update(widget.map.key,
+                                    //               (nVal) => value.value);
+                                    //           widget.widgetProvider.widgetBloc
+                                    //               .registerMap(_mapper);
+                                    //           setState(() =>
+                                    //               widget.selected = value);
+                                    //         }
+                                    //       : null,
+                                    // );
                                     break;
                                   default:
                                     return CircularProgressIndicator();
@@ -198,20 +289,8 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
                             )
                           : (widget.map.data.values.isNotEmpty &&
                                   widget.map.data.values.first.value != null)
-                              ? DropdownButton<Value>(
-                                  hint: NeumorphicText(
-                                    widget.map.label,
-                                    style: NeumorphicStyle(
-                                        depth: 13.0,
-                                        intensity: 0.90,
-                                        color: Colors.black),
-                                  ),
-                                  isExpanded: true,
-                                  style: TextStyle(
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black,
-                                  ),
+                              ? CustomDropDown(
+                                  hint: widget.map.hint,
                                   value: widget.selected,
                                   items: _values,
                                   onChanged: !widget.map.disabled
@@ -224,21 +303,69 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
                                               () => widget.selected = value);
                                         }
                                       : null,
+                                  leftIcon: widget.map.leftIcon != null
+                                      ? LeftIconWidgetParser().parse(
+                                          widget.map,
+                                          context,
+                                          null,
+                                          null,
+                                        )
+                                      : null,
+                                  borderColor: widget.map.borderData != null &&
+                                          widget.map.borderData.borderColor !=
+                                              null
+                                      ? parseRgb(
+                                          widget.map.borderData.borderColor,
+                                        )
+                                      : Colors.black38,
+                                  borderRadius: widget.map.borderData != null &&
+                                          widget.map.borderData.borderRadius !=
+                                              null
+                                      ? widget.map.borderData.borderRadius
+                                      : 0.0,
+                                  borderWidth: widget.map.borderData != null &&
+                                          widget.map.borderData.borderWidth !=
+                                              null
+                                      ? widget.map.borderData.borderWidth
+                                      : 0.0,
+                                  textSize: widget.map.textStyleData != null &&
+                                          widget.map.textStyleData.fontSize !=
+                                              null
+                                      ? widget.map.textStyleData.fontSize
+                                      : 15.0,
+                                  textColor: widget.map.textStyleData != null &&
+                                          widget.map.textStyleData.color != null
+                                      ? parseRgb(widget.map.textStyleData.color)
+                                      : Colors.black,
                                 )
-                              : DropdownButton<Value>(
-                                  hint: NeumorphicText(
-                                    widget.map.label,
-                                    style: NeumorphicStyle(
-                                        depth: 13.0,
-                                        intensity: 0.90,
-                                        color: Colors.black),
-                                  ),
-                                  isExpanded: true,
-                                  style: TextStyle(
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black,
-                                  ),
+                              // DropdownButton<Value>(
+                              //     hint: Text(
+                              //       widget.map.label,
+                              //       style: TextStyle(
+                              //         color: Colors.black,
+                              //       ),
+                              //     ),
+                              //     isExpanded: true,
+                              //     style: TextStyle(
+                              //       fontSize: 14.0,
+                              //       fontWeight: FontWeight.w400,
+                              //       color: Colors.black,
+                              //     ),
+                              //     value: widget.selected,
+                              //     items: _values,
+                              //     onChanged: !widget.map.disabled
+                              //         ? (value) {
+                              //             _mapper.update(widget.map.key,
+                              //                 (nVal) => value.value);
+                              //             widget.widgetProvider.widgetBloc
+                              //                 .registerMap(_mapper);
+                              //             setState(
+                              //                 () => widget.selected = value);
+                              //           }
+                              //         : null,
+                              //   )
+                              : CustomDropDown(
+                                  hint: widget.map.hint,
                                   value: widget.selected,
                                   items: _values,
                                   onChanged: !widget.map.disabled
@@ -251,7 +378,67 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
                                               () => widget.selected = value);
                                         }
                                       : null,
+                                  leftIcon: widget.map.leftIcon != null
+                                      ? LeftIconWidgetParser().parse(
+                                          widget.map,
+                                          context,
+                                          null,
+                                          null,
+                                        )
+                                      : null,
+                                  borderColor: widget.map.borderData != null &&
+                                          widget.map.borderData.borderColor !=
+                                              null
+                                      ? parseRgb(
+                                          widget.map.borderData.borderColor,
+                                        )
+                                      : Colors.black38,
+                                  borderRadius: widget.map.borderData != null &&
+                                          widget.map.borderData.borderRadius !=
+                                              null
+                                      ? widget.map.borderData.borderRadius
+                                      : 0.0,
+                                  borderWidth: widget.map.borderData != null &&
+                                          widget.map.borderData.borderWidth !=
+                                              null
+                                      ? widget.map.borderData.borderWidth
+                                      : 0.0,
+                                  textSize: widget.map.textStyleData != null &&
+                                          widget.map.textStyleData.fontSize !=
+                                              null
+                                      ? widget.map.textStyleData.fontSize
+                                      : 15.0,
+                                  textColor: widget.map.textStyleData != null &&
+                                          widget.map.textStyleData.color != null
+                                      ? parseRgb(widget.map.textStyleData.color)
+                                      : Colors.black,
                                 ),
+                      // DropdownButton<Value>(
+                      //     hint: Text(
+                      //       widget.map.label,
+                      //       style: TextStyle(
+                      //         color: Colors.black,
+                      //       ),
+                      //     ),
+                      //     isExpanded: true,
+                      //     style: TextStyle(
+                      //       fontSize: 14.0,
+                      //       fontWeight: FontWeight.w400,
+                      //       color: Colors.black,
+                      //     ),
+                      //     value: widget.selected,
+                      //     items: _values,
+                      //     onChanged: !widget.map.disabled
+                      //         ? (value) {
+                      //             _mapper.update(widget.map.key,
+                      //                 (nVal) => value.value);
+                      //             widget.widgetProvider.widgetBloc
+                      //                 .registerMap(_mapper);
+                      //             setState(
+                      //                 () => widget.selected = value);
+                      //           }
+                      //         : null,
+                      //   ),
                     ],
                   ),
                 );

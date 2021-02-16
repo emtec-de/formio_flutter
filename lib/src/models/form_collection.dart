@@ -83,6 +83,12 @@ class Component {
     this.tooltip,
     this.component,
     this.tags,
+    this.hint,
+    this.borderData,
+    this.textStyleData,
+    this.marginData,
+    this.leftIconColor,
+    this.rightIconColor,
   });
 
   /// label.
@@ -208,6 +214,26 @@ class Component {
   /// set a [List<String>]
   List<String> tags;
 
+  // Newly added fields
+
+  /// hint
+  String hint;
+
+  /// set [Border] info
+  BorderData borderData;
+
+  /// set [TextStyleData] info
+  TextStyleData textStyleData;
+
+  /// set [MarginData] margin to a widget
+  MarginData marginData;
+
+  /// set [String] color value to left icon
+  String leftIconColor;
+
+  /// set [String] color value to right icon
+  String rightIconColor;
+
   /// Returns a [Component] from a [String] that possees a json.
   factory Component.fromJson(Map<String, dynamic> json) => Component(
         component:
@@ -274,6 +300,22 @@ class Component {
         tags: json["tags"] == null || !json.containsKey('tags')
             ? null
             : List<String>.from(json["tags"].map((x) => x)),
+        hint: json["hint"] == null ? json["label"] : json["hint"],
+        borderData: json["borderData"] == null
+            ? null
+            : BorderData.fromJson(json["borderData"]),
+        textStyleData: json["textStyleData"] == null
+            ? null
+            : TextStyleData.fromJson(json["textStyleData"]),
+        marginData: json["marginData"] == null
+            ? null
+            : MarginData.fromJson(json["marginData"]),
+        leftIconColor: json["leftIconColor"] != null
+            ? "rgb(255,255,255)"
+            : json["leftIconColor"],
+        rightIconColor: json["rightIconColor"] != null
+            ? "rgb(255,255,255)"
+            : json["rightIconColor"],
       );
 
   /// Returns a [Map<String, dynamic>] representation of the [Component] class.
@@ -295,7 +337,7 @@ class Component {
         "penColor": (penColor == null) ? "black" : penColor,
         "footer": (footer == null) ? null : footer,
         "backgroundColor":
-            (backgroundColor == null) ? "rgb(255, 255, 255)" : backgroundColor,
+            (backgroundColor == null) ? "rgb(0, 0, 0)" : backgroundColor,
         "showWordCount": (showWordCount == null) ? false : showWordCount,
         "labelPosition": (labelPosition == null) ? null : labelPosition,
         "data": data == null ? null : data.toJson(),
@@ -325,6 +367,12 @@ class Component {
         "description": description == null ? null : description,
         "tooltip": tooltip == null ? null : tooltip,
         "tags": tags == null ? null : List<dynamic>.from(tags.map((x) => x)),
+        "hint": hint == null ? label : hint,
+        "borderData": borderData == null ? null : borderData.toJson(),
+        "textStyleData": textStyleData == null ? null : textStyleData.toJson(),
+        "marginData": marginData == null ? null : marginData.toJson(),
+        "leftIconColor": leftIconColor == null ? null : leftIconColor,
+        "rightIconColor": rightIconColor == null ? null : rightIconColor,
       };
 }
 
@@ -427,5 +475,114 @@ class Value {
   Map<String, dynamic> toJson() => {
         "label": label,
         "value": value,
+      };
+}
+
+/// [BorderData] data class contains the info about the border of textfield
+class BorderData {
+  BorderData({
+    this.borderColor,
+    this.borderWidth,
+    this.borderRadius,
+    this.lableInBorder,
+  });
+
+  /// set [String] color of border in rgb
+  final String borderColor;
+
+  /// set [double] width of border
+  final double borderWidth;
+
+  /// set [double] radius of border
+  final double borderRadius;
+
+  /// set [bool] whtether to show the lable in border
+  final bool lableInBorder;
+
+  /// Returns a [BorderData] from a [String] that possees a json.
+  factory BorderData.fromJson(Map<String, dynamic> json) => BorderData(
+        borderColor: json["borderColor"] == null ? null : json["borderColor"],
+        borderWidth: json["borderWidth"] == null ? 0 : json["borderWidth"],
+        borderRadius: json["borderRadius"] == null ? 0 : json["borderRadius"],
+        lableInBorder:
+            json["lableInBorder"] == null ? true : json["lableInBorder"],
+      );
+
+  /// Returns a [Map<String, dynamic>] representation of the [BorderData] class.
+  Map<String, dynamic> toJson() => {
+        "borderColor": borderColor,
+        "borderWidth": borderWidth,
+        "borderRadius": borderRadius,
+        "lableInBorder": lableInBorder,
+      };
+}
+
+/// [TextStyleData] data class contains the info about the text in textfield
+class TextStyleData {
+  TextStyleData({
+    this.fontSize,
+    this.color,
+    this.fontWeight,
+  });
+
+  /// set [doyble] color of border in rgb
+  final double fontSize;
+
+  /// set [String] width of border
+  final String color;
+
+  /// set [int] radius of border
+  final int fontWeight;
+
+  /// Returns a [TextStyleData] from a [String] that possees a json.
+  factory TextStyleData.fromJson(Map<String, dynamic> json) => TextStyleData(
+        fontSize: json["fontSize"] == null ? 15.0 : json["fontSize"],
+        color: json["color"] == null ? 0 : json["color"],
+        fontWeight: json["fontWeight"] == null ? 0 : json["fontWeight"],
+      );
+
+  /// Returns a [Map<String, dynamic>] representation of the [TextStyleData] class.
+  Map<String, dynamic> toJson() => {
+        "fontSize": fontSize,
+        "color": color,
+        "fontWeight": fontWeight,
+      };
+}
+
+/// [MarginData] data class contains the info about the margin of a widget
+class MarginData {
+  MarginData({
+    this.top,
+    this.left,
+    this.right,
+    this.bottom,
+  });
+
+  /// set [double] top margin
+  final double top;
+
+  /// set [double] left margin
+  final double left;
+
+  /// set [double] right margin
+  final double right;
+
+  /// set [double] bottom margin
+  final double bottom;
+
+  /// Returns a [MarginData] from a [String] that possees a json.
+  factory MarginData.fromJson(Map<String, dynamic> json) => MarginData(
+        top: json["top"] == null ? 0 : json["top"],
+        left: json["left"] == null ? 0 : json["left"],
+        right: json["right"] == null ? 0 : json["right"],
+        bottom: json["bottom"] == null ? 0 : json["bottom"],
+      );
+
+  /// Returns a [Map<String, dynamic>] representation of the [MarginData] class.
+  Map<String, dynamic> toJson() => {
+        "top": top,
+        "left": left,
+        "right": right,
+        "bottom": bottom,
       };
 }

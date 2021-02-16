@@ -79,6 +79,17 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
     super.dispose();
   }
 
+  Color parseRgb(String input) {
+    var startIndex = input.indexOf("(") + 1;
+    var endIndex = input.indexOf(")");
+    var values = input
+        .substring(startIndex, endIndex)
+        .split(",")
+        .map((v) => int.parse(v));
+    return Color.fromARGB(
+        255, values.elementAt(0), values.elementAt(1), values.elementAt(2));
+  }
+
   @override
   Widget build(BuildContext context) {
     bool isVisible = true;
@@ -118,114 +129,316 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
         return (!isVisible)
             ? SizedBox.shrink()
             : (widget.map.total != 0)
-                ? Neumorphic(
-                    child: Container(
-                      //width: (size.width * (1 / (widget.map.total + 0.5))),
-                      width: (size.width * 0.5),
-                      padding: EdgeInsets.symmetric(horizontal: 4.0),
-                      child: TextField(
-                        enabled: !widget.map.disabled,
-                        obscureText: widget.map.mask,
-                        keyboardType: parsetInputType(widget.map.type),
-                        style: TextStyle(
-                          fontSize: 17.0,
-                          color: Colors.black,
-                        ),
-                        controller: widget.controller,
-                        onChanged: (value) {
-                          value = (value != "")
-                              ? double.parse(parseCalculate(value))
-                                  .toStringAsFixed(widget.map.decimalLimit)
-                              : value;
-                          _mapper.update(widget.map.key, (nVal) => value);
-                          widget.widgetProvider.widgetBloc.registerMap(_mapper);
-                          setState(() => characters = value);
-                        },
-                        decoration: InputDecoration(
-                          counter: (widget.map.showWordCount != null &&
-                                  widget.map.showWordCount)
-                              ? (characters != "")
-                                  ? Text(
-                                      '${characters.replaceAll(' ', '').length} numbers')
-                                  : Container()
-                              : null,
-                          prefixText: (widget.map.prefix != null)
-                              ? widget.map.prefix
-                              : "",
-                          prefixStyle: TextStyle(
-                            background: Paint()..color = Colors.teal[200],
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 20.0,
+                ? Container(
+                    //width: (size.width * (1 / (widget.map.total + 0.5))),
+                    width: (size.width * 0.5),
+                    margin: widget.map.marginData != null
+                        ? EdgeInsets.only(
+                            top: widget.map.marginData.top != null
+                                ? widget.map.marginData.top
+                                : 0.0,
+                            left: widget.map.marginData.left != null
+                                ? widget.map.marginData.left
+                                : 0.0,
+                            right: widget.map.marginData.right != null
+                                ? widget.map.marginData.right
+                                : 0.0,
+                            bottom: widget.map.marginData.bottom != null
+                                ? widget.map.marginData.bottom
+                                : 0.0,
+                          )
+                        : EdgeInsets.all(0.0),
+                    child: Flex(
+                      direction: Axis.vertical,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        widget.map.borderData != null &&
+                                widget.map.borderData.lableInBorder != null &&
+                                !(widget.map.borderData.lableInBorder)
+                            ? Text(
+                                (widget.map.label == null ||
+                                        widget.map.label.isEmpty)
+                                    ? ""
+                                    : widget.map.label,
+                                style: TextStyle(
+                                  fontSize: widget.map.textStyleData != null &&
+                                          widget.map.textStyleData.fontSize !=
+                                              null
+                                      ? widget.map.textStyleData.fontSize
+                                      : 17.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              )
+                            : SizedBox.shrink(),
+                        widget.map.borderData != null &&
+                                widget.map.borderData.lableInBorder != null &&
+                                !(widget.map.borderData.lableInBorder)
+                            ? SizedBox(height: 6)
+                            : SizedBox.shrink(),
+                        TextField(
+                          enabled: !widget.map.disabled,
+                          obscureText: widget.map.mask,
+                          keyboardType: parsetInputType(widget.map.type),
+                          style: widget.map.textStyleData == null
+                              ? TextStyle(
+                                  fontSize: 15.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w400,
+                                )
+                              : TextStyle(
+                                  fontSize:
+                                      widget.map.textStyleData.fontSize == null
+                                          ? 15.0
+                                          : widget.map.textStyleData.fontSize,
+                                  color: widget.map.textStyleData.color == null
+                                      ? Colors.black
+                                      : parseRgb(
+                                          widget.map.textStyleData.color),
+                                  fontWeight:
+                                      widget.map.textStyleData.fontWeight ==
+                                              null
+                                          ? FontWeight.w400
+                                          : FontWeight.w400,
+                                  // : parseFontWeight(
+                                  // widget.map.textStyleData.fontWeight,
+                                  // ),
+                                ),
+                          controller: widget.controller,
+                          onChanged: (value) {
+                            value = (value != "")
+                                ? double.parse(parseCalculate(value))
+                                    .toStringAsFixed(widget.map.decimalLimit)
+                                : value;
+                            _mapper.update(widget.map.key, (nVal) => value);
+                            widget.widgetProvider.widgetBloc
+                                .registerMap(_mapper);
+                            setState(() => characters = value);
+                          },
+                          decoration: InputDecoration(
+                            border: widget.map.borderData != null
+                                ? OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      widget.map.borderData.borderRadius,
+                                    ),
+                                    borderSide: BorderSide(
+                                      color: parseRgb(
+                                        widget.map.borderData.borderColor,
+                                      ),
+                                      width: widget.map.borderData.borderWidth,
+                                    ),
+                                  )
+                                : InputBorder.none,
+                            counter: (widget.map.showWordCount != null &&
+                                    widget.map.showWordCount)
+                                ? (characters != "")
+                                    ? Text(
+                                        '${characters.replaceAll(' ', '').length} numbers')
+                                    : Container()
+                                : null,
+                            prefixIcon: widget.map.leftIcon != null
+                                ? LeftIconWidgetParser(
+                                    color: widget.map.leftIconColor != null
+                                        ? parseRgb(widget.map.leftIconColor)
+                                        : Colors.black,
+                                  ).parse(
+                                    widget.map,
+                                    context,
+                                    null,
+                                    null,
+                                  )
+                                : Container(),
+                            // suffixIcon: widget.map.rightIcon != null
+                            //     ? RightIconWidgetParser(
+                            //         color: widget.map.rightIconColor != null
+                            //             ? parseRgb(widget.map.rightIconColor)
+                            //             : Colors.black,
+                            //       ).parse(
+                            //         widget.map,
+                            //         context,
+                            //         null,
+                            //         null,
+                            //       )
+                            //     : Container(),
+                            // prefixText: (widget.map.prefix != null)
+                            //     ? widget.map.prefix
+                            //     : "",
+                            // prefixStyle: TextStyle(
+                            //   background: Paint()..color = Colors.teal[200],
+                            //   color: Colors.black,
+                            //   fontWeight: FontWeight.w600,
+                            //   fontSize: 20.0,
+                            // ),
+                            labelText: (widget.map.label != null)
+                                ? widget.map.label
+                                : "",
+                            hintText:
+                                widget.map.hint != null ? widget.map.hint : "",
+                            // suffixText: (widget.map.suffix != null)
+                            //     ? widget.map.suffix
+                            //     : "",
+                            // suffixStyle: TextStyle(
+                            //   background: Paint()..color = Colors.teal[200],
+                            //   color: Colors.black,
+                            //   fontWeight: FontWeight.w600,
+                            //   fontSize: 20.0,
+                            // ),
                           ),
-                          labelText: (widget.map.label != null)
-                              ? widget.map.label
-                              : "",
-                          hintText: widget.map.label,
-                          suffixText: (widget.map.suffix != null)
-                              ? widget.map.suffix
-                              : "",
-                          suffixStyle: TextStyle(
-                            background: Paint()..color = Colors.teal[200],
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 20.0,
-                          ),
                         ),
-                      ),
+                      ],
                     ),
                   )
-                : Neumorphic(
-                    padding: EdgeInsets.symmetric(horizontal: 5.0),
-                    child: Container(
-                      child: TextField(
-                        enabled: !widget.map.disabled,
-                        obscureText: widget.map.mask,
-                        keyboardType: parsetInputType(widget.map.type),
-                        style: TextStyle(
-                          fontSize: 17.0,
-                          color: Colors.black,
-                        ),
-                        controller: widget.controller,
-                        onChanged: (value) {
-                          value = double.parse(parseCalculate(value))
-                              .toStringAsFixed(widget.map.decimalLimit);
-                          _mapper.update(widget.map.key, (nVal) => value);
-                          widget.widgetProvider.widgetBloc.registerMap(_mapper);
-                          setState(() => characters = value);
-                        },
-                        decoration: InputDecoration(
-                          counter: (widget.map.showWordCount != null &&
-                                  widget.map.showWordCount)
-                              ? (characters != "")
-                                  ? Text(
-                                      '${characters.replaceAll(' ', '').length} numbers')
-                                  : Container()
-                              : null,
-                          prefixText: (widget.map.prefix != null)
-                              ? widget.map.prefix
-                              : "",
-                          prefixStyle: TextStyle(
-                            background: Paint()..color = Colors.teal[200],
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 20.0,
+                : Container(
+                    margin: widget.map.marginData != null
+                        ? EdgeInsets.only(
+                            top: widget.map.marginData.top != null
+                                ? widget.map.marginData.top
+                                : 0.0,
+                            left: widget.map.marginData.left != null
+                                ? widget.map.marginData.left
+                                : 0.0,
+                            right: widget.map.marginData.right != null
+                                ? widget.map.marginData.right
+                                : 0.0,
+                            bottom: widget.map.marginData.bottom != null
+                                ? widget.map.marginData.bottom
+                                : 0.0,
+                          )
+                        : EdgeInsets.all(0.0),
+                    child: Flex(
+                      direction: Axis.vertical,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        widget.map.borderData != null &&
+                                widget.map.borderData.lableInBorder != null &&
+                                !(widget.map.borderData.lableInBorder)
+                            ? Text(
+                                (widget.map.label == null ||
+                                        widget.map.label.isEmpty)
+                                    ? ""
+                                    : widget.map.label,
+                                style: TextStyle(
+                                  fontSize: widget.map.textStyleData != null &&
+                                          widget.map.textStyleData.fontSize !=
+                                              null
+                                      ? widget.map.textStyleData.fontSize
+                                      : 17.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              )
+                            : SizedBox.shrink(),
+                        widget.map.borderData != null &&
+                                widget.map.borderData.lableInBorder != null &&
+                                !(widget.map.borderData.lableInBorder)
+                            ? SizedBox(height: 6)
+                            : SizedBox.shrink(),
+                        TextField(
+                          enabled: !widget.map.disabled,
+                          obscureText: widget.map.mask,
+                          keyboardType: parsetInputType(widget.map.type),
+                          style: widget.map.textStyleData == null
+                              ? TextStyle(
+                                  fontSize: 15.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w400,
+                                )
+                              : TextStyle(
+                                  fontSize:
+                                      widget.map.textStyleData.fontSize == null
+                                          ? 15.0
+                                          : widget.map.textStyleData.fontSize,
+                                  color: widget.map.textStyleData.color == null
+                                      ? Colors.black
+                                      : parseRgb(
+                                          widget.map.textStyleData.color),
+                                  fontWeight:
+                                      widget.map.textStyleData.fontWeight ==
+                                              null
+                                          ? FontWeight.w400
+                                          : FontWeight.w400,
+                                  // : parseFontWeight(
+                                  // widget.map.textStyleData.fontWeight,
+                                  // ),
+                                ),
+                          controller: widget.controller,
+                          onChanged: (value) {
+                            value = double.parse(parseCalculate(value))
+                                .toStringAsFixed(widget.map.decimalLimit);
+                            _mapper.update(widget.map.key, (nVal) => value);
+                            widget.widgetProvider.widgetBloc
+                                .registerMap(_mapper);
+                            setState(() => characters = value);
+                          },
+                          decoration: InputDecoration(
+                            border: widget.map.borderData != null
+                                ? OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      widget.map.borderData.borderRadius,
+                                    ),
+                                    borderSide: BorderSide(
+                                      color: parseRgb(
+                                        widget.map.borderData.borderColor,
+                                      ),
+                                      width: widget.map.borderData.borderWidth,
+                                    ),
+                                  )
+                                : InputBorder.none,
+                            counter: (widget.map.showWordCount != null &&
+                                    widget.map.showWordCount)
+                                ? (characters != "")
+                                    ? Text(
+                                        '${characters.replaceAll(' ', '').length} numbers')
+                                    : Container()
+                                : null,
+                            prefixIcon: widget.map.leftIcon != null
+                                ? LeftIconWidgetParser(
+                                    color: widget.map.leftIconColor != null
+                                        ? parseRgb(widget.map.leftIconColor)
+                                        : Colors.black,
+                                  ).parse(
+                                    widget.map,
+                                    context,
+                                    null,
+                                    null,
+                                  )
+                                : Container(),
+                            // suffixIcon: widget.map.rightIcon != null
+                            //     ? RightIconWidgetParser(
+                            //         color: widget.map.rightIconColor != null
+                            //             ? parseRgb(widget.map.rightIconColor)
+                            //             : Colors.black,
+                            //       ).parse(
+                            //         widget.map,
+                            //         context,
+                            //         null,
+                            //         null,
+                            //       )
+                            //     : Container(),
+                            // prefixText: (widget.map.prefix != null)
+                            //     ? widget.map.prefix
+                            //     : "",
+                            // prefixStyle: TextStyle(
+                            //   background: Paint()..color = Colors.teal[200],
+                            //   color: Colors.black,
+                            //   fontWeight: FontWeight.w600,
+                            //   fontSize: 20.0,
+                            // ),
+                            labelText: (widget.map.label != null)
+                                ? widget.map.label
+                                : "",
+                            hintText:
+                                widget.map.hint != null ? widget.map.hint : "",
+                            // suffixText: (widget.map.suffix != null)
+                            //     ? widget.map.suffix
+                            //     : "",
+                            // suffixStyle: TextStyle(
+                            //   background: Paint()..color = Colors.teal[200],
+                            //   color: Colors.black,
+                            //   fontWeight: FontWeight.w600,
+                            //   fontSize: 20.0,
+                            // ),
                           ),
-                          labelText: (widget.map.label != null)
-                              ? widget.map.label
-                              : "",
-                          hintText: widget.map.label,
-                          suffixText: (widget.map.suffix != null)
-                              ? widget.map.suffix
-                              : "",
-                          suffixStyle: TextStyle(
-                            background: Paint()..color = Colors.teal[200],
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 20.0,
-                          ),
                         ),
-                      ),
+                      ],
                     ),
                   );
       },

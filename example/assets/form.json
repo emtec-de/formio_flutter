@@ -1,0 +1,184 @@
+{
+    "display": "form",
+    "components": [
+        {
+            "label": "Name",
+            "tableView": true,
+            "key": "name",
+            "type": "textfield",
+            "input": true,
+            "hint": "User Name",
+            "borderData": {
+                "borderColor": "rgb(200,100,200)",
+                "borderWidth": 5.0,
+                "borderRadius": 16.0,
+                "lableInBorder": false
+            },
+            "textStyleData": {
+                "fontSize": 15.0,
+                "color": "rgb(200,100,200)",
+                "fontWeight": 700
+            },
+            "marginData": {
+                "top": 8.0,
+                "left": 8.0,
+                "right": 8.0,
+                "bottom": 8.0
+            },
+            "leftIcon": "fa fa-user-o"
+        },
+        {
+            "label": "Email",
+            "tableView": true,
+            "key": "email",
+            "type": "email",
+            "input": true,
+            "hint": "Email Address",
+            "borderData": {
+                "borderColor": "rgb(45,176,123)",
+                "borderWidth": 2.0,
+                "borderRadius": 16.0,
+                "lableInBorder": false
+            },
+            "textStyleData": {
+                "fontSize": 15.0,
+                "color": "rgb(200,100,200)",
+                "fontWeight": 700
+            },
+            "marginData": {
+                "top": 8.0,
+                "left": 8.0,
+                "right": 8.0,
+                "bottom": 8.0
+            },
+            "leftIcon": "fa fa-envelope"
+        },
+        {
+            "key": "password",
+            "label": "Password",
+            "tableView": true,
+            "type": "textfield",
+            "mask": true,
+            "input": true,
+            "hint": "",
+            "textStyleData": {
+                "fontSize": 15.0,
+                "color": "rgb(200,100,200)",
+                "fontWeight": 700
+            },
+            "borderData": {
+                "borderColor": "rgb(45,176,123)",
+                "borderWidth": 2.0,
+                "borderRadius": 16.0,
+                "lableInBorder": false
+            },
+            "marginData": {
+                "top": 8.0,
+                "left": 8.0,
+                "right": 8.0,
+                "bottom": 8.0
+            },
+            "leftIcon": "fa fa-lock"
+        },
+        {
+            "key": "age",
+            "label": "Age",
+            "tableView": true,
+            "hint": "20",
+            "type": "number",
+            "input": true,
+            "textStyleData": {
+                "fontSize": 15.0,
+                "color": "rgb(200,100,200)",
+                "fontWeight": 700
+            },
+            "borderData": {
+                "borderColor": "rgb(238,110,123)",
+                "borderWidth": 2.0,
+                "borderRadius": 16.0,
+                "lableInBorder": false
+            },
+            "marginData": {
+                "top": 8.0,
+                "left": 8.0,
+                "right": 8.0,
+                "bottom": 8.0
+            },
+            "leftIcon": "fa fa-user-circle-o"
+        },
+        {
+            "key": "gender",
+            "label": "Gender",
+            "widget": "choicesjs",
+            "tableView": true,
+            "data": {
+                "values": [
+                    {
+                        "label": "Male",
+                        "value": "male"
+                    },
+                    {
+                        "label": "Female",
+                        "value": "female"
+                    }
+                ]
+            },
+            "selectThreshold": 0.3,
+            "type": "select",
+            "indexeddb": {
+                "filter": {}
+            },
+            "input": true,
+            "borderData": {
+                "borderWidth": 1.0,
+                "borderRadius": 16.0,
+                "lableInBorder": true
+            },
+            "textStyleData": {
+                "fontSize": 15.0,
+                "color": "rgb(1,1,1)"
+            },
+            "marginData": {
+                "top": 8.0,
+                "left": 8.0,
+                "right": 8.0,
+                "bottom": 8.0
+            },
+            "leftIcon": "fa fa-user-circle-o"
+        },
+        {
+            "key": "agree",
+            "label": "Agree to Terms",
+            "tableView": false,
+            "type": "checkbox",
+            "input": true,
+            "marginData": {
+                "top": 8.0,
+                "left": 8.0,
+                "right": 8.0,
+                "bottom": 8.0
+            }
+        },
+        {
+            "type": "button",
+            "label": "Submit",
+            "key": "submit",
+            "disableOnInvalid": true,
+            "input": true,
+            "tableView": false,
+            "action": "print",
+            "textStyleData": {
+                "fontSize": 20.0,
+                "color": "rgb(255,255,255)"
+            },
+            "marginData": {
+                "top": 8.0,
+                "left": 8.0,
+                "right": 8.0
+            },
+            "borderData": {
+                "borderRadius": 12.0
+            }
+        }
+    ]
+}

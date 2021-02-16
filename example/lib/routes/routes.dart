@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import '../menu.dart';
 import '../screens/pagination.dart';
 import '../screens/demonstration.dart';
+import '../screens/custom_form.dart';
 
 Route generateRoutes(RouteSettings settings) {
   switch (settings.name) {
@@ -17,6 +18,11 @@ Route generateRoutes(RouteSettings settings) {
       return MaterialPageRoute(
           builder: (context) =>
               DemonstrationPage(argument: settings.arguments));
+      break;
+    case 'custom_form':
+      return MaterialPageRoute(
+        builder: (context) => CustomForm(),
+      );
       break;
     default:
       return MaterialPageRoute(builder: (context) => MenuPage());

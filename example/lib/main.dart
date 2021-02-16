@@ -32,6 +32,7 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         title: 'FormIo.Flutter',
         initialRoute: 'menu',
+        // initialRoute: 'custom_form',
         onGenerateRoute: generateRoutes,
       ),
     );
