@@ -8,6 +8,10 @@
             "type": "textfield",
             "input": true,
             "hint": "User Name",
+            "errorOnEmpty": true,
+            "errorText": "Empty User Name",
+            "maxCount": 15,
+            "showWordCount": false,
             "borderData": {
                 "borderColor": "rgb(200,100,200)",
                 "borderWidth": 5.0,
@@ -34,6 +38,9 @@
             "type": "email",
             "input": true,
             "hint": "Email Address",
+            "regex": "^(([^<>()[].,;:s@\"]+(.[^<>()[].,;:s@\"]+)*)|(\".+\"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$",
+            "errorOnEmpty": true,
+            "errorText": "Invalid Email",
             "borderData": {
                 "borderColor": "rgb(45,176,123)",
                 "borderWidth": 2.0,
@@ -61,6 +68,8 @@
             "mask": true,
             "input": true,
             "hint": "",
+            "errorOnEmpty": true,
+            "errorText": "Empty Password",
             "textStyleData": {
                 "fontSize": 15.0,
                 "color": "rgb(200,100,200)",
@@ -87,6 +96,8 @@
             "hint": "20",
             "type": "number",
             "input": true,
+            "errorOnEmpty": true,
+            "errorText": "Empty Age",
             "textStyleData": {
                 "fontSize": 15.0,
                 "color": "rgb(200,100,200)",
@@ -174,11 +185,26 @@
             "marginData": {
                 "top": 8.0,
                 "left": 8.0,
-                "right": 8.0
+                "right": 8.0,
+                "bottom": 8.0
+            },
+            "paddingData": {
+                "top": 12.0,
+                "left": 8.0,
+                "right": 8.0,
+                "bottom": 12.0
             },
             "borderData": {
                 "borderRadius": 12.0
-            }
+            },
+            "disableConditional": {
+                "disable": true,
+                "when": "agree",
+                "eq": "false"
+            },
+            "allOf": [
+                {}
+            ]
         }
     ]
 }

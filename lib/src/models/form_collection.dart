@@ -87,8 +87,14 @@ class Component {
     this.borderData,
     this.textStyleData,
     this.marginData,
+    this.paddingData,
     this.leftIconColor,
     this.rightIconColor,
+    this.errorOnEmpty,
+    this.errorText,
+    this.maxCount,
+    this.regex,
+    this.disableConditional,
   });
 
   /// label.
@@ -228,11 +234,29 @@ class Component {
   /// set [MarginData] margin to a widget
   MarginData marginData;
 
+  /// set [PaddingData] margin to a widget
+  PaddingData paddingData;
+
   /// set [String] color value to left icon
   String leftIconColor;
 
   /// set [String] color value to right icon
   String rightIconColor;
+
+  /// set [bool] if show error on empty for text field
+  bool errorOnEmpty;
+
+  /// set [String] error text to textfield
+  String errorText;
+
+  /// set [int] max count of textfield
+  int maxCount;
+
+  /// set [String] regex for validating email
+  String regex;
+
+  /// set a [DisableConditional] type.
+  DisableConditional disableConditional;
 
   /// Returns a [Component] from a [String] that possees a json.
   factory Component.fromJson(Map<String, dynamic> json) => Component(
@@ -310,12 +334,23 @@ class Component {
         marginData: json["marginData"] == null
             ? null
             : MarginData.fromJson(json["marginData"]),
+        paddingData: json["paddingData"] == null
+            ? null
+            : PaddingData.fromJson(json["paddingData"]),
         leftIconColor: json["leftIconColor"] != null
             ? "rgb(255,255,255)"
             : json["leftIconColor"],
         rightIconColor: json["rightIconColor"] != null
             ? "rgb(255,255,255)"
             : json["rightIconColor"],
+        errorOnEmpty:
+            json["errorOnEmpty"] == null ? false : json["errorOnEmpty"],
+        errorText: json["errorText"] == null ? null : json["errorText"],
+        maxCount: json["maxCount"] == null ? null : json["maxCount"],
+        regex: json["regex"] == null ? null : json["regex"],
+        disableConditional: json["disableConditional"] == null
+            ? null
+            : DisableConditional.fromJson(json["disableConditional"]),
       );
 
   /// Returns a [Map<String, dynamic>] representation of the [Component] class.
@@ -371,8 +406,15 @@ class Component {
         "borderData": borderData == null ? null : borderData.toJson(),
         "textStyleData": textStyleData == null ? null : textStyleData.toJson(),
         "marginData": marginData == null ? null : marginData.toJson(),
+        "paddingData": paddingData == null ? null : paddingData.toJson(),
         "leftIconColor": leftIconColor == null ? null : leftIconColor,
         "rightIconColor": rightIconColor == null ? null : rightIconColor,
+        "errorOnEmpty": errorOnEmpty == null ? false : errorOnEmpty,
+        "errorText": errorText == null ? null : errorText,
+        "maxCount": maxCount == null ? null : maxCount,
+        "regex": regex == null ? null : regex,
+        "disableConditional":
+            disableConditional == null ? null : disableConditional.toJson(),
       };
 }
 
@@ -584,5 +626,77 @@ class MarginData {
         "left": left,
         "right": right,
         "bottom": bottom,
+      };
+}
+
+/// [PaddingData] data class contains the info about the margin of a widget
+class PaddingData {
+  PaddingData({
+    this.top,
+    this.left,
+    this.right,
+    this.bottom,
+  });
+
+  /// set [double] top margin
+  final double top;
+
+  /// set [double] left margin
+  final double left;
+
+  /// set [double] right margin
+  final double right;
+
+  /// set [double] bottom margin
+  final double bottom;
+
+  /// Returns a [PaddingData] from a [String] that possees a json.
+  factory PaddingData.fromJson(Map<String, dynamic> json) => PaddingData(
+        top: json["top"] == null ? 0 : json["top"],
+        left: json["left"] == null ? 0 : json["left"],
+        right: json["right"] == null ? 0 : json["right"],
+        bottom: json["bottom"] == null ? 0 : json["bottom"],
+      );
+
+  /// Returns a [Map<String, dynamic>] representation of the [PaddingData] class.
+  Map<String, dynamic> toJson() => {
+        "top": top,
+        "left": left,
+        "right": right,
+        "bottom": bottom,
+      };
+}
+
+/// [DisableConditional] is required everytime a widget needs a realtime validation.
+class DisableConditional {
+  /// set a [bool] if the widget is gonna be displayed.
+  bool disable;
+
+  /// set a [String] with the widget [type].
+  String when;
+
+  /// set a condition declared as a [String].
+  String eq;
+
+  /// [DisableConditional] constructor.
+  DisableConditional({
+    this.disable,
+    this.when,
+    this.eq,
+  });
+
+  /// Returns a [DisableConditional] from a [String] that possees a json.
+  factory DisableConditional.fromJson(Map<String, dynamic> json) =>
+      DisableConditional(
+        disable: (json["disable"] == null) ? false : json["disable"],
+        when: (json["when"] == null) ? "" : json["when"],
+        eq: (json["eq"] == null) ? "" : json["eq"],
+      );
+
+  /// Returns a [Map<String, dynamic>] representation of the [DisableConditional] class.
+  Map<String, dynamic> toJson() => {
+        "disable": disable == null ? false : disable,
+        "when": when == null ? "" : when,
+        "eq": eq == null ? "" : eq
       };
 }

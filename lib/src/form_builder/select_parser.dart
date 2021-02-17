@@ -185,7 +185,11 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      SizedBox(height: 6),
+                      widget.map.borderData != null &&
+                              widget.map.borderData.lableInBorder != null &&
+                              !(widget.map.borderData.lableInBorder)
+                          ? SizedBox(height: 6)
+                          : SizedBox.shrink(),
                       (widget.map.data.url.isNotEmpty)
                           ? FutureBuilder(
                               future: _futureValues,

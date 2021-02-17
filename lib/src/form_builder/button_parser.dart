@@ -26,6 +26,7 @@ class ButtonParser extends WidgetParser {
       WidgetProvider widgetProvider) {
     String clickEvent = map.action ?? "";
     bool isVisible = true;
+    bool isDisabled = false;
 
     /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
     var button = (map.hidden)
@@ -40,6 +41,15 @@ class ButtonParser extends WidgetParser {
                       ? map.conditional.show
                       : !map.conditional.show
                   : true;
+              isDisabled = (map.disableConditional != null &&
+                      snapshot.data != null)
+                  ? (snapshot.data.containsKey(map.disableConditional.when) &&
+                          snapshot.data[map.disableConditional.when]
+                                  .toString() ==
+                              map.disableConditional.eq)
+                      ? map.disableConditional.disable
+                      : !map.disableConditional.disable
+                  : false;
               return (!isVisible)
                   ? SizedBox.shrink()
                   : Padding(
@@ -64,7 +74,10 @@ class ButtonParser extends WidgetParser {
                             ),
                           ),
                           backgroundColor: MaterialStateProperty.all(
-                            parseHexColor(map.theme ?? "primary"),
+                            isDisabled
+                                ? parseHexColor(map.theme ?? "primary")
+                                    .withOpacity(0.5)
+                                : parseHexColor(map.theme ?? "primary"),
                           ),
                         ),
                         child: Container(
@@ -75,14 +88,24 @@ class ButtonParser extends WidgetParser {
                                   ? LeftIconWidgetParser()
                                       .parse(map, context, null, null)
                                   : SizedBox.shrink(),
-                              Text(
-                                map.label,
-                                softWrap: true,
-                                style: TextStyle(
-                                  fontSize: map.textStyleData.fontSize,
-                                  color: map.textStyleData.color != null
-                                      ? parseRgb(map.textStyleData.color)
-                                      : Colors.white,
+                              Padding(
+                                padding: map.paddingData != null
+                                    ? EdgeInsets.only(
+                                        top: map.paddingData.top,
+                                        left: map.paddingData.left,
+                                        right: map.paddingData.right,
+                                        bottom: map.paddingData.bottom,
+                                      )
+                                    : EdgeInsets.zero,
+                                child: Text(
+                                  map.label,
+                                  softWrap: true,
+                                  style: TextStyle(
+                                    fontSize: map.textStyleData.fontSize,
+                                    color: map.textStyleData.color != null
+                                        ? parseRgb(map.textStyleData.color)
+                                        : Colors.white,
+                                  ),
                                 ),
                               ),
                               map.rightIcon != null
@@ -92,7 +115,7 @@ class ButtonParser extends WidgetParser {
                             ],
                           ),
                         ),
-                        onPressed: (map.disabled)
+                        onPressed: isDisabled
                             ? null
                             : () => listener.onClicked(clickEvent),
                       ),

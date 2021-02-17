@@ -9,26 +9,26 @@ import 'package:formio_flutter/src/providers/providers.dart';
 class WidgetParserBuilder {
   /// A [List<WidgetParser>] which contains all the widgets that can be built.
   static final _parsers = [
-    ColumnParser(),
     ButtonParser(),
+    ColumnParser(),
     CheckboxParser(),
-    LeftIconWidgetParser(),
-    RightIconWidgetParser(),
-    TextFieldParser(),
-    TextAreaParser(),
-    EmailTextFieldParser(),
-    PhoneTextFieldParser(),
+    CurrencyTextFieldParser(),
     DateTextFieldParser(),
     DateTimeTextFieldParser(),
     DayTextFieldParser(),
-    TimeTextFieldParser(),
-    UrlTextFieldParser(),
+    EmailTextFieldParser(),
+    FileParser(),
+    LeftIconWidgetParser(),
     NumberTextFieldParser(),
-    CurrencyTextFieldParser(),
+    PagerParser(),
+    PhoneTextFieldParser(),
+    RightIconWidgetParser(),
     SelectParser(),
     SignatureParser(),
-    FileParser(),
-    PagerParser(),
+    TextFieldParser(),
+    TextAreaParser(),
+    TimeTextFieldParser(),
+    UrlTextFieldParser(),
   ];
 
   /// set a [Map<String, WidgetParser]

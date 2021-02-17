@@ -50,9 +50,16 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
   List<String> _operators = [];
   List<String> _keys = [];
 
+  bool _error;
+  String _errorText;
+
   @override
   void initState() {
     super.initState();
+
+    _error = false;
+    _errorText = '';
+
     _mapper[widget.map.key] = {""};
     if (widget.map.defaultValue != null)
       (widget.map.defaultValue is List<String>)
@@ -213,8 +220,30 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
                             widget.widgetProvider.widgetBloc
                                 .registerMap(_mapper);
                             setState(() => characters = value);
+                            if (value.trim().isEmpty && widget.map.errorOnEmpty)
+                              setState(() {
+                                _error = true;
+                                _errorText = '${widget.map.errorText}';
+                              });
+                            else
+                              setState(() => _error = false);
+                          },
+                          onSubmitted: (String value) {
+                            if (value.trim().isEmpty && widget.map.errorOnEmpty)
+                              setState(() {
+                                _error = true;
+                                _errorText = '${widget.map.errorText}';
+                              });
+                            else
+                              setState(() => _error = false);
                           },
                           decoration: InputDecoration(
+                            labelText: (widget.map.label != null)
+                                ? widget.map.label
+                                : "",
+                            hintText:
+                                widget.map.hint != null ? widget.map.hint : "",
+                            errorText: _error ? "$_errorText" : null,
                             border: widget.map.borderData != null
                                 ? OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(
@@ -230,11 +259,8 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
                                 : InputBorder.none,
                             counter: (widget.map.showWordCount != null &&
                                     widget.map.showWordCount)
-                                ? (characters != "")
-                                    ? Text(
-                                        '${characters.replaceAll(' ', '').length} numbers')
-                                    : Container()
-                                : null,
+                                ? null
+                                : SizedBox.shrink(),
                             prefixIcon: widget.map.leftIcon != null
                                 ? LeftIconWidgetParser(
                                     color: widget.map.leftIconColor != null
@@ -268,11 +294,6 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
                             //   fontWeight: FontWeight.w600,
                             //   fontSize: 20.0,
                             // ),
-                            labelText: (widget.map.label != null)
-                                ? widget.map.label
-                                : "",
-                            hintText:
-                                widget.map.hint != null ? widget.map.hint : "",
                             // suffixText: (widget.map.suffix != null)
                             //     ? widget.map.suffix
                             //     : "",
@@ -367,8 +388,30 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
                             widget.widgetProvider.widgetBloc
                                 .registerMap(_mapper);
                             setState(() => characters = value);
+                            if (value.trim().isEmpty && widget.map.errorOnEmpty)
+                              setState(() {
+                                _error = true;
+                                _errorText = '${widget.map.errorText}';
+                              });
+                            else
+                              setState(() => _error = false);
+                          },
+                          onSubmitted: (String value) {
+                            if (value.trim().isEmpty && widget.map.errorOnEmpty)
+                              setState(() {
+                                _error = true;
+                                _errorText = '${widget.map.errorText}';
+                              });
+                            else
+                              setState(() => _error = false);
                           },
                           decoration: InputDecoration(
+                            labelText: (widget.map.label != null)
+                                ? widget.map.label
+                                : "",
+                            hintText:
+                                widget.map.hint != null ? widget.map.hint : "",
+                            errorText: _error ? "$_errorText" : null,
                             border: widget.map.borderData != null
                                 ? OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(
@@ -384,11 +427,8 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
                                 : InputBorder.none,
                             counter: (widget.map.showWordCount != null &&
                                     widget.map.showWordCount)
-                                ? (characters != "")
-                                    ? Text(
-                                        '${characters.replaceAll(' ', '').length} numbers')
-                                    : Container()
-                                : null,
+                                ? null
+                                : SizedBox.shrink(),
                             prefixIcon: widget.map.leftIcon != null
                                 ? LeftIconWidgetParser(
                                     color: widget.map.leftIconColor != null
@@ -422,11 +462,6 @@ class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
                             //   fontWeight: FontWeight.w600,
                             //   fontSize: 20.0,
                             // ),
-                            labelText: (widget.map.label != null)
-                                ? widget.map.label
-                                : "",
-                            hintText:
-                                widget.map.hint != null ? widget.map.hint : "",
                             // suffixText: (widget.map.suffix != null)
                             //     ? widget.map.suffix
                             //     : "",

@@ -48,9 +48,23 @@ class _EmailTextFieldCreatorState extends State<EmailTextFieldCreator> {
   List<String> _keys = [];
   final Map<String, dynamic> _mapper = new Map();
 
+  bool _error;
+  String _errorText;
+
+  bool isValidEmail(String emailAddress) {
+    return RegExp(
+      // r'${widget.map.regex}',
+      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$',
+    ).hasMatch(emailAddress);
+  }
+
   @override
   void initState() {
     super.initState();
+
+    _error = false;
+    _errorText = '';
+
     _mapper[widget.map.key] = {""};
     if (widget.map.defaultValue != null)
       (widget.map.defaultValue is List<String>)
@@ -189,8 +203,31 @@ class _EmailTextFieldCreatorState extends State<EmailTextFieldCreator> {
                         _mapper.update(widget.map.key, (nVal) => value);
                         widget.widgetProvider.widgetBloc.registerMap(_mapper);
                         setState(() => characters = value);
+                        if (value.trim().isEmpty && widget.map.errorOnEmpty)
+                          setState(() {
+                            _error = true;
+                            _errorText = 'Empty Email';
+                          });
+                        else
+                          setState(() => _error = false);
+                      },
+                      onSubmitted: (String value) {
+                        if (value.trim().isEmpty && widget.map.errorOnEmpty) {
+                          setState(() {
+                            _error = true;
+                            _errorText = 'Empty Email';
+                          });
+                        } else if (widget.map.regex != null &&
+                            !isValidEmail(value))
+                          setState(() {
+                            _error = true;
+                            _errorText = '${widget.map.errorText}';
+                          });
+                        else
+                          setState(() => _error = false);
                       },
                       decoration: InputDecoration(
+                        errorText: _error ? "$_errorText" : null,
                         border: widget.map.borderData != null
                             ? OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(

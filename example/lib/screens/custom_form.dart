@@ -16,6 +16,7 @@ class _CustomFormState extends State<CustomForm> implements ClickListener {
   Future<List<Widget>> _widgets;
   WidgetProvider widgetProvider;
   BuildContext _context;
+
   @override
   Widget build(BuildContext context) {
     widgetProvider = Provider.of<WidgetProvider>(context);
@@ -98,22 +99,59 @@ class _CustomFormState extends State<CustomForm> implements ClickListener {
   @override
   void onClicked(String event) async {
     if (event == 'print') {
+      print("button clicked");
       Future<Map<String, dynamic>> formData =
           parseWidgets(WidgetParserBuilder.widgets);
 
-      formData.then((Map<String, dynamic> formDataValue) {
-        // print('keys: ${value.keys}');
-        // print('values: ${value.values}');
-
-        if (formDataValue.values.first.toString().isEmpty) {}
-
-        for (int i = 0; i < formDataValue.keys.length; i++) {
-          print(
-              '${formDataValue.keys.toList()[i]} : ${formDataValue.values.toList()[i]}');
+      formData.then((Map<String, dynamic> formDataValue) async {
+        if (await checkFields(WidgetParserBuilder.widgets)) {
+          Scaffold.of(_context).showSnackBar(
+            SnackBar(
+              content: Text('Please fill all the fields'),
+            ),
+          );
+        } else {
+          formDataValue.entries
+              .forEach((MapEntry<String, dynamic> formEntyyMap) {
+            print('value ${formEntyyMap.value.toString()}');
+          });
+          showAlert(
+            'keys: ${formDataValue.keys}\nvalues: ${formDataValue.values}',
+          );
         }
 
-        showAlert(
-            'keys: ${formDataValue.keys}\nvalues: ${formDataValue.values}');
+        // if (formDataValue.isNotEmpty) {
+        //   print('formDataValue.isNotEmpty');
+        // } else {
+        //   print('formDataValue.isEmpty');
+        // }
+
+        // try {
+        //   if (formDataValue.entries.last.value as bool == false) {
+        //     print('Agreement not done');
+        //   } else {
+        //     print('Agreement done');
+        //   }
+        // } catch (e) {
+        //   print(e);
+        // }
+
+        // for (int i = 0; i < formDataValue.values.length; i++) {
+        //   formDataValue.values.any.call();
+        //   if (formDataValue.values.toList()[i] == null) {
+        //     print('Incomplete form');
+        //   } else {
+        //     showAlert(
+        //       'keys: ${formDataValue.keys}\nvalues: ${formDataValue.values}',
+        //     );
+        //   }
+        // }
+
+        // for (int i = 0; i < formDataValue.keys.length; i++) {
+        //   print(
+        //     '${formDataValue.keys.toList()[i]} : ${formDataValue.values.toList()[i]}',
+        //   );
+        // }
       });
     }
   }
