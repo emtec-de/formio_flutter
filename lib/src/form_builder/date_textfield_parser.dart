@@ -1,11 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:intl/intl.dart';
-
 import 'package:formio_flutter/formio_flutter.dart';
-import 'package:formio_flutter/src/abstraction/abstraction.dart';
-import 'package:formio_flutter/src/models/models.dart';
-import 'package:formio_flutter/src/providers/providers.dart';
+import 'package:intl/intl.dart';
 
 /// Extends the abstract class [WidgetParser]
 class DateTextFieldParser extends WidgetParser {

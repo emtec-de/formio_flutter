@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import '../menu.dart';
-import '../screens/pagination.dart';
-import '../screens/demonstration.dart';
 import '../screens/custom_form.dart';
+import '../screens/demonstration.dart';
+import '../screens/pagination.dart';
 
 Route generateRoutes(RouteSettings settings) {
   switch (settings.name) {

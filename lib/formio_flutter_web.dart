@@ -14,7 +14,7 @@ class FormioFlutterWeb {
     final MethodChannel channel = MethodChannel(
       'formio_flutter',
       const StandardMethodCodec(),
-      registrar.messenger,
+      registrar,
     );
 
     final pluginInstance = FormioFlutterWeb();
