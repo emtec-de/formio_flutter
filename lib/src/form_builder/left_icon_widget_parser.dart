@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'package:formio_flutter/formio_flutter.dart';
-import 'package:formio_flutter/src/abstraction/abstraction.dart';
-import 'package:formio_flutter/src/models/models.dart';
 
 /// Extends the abstract class [WidgetParser]
 class LeftIconWidgetParser extends WidgetParser {

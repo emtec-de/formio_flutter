@@ -3,11 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-
 import 'package:formio_flutter/formio_flutter.dart';
-import 'package:formio_flutter/src/abstraction/abstraction.dart';
-import 'package:formio_flutter/src/models/models.dart';
-import 'package:formio_flutter/src/providers/providers.dart';
 
 /// Extends the abstract class [WidgetParser]
 class TextFieldParser extends WidgetParser {
@@ -499,9 +495,9 @@ class _TextFieldCreatorState extends State<TextFieldCreator> {
 
 class ModifiedLengthLimitingTextInputFormatter
     extends LengthLimitingTextInputFormatter {
-  final int _maxLength;
+  final int maxLength;
 
-  ModifiedLengthLimitingTextInputFormatter(this._maxLength) : super(_maxLength);
+  ModifiedLengthLimitingTextInputFormatter(this.maxLength) : super(maxLength);
 
   @override
   TextEditingValue formatEditUpdate(

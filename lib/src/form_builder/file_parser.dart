@@ -1,12 +1,7 @@
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-
 import 'package:formio_flutter/formio_flutter.dart';
-import 'package:formio_flutter/src/abstraction/abstraction.dart';
-import 'package:formio_flutter/src/models/models.dart';
-import 'package:formio_flutter/src/providers/providers.dart';
 import 'package:formio_flutter/src/utils/mimes/mime_extension.dart' as mime;
 
 /// Extends the abstract class [WidgetParser]

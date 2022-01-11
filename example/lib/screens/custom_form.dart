@@ -105,7 +105,7 @@ class _CustomFormState extends State<CustomForm> implements ClickListener {
 
       formData.then((Map<String, dynamic> formDataValue) async {
         if (await checkFields(WidgetParserBuilder.widgets)) {
-          Scaffold.of(_context).showSnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('Please fill all the fields'),
             ),

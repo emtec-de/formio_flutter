@@ -56,7 +56,7 @@ class _PaginationPageState extends State<PaginationPage>
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              FlatButton(
+                              TextButton(
                                 onPressed: (_index == 0)
                                     ? null
                                     : () {
@@ -66,7 +66,6 @@ class _PaginationPageState extends State<PaginationPage>
                                           curve: Curves.linear,
                                         );
                                       },
-                                splashColor: Colors.blue[50],
                                 child: Text(
                                   "back".toUpperCase(),
                                   style: TextStyle(
@@ -87,7 +86,7 @@ class _PaginationPageState extends State<PaginationPage>
                                   ],
                                 ),
                               ),
-                              FlatButton(
+                              TextButton(
                                 onPressed: (_index != snapshot.data.length - 1)
                                     ? () => controller.animateToPage(
                                           _index + 1,
@@ -95,7 +94,6 @@ class _PaginationPageState extends State<PaginationPage>
                                           curve: Curves.linear,
                                         )
                                     : () => onClicked(""),
-                                splashColor: Colors.blue[50],
                                 child: (_index != snapshot.data.length - 1)
                                     ? Text(
                                         "next".toUpperCase(),

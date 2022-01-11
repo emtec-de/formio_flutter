@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:formio_flutter/formio_flutter.dart';
 import 'package:formio_flutter/src/widgets/custom_drop_down.dart';
 import 'package:http/http.dart' as http;
-
-import 'package:formio_flutter/formio_flutter.dart';
-import 'package:formio_flutter/src/abstraction/abstraction.dart';
-import 'package:formio_flutter/src/models/models.dart';
-import 'package:formio_flutter/src/providers/providers.dart';
 
 /// Extends the abstract class [WidgetParser]
 class SelectParser extends WidgetParser {
@@ -50,7 +46,7 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
   /// When the [url] isn't null or empty then the data is prefetched for the [Select] widget.
   Future<List<Value>> _makeRequest() async {
     var client = http.Client();
-    final response = await client.get(widget.map.data.url);
+    final response = await client.get(Uri.tryParse(widget.map.data.url));
     final result = Value().valuesFromJson(response.body);
     if (result.isNotEmpty) {
       setupDropDown(result);
@@ -100,7 +96,7 @@ class _SelectParserWidgetState extends State<SelectParserWidget> {
   }
 
   List<DropdownMenuItem<Value>> buildDropDownItems(List listItems) {
-    List<DropdownMenuItem<Value>> items = List();
+    List<DropdownMenuItem<Value>> items = [];
     if (listItems == null ||
         listItems[0] == null ||
         (listItems[0] as Value).value == null) {
