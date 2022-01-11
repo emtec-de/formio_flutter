@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 
 class CustomDropDown extends StatelessWidget {
   final dynamic value;
-  final String hint;
-  final String errorText;
-  final List<DropdownMenuItem<dynamic>> items;
-  final Function onChanged;
-  final Widget leftIcon;
-  final Color borderColor;
-  final double borderWidth;
-  final double borderRadius;
-  final Color textColor;
-  final double textSize;
+  final String? hint;
+  final String? errorText;
+  final List<DropdownMenuItem<dynamic>>? items;
+  final Function? onChanged;
+  final Widget? leftIcon;
+  final Color? borderColor;
+  final double? borderWidth;
+  final double? borderRadius;
+  final Color? textColor;
+  final double? textSize;
 
   const CustomDropDown({
-    Key key,
+    Key? key,
     this.value,
     this.hint,
     this.errorText,
@@ -40,15 +40,15 @@ class CustomDropDown extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             border: Border.all(
-              color: borderColor,
-              width: borderWidth,
+              color: borderColor!,
+              width: borderWidth!,
             ),
-            borderRadius: BorderRadius.circular(borderRadius),
+            borderRadius: BorderRadius.circular(borderRadius!),
           ),
           child: Row(
             children: [
               leftIcon != null ? SizedBox(width: 12) : Container(),
-              leftIcon != null ? leftIcon : Container(),
+              leftIcon != null ? leftIcon! : Container(),
               SizedBox(width: 12),
               Expanded(
                 child: DropdownButton<dynamic>(
@@ -60,7 +60,7 @@ class CustomDropDown extends StatelessWidget {
                   hint: Padding(
                     padding: contentPadding,
                     child: Text(
-                      hint != null ? hint : "",
+                      hint != null ? hint! : "",
                       style: TextStyle(
                         fontSize: 15,
                         color: Colors.black54,
@@ -70,7 +70,7 @@ class CustomDropDown extends StatelessWidget {
                   ),
                   items: items,
                   onChanged: (item) {
-                    onChanged(item);
+                    onChanged!(item);
                   },
                   isExpanded: true,
                   underline: Container(),
@@ -87,7 +87,7 @@ class CustomDropDown extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(left: 30, top: 10),
             child: Text(
-              errorText,
+              errorText!,
               style: TextStyle(
                 fontSize: 12,
                 color: Colors.red[800],

@@ -1,10 +1,10 @@
 class FileModel {
-  String name;
-  String originalName;
-  int size;
-  String storage;
-  String type;
-  String url;
+  String? name;
+  String? originalName;
+  int? size;
+  String? storage;
+  String? type;
+  String? url;
 
   FileModel({
     this.name,

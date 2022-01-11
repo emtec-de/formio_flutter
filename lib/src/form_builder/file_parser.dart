@@ -9,7 +9,7 @@ class FileParser extends WidgetParser {
   /// Returns a [Widget] of type [File]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener,
-      WidgetProvider widgetProvider) {
+      WidgetProvider? widgetProvider) {
     return FileCreator(
       map: map,
       widgetProvider: widgetProvider,
@@ -23,21 +23,21 @@ class FileParser extends WidgetParser {
 
 // ignore: must_be_immutable
 class FileCreator extends StatefulWidget implements Manager {
-  final Component map;
-  final WidgetProvider widgetProvider;
-  PlatformFile _platformFile;
+  final Component? map;
+  final WidgetProvider? widgetProvider;
+  PlatformFile? _platformFile;
   FileCreator({this.map, this.widgetProvider});
   @override
   _FileCreatorState createState() => _FileCreatorState();
 
   /// Returns a [String] with the value contained inside [Component.key]
   @override
-  String keyValue() => map.key ?? "fileField";
+  String keyValue() => map!.key;
 
   /// Retrieve the file.
   get platform => _platformFile;
 
-  get mimeType => mime.contentType(_platformFile.extension);
+  get mimeType => mime.contentType(_platformFile!.extension!);
 
   /// Current value of the [Widget]
   @override
@@ -45,14 +45,14 @@ class FileCreator extends StatefulWidget implements Manager {
     if (_platformFile == null) {
       return "";
     }
-    var _conversion = await convertFileToBase64("${_platformFile.path}");
-    return _conversion ?? "";
+    var _conversion = await convertFileToBase64("${_platformFile!.path}");
+    return _conversion;
   }
 }
 
 class _FileCreatorState extends State<FileCreator> {
-  List<PlatformFile> _paths;
-  String _extension;
+  List<PlatformFile>? _paths;
+  String? _extension;
   final Map<String, dynamic> _mapper = new Map();
 
   @override
@@ -64,7 +64,7 @@ class _FileCreatorState extends State<FileCreator> {
     try {
       _paths = (await FilePicker.platform.pickFiles(
         allowedExtensions: (_extension?.isNotEmpty ?? false)
-            ? _extension?.replaceAll(' ', '')?.split(',')
+            ? _extension?.replaceAll(' ', '').split(',')
             : null,
         allowCompression: true,
         allowMultiple: false,
@@ -76,12 +76,12 @@ class _FileCreatorState extends State<FileCreator> {
       print(ex);
     }
     if (!mounted) return;
-    if (_paths != null && _paths.isNotEmpty) {
-      await Future.forEach(_paths, (path) async {
+    if (_paths != null && _paths!.isNotEmpty) {
+      await Future.forEach(_paths!, (dynamic path) async {
         widget._platformFile = path;
         var base64 = await convertFileToBase64("${path.path}");
-        _mapper.update(widget.map.key, (nVal) => base64 ?? "");
-        widget.widgetProvider.widgetBloc.registerMap(_mapper);
+        _mapper.update(widget.map!.key, (nVal) => base64);
+        widget.widgetProvider!.widgetBloc.registerMap(_mapper);
       });
       setState(() {});
     }
@@ -90,27 +90,27 @@ class _FileCreatorState extends State<FileCreator> {
   @override
   void initState() {
     super.initState();
-    _mapper[widget.map.key] = {""};
+    _mapper[widget.map!.key] = {""};
     Future.delayed(Duration(milliseconds: 10), () {
-      _mapper.update(widget.map.key, (value) => '');
-      widget.widgetProvider.widgetBloc.registerMap(_mapper);
+      _mapper.update(widget.map!.key, (value) => '');
+      widget.widgetProvider!.widgetBloc.registerMap(_mapper);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    bool isVisible = true;
+    bool? isVisible = true;
     return StreamBuilder(
-      stream: widget.widgetProvider.widgetBloc.widgetsStream,
+      stream: widget.widgetProvider!.widgetBloc.widgetsStream,
       builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
-        isVisible = (widget.map.conditional != null && snapshot.data != null)
-            ? (snapshot.data.containsKey(widget.map.conditional.when) &&
-                    snapshot.data[widget.map.conditional.when].toString() ==
-                        widget.map.conditional.eq)
-                ? widget.map.conditional.show
-                : !widget.map.conditional.show
+        isVisible = (widget.map!.conditional != null && snapshot.data != null)
+            ? (snapshot.data!.containsKey(widget.map!.conditional!.when) &&
+                    snapshot.data![widget.map!.conditional!.when].toString() ==
+                        widget.map!.conditional!.eq)
+                ? widget.map!.conditional!.show
+                : !widget.map!.conditional!.show!
             : true;
-        return (!isVisible)
+        return (!isVisible!)
             ? SizedBox.shrink()
             : Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
@@ -134,13 +134,13 @@ class _FileCreatorState extends State<FileCreator> {
                           ),
                           isThreeLine: true,
                           title: widget._platformFile != null &&
-                                  widget._platformFile.name.isNotEmpty
+                                  widget._platformFile!.name.isNotEmpty
                               ? Align(
                                   alignment: Alignment(-1.0, 0),
                                   child: NeumorphicText(
-                                    widget._platformFile.name.length > 25
-                                        ? "${widget._platformFile.name.substring(1, 25)}..."
-                                        : widget._platformFile.name,
+                                    widget._platformFile!.name.length > 25
+                                        ? "${widget._platformFile!.name.substring(1, 25)}..."
+                                        : widget._platformFile!.name,
                                     style: NeumorphicStyle(color: Colors.black),
                                     textStyle: NeumorphicTextStyle(
                                       fontWeight: FontWeight.w700,
@@ -149,11 +149,11 @@ class _FileCreatorState extends State<FileCreator> {
                                 )
                               : Container(),
                           subtitle: widget._platformFile != null &&
-                                  widget._platformFile.name.isNotEmpty
+                                  widget._platformFile!.name.isNotEmpty
                               ? Align(
                                   alignment: Alignment(-1.0, 0),
                                   child: NeumorphicText(
-                                    "extension: ${widget._platformFile.extension}",
+                                    "extension: ${widget._platformFile!.extension}",
                                     style: NeumorphicStyle(color: Colors.black),
                                     textStyle: NeumorphicTextStyle(
                                       fontWeight: FontWeight.w700,

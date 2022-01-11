@@ -10,7 +10,7 @@ class TextFieldParser extends WidgetParser {
   /// Returns a [Widget] of type [TextField]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener,
-      WidgetProvider widgetProvider) {
+      WidgetProvider? widgetProvider) {
     return TextFieldCreator(
       map: map,
       widgetProvider: widgetProvider,
@@ -24,31 +24,31 @@ class TextFieldParser extends WidgetParser {
 
 // ignore: must_be_immutable
 class TextFieldCreator extends StatefulWidget implements Manager {
-  final Component map;
+  final Component? map;
   final controller = TextEditingController();
-  final WidgetProvider widgetProvider;
+  final WidgetProvider? widgetProvider;
   TextFieldCreator({this.map, this.widgetProvider});
   @override
   _TextFieldCreatorState createState() => _TextFieldCreatorState();
 
   /// Returns a [String] with the value contained inside [Component.key]
   @override
-  String keyValue() => map.key ?? "textField";
+  String keyValue() => map!.key;
 
   /// Current value of the [Widget]
   @override
-  get data => controller.text ?? "";
+  get data => controller.text;
 }
 
 class _TextFieldCreatorState extends State<TextFieldCreator> {
   String characters = "";
   String _calculate = "";
-  List<String> _operators = [];
+  List<String?> _operators = [];
   List<String> _keys = [];
   final Map<String, dynamic> _mapper = new Map();
 
-  bool _error;
-  String _errorText;
+  late bool _error;
+  String? _errorText;
 
   @override
   void initState() {
@@ -57,21 +57,21 @@ class _TextFieldCreatorState extends State<TextFieldCreator> {
     _error = false;
     _errorText = '';
 
-    _mapper[widget.map.key] = {""};
-    if (widget.map.defaultValue != null)
-      (widget.map.defaultValue is List<String>)
-          ? widget.controller.text = widget.map.defaultValue
+    _mapper[widget.map!.key] = {""};
+    if (widget.map!.defaultValue != null)
+      (widget.map!.defaultValue is List<String>)
+          ? widget.controller.text = widget.map!.defaultValue
               .asMap()
               .values
               .toString()
               .replaceAll(RegExp('[()]'), '')
-          : widget.controller.text = widget.map.defaultValue.toString();
+          : widget.controller.text = widget.map!.defaultValue.toString();
     widget.controller.addListener(() {
-      _mapper.update(widget.map.key, (value) => widget.controller.value.text);
+      _mapper.update(widget.map!.key, (value) => widget.controller.value.text);
     });
     Future.delayed(Duration(milliseconds: 10), () {
-      _mapper.update(widget.map.key, (value) => widget.controller.value.text);
-      widget.widgetProvider.widgetBloc.registerMap(_mapper);
+      _mapper.update(widget.map!.key, (value) => widget.controller.value.text);
+      widget.widgetProvider!.widgetBloc.registerMap(_mapper);
     });
   }
 
@@ -93,56 +93,56 @@ class _TextFieldCreatorState extends State<TextFieldCreator> {
 
   @override
   Widget build(BuildContext context) {
-    bool isVisible = true;
+    bool? isVisible = true;
     final size = MediaQuery.of(context).size;
-    if (widget.map.calculateValue != null) {
-      _keys = parseListStringCalculated(widget.map.calculateValue);
-      _operators = parseListStringOperator(widget.map.calculateValue);
+    if (widget.map!.calculateValue != null) {
+      _keys = parseListStringCalculated(widget.map!.calculateValue!);
+      _operators = parseListStringOperator(widget.map!.calculateValue!);
     }
 
     return StreamBuilder(
-      stream: widget.widgetProvider.widgetBloc.widgetsStream,
+      stream: widget.widgetProvider!.widgetBloc.widgetsStream,
       builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
-        isVisible = (widget.map.conditional != null && snapshot.data != null)
-            ? (snapshot.data.containsKey(widget.map.conditional.when) &&
-                    snapshot.data[widget.map.conditional.when].toString() ==
-                        widget.map.conditional.eq)
-                ? widget.map.conditional.show
-                : !widget.map.conditional.show
+        isVisible = (widget.map!.conditional != null && snapshot.data != null)
+            ? (snapshot.data!.containsKey(widget.map!.conditional!.when) &&
+                    snapshot.data![widget.map!.conditional!.when].toString() ==
+                        widget.map!.conditional!.eq)
+                ? widget.map!.conditional!.show
+                : !widget.map!.conditional!.show!
             : true;
-        if (widget.map.calculateValue != null &&
-            widget.map.calculateValue.isNotEmpty &&
+        if (widget.map!.calculateValue != null &&
+            widget.map!.calculateValue!.isNotEmpty &&
             snapshot.data != null) {
           _calculate = "";
           _keys.asMap().forEach((value, element) {
-            _calculate = (snapshot.data.containsKey(element))
-                ? "$_calculate ${snapshot.data[element]} ${(value < _operators.length) ? (_operators[value]) : ""}"
+            _calculate = (snapshot.data!.containsKey(element))
+                ? "$_calculate ${snapshot.data![element]} ${(value < _operators.length) ? (_operators[value]) : ""}"
                 : double.tryParse(element) != null
                     ? "$_calculate $element ${(value < _operators.length) ? (_operators[value]) : ""}"
                     : "$_calculate 0 ${(value < _operators.length) ? (_operators[value]) : ""}";
           });
           widget.controller.text = parseCalculate(_calculate);
         }
-        if (!isVisible) widget.controller.text = "";
-        return (!isVisible)
+        if (!isVisible!) widget.controller.text = "";
+        return (!isVisible!)
             ? SizedBox.shrink()
-            : (widget.map.total != 0)
+            : (widget.map!.total != 0)
                 ? Container(
                     //width: (size.width * (1 / (widget.map.total + 0.5))),
                     width: (size.width * 0.5),
-                    margin: widget.map.marginData != null
+                    margin: widget.map!.marginData != null
                         ? EdgeInsets.only(
-                            top: widget.map.marginData.top != null
-                                ? widget.map.marginData.top
+                            top: widget.map!.marginData!.top != null
+                                ? widget.map!.marginData!.top!
                                 : 0.0,
-                            left: widget.map.marginData.left != null
-                                ? widget.map.marginData.left
+                            left: widget.map!.marginData!.left != null
+                                ? widget.map!.marginData!.left!
                                 : 0.0,
-                            right: widget.map.marginData.right != null
-                                ? widget.map.marginData.right
+                            right: widget.map!.marginData!.right != null
+                                ? widget.map!.marginData!.right!
                                 : 0.0,
-                            bottom: widget.map.marginData.bottom != null
-                                ? widget.map.marginData.bottom
+                            bottom: widget.map!.marginData!.bottom != null
+                                ? widget.map!.marginData!.bottom!
                                 : 0.0,
                           )
                         : EdgeInsets.all(0.0),
@@ -150,34 +150,34 @@ class _TextFieldCreatorState extends State<TextFieldCreator> {
                       direction: Axis.vertical,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        widget.map.borderData != null &&
-                                widget.map.borderData.lableInBorder != null &&
-                                !(widget.map.borderData.lableInBorder)
+                        widget.map!.borderData != null &&
+                                widget.map!.borderData!.lableInBorder != null &&
+                                !widget.map!.borderData!.lableInBorder!
                             ? Text(
-                                (widget.map.label == null ||
-                                        widget.map.label.isEmpty)
+                                (widget.map!.label == null ||
+                                        widget.map!.label!.isEmpty)
                                     ? ""
-                                    : widget.map.label,
+                                    : widget.map!.label!,
                                 style: TextStyle(
-                                  fontSize: widget.map.textStyleData != null &&
-                                          widget.map.textStyleData.fontSize !=
+                                  fontSize: widget.map!.textStyleData != null &&
+                                          widget.map!.textStyleData!.fontSize !=
                                               null
-                                      ? widget.map.textStyleData.fontSize
+                                      ? widget.map!.textStyleData!.fontSize
                                       : 17.0,
                                   fontWeight: FontWeight.w500,
                                 ),
                               )
                             : SizedBox.shrink(),
-                        widget.map.borderData != null &&
-                                widget.map.borderData.lableInBorder != null &&
-                                !(widget.map.borderData.lableInBorder)
+                        widget.map!.borderData != null &&
+                                widget.map!.borderData!.lableInBorder != null &&
+                                !widget.map!.borderData!.lableInBorder!
                             ? SizedBox(height: 6)
                             : SizedBox.shrink(),
                         TextField(
-                          enabled: !widget.map.disabled,
-                          obscureText: widget.map.mask,
-                          keyboardType: parsetInputType(widget.map.type),
-                          style: widget.map.textStyleData == null
+                          enabled: !widget.map!.disabled!,
+                          obscureText: widget.map!.mask!,
+                          keyboardType: parsetInputType(widget.map!.type),
+                          style: widget.map!.textStyleData == null
                               ? TextStyle(
                                   fontSize: 15.0,
                                   color: Colors.black,
@@ -185,15 +185,17 @@ class _TextFieldCreatorState extends State<TextFieldCreator> {
                                 )
                               : TextStyle(
                                   fontSize:
-                                      widget.map.textStyleData.fontSize == null
+                                      widget.map!.textStyleData!.fontSize ==
+                                              null
                                           ? 15.0
-                                          : widget.map.textStyleData.fontSize,
-                                  color: widget.map.textStyleData.color == null
+                                          : widget.map!.textStyleData!.fontSize,
+                                  color: widget.map!.textStyleData!.color ==
+                                          null
                                       ? Colors.black
                                       : parseRgb(
-                                          widget.map.textStyleData.color),
+                                          widget.map!.textStyleData!.color!),
                                   fontWeight:
-                                      widget.map.textStyleData.fontWeight ==
+                                      widget.map!.textStyleData!.fontWeight ==
                                               null
                                           ? FontWeight.w400
                                           : FontWeight.w400,
@@ -202,75 +204,79 @@ class _TextFieldCreatorState extends State<TextFieldCreator> {
                                   // ),
                                 ),
                           controller: widget.controller,
-                          maxLength: widget.map.maxCount,
+                          maxLength: widget.map!.maxCount,
                           onChanged: (value) {
-                            _mapper.update(widget.map.key, (nVal) => value);
-                            widget.widgetProvider.widgetBloc
+                            _mapper.update(widget.map!.key, (nVal) => value);
+                            widget.widgetProvider!.widgetBloc
                                 .registerMap(_mapper);
                             setState(() => characters = value);
-                            if (value.trim().isEmpty && widget.map.errorOnEmpty)
+                            if (value.trim().isEmpty &&
+                                widget.map!.errorOnEmpty!)
                               setState(() {
                                 _error = true;
-                                _errorText = '${widget.map.errorText}';
+                                _errorText = '${widget.map!.errorText}';
                               });
                             else
                               setState(() => _error = false);
                           },
                           onSubmitted: (String value) {
-                            if (value.trim().isEmpty && widget.map.errorOnEmpty)
+                            if (value.trim().isEmpty &&
+                                widget.map!.errorOnEmpty!)
                               setState(() {
                                 _error = true;
-                                _errorText = '${widget.map.errorText}';
+                                _errorText = '${widget.map!.errorText}';
                               });
                             else
                               setState(() => _error = false);
                           },
                           inputFormatters: [
                             ModifiedLengthLimitingTextInputFormatter(
-                              widget.map.maxCount,
+                              widget.map!.maxCount,
                             ),
                           ],
                           decoration: InputDecoration(
-                            labelText: widget.map.borderData == null ||
-                                    widget.map.borderData.lableInBorder ==
+                            labelText: widget.map!.borderData == null ||
+                                    widget.map!.borderData!.lableInBorder ==
                                         null ||
-                                    widget.map.borderData.lableInBorder
-                                ? (widget.map.label != null)
-                                    ? widget.map.label
+                                    widget.map!.borderData!.lableInBorder!
+                                ? (widget.map!.label != null)
+                                    ? widget.map!.label
                                     : ""
                                 : "",
-                            hintText:
-                                widget.map.hint != null ? widget.map.hint : "",
+                            hintText: widget.map!.hint != null
+                                ? widget.map!.hint
+                                : "",
                             errorText: _error ? "$_errorText" : null,
-                            border: widget.map.borderData != null
+                            border: widget.map!.borderData != null
                                 ? OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(
-                                      widget.map.borderData.borderRadius,
+                                      widget.map!.borderData!.borderRadius!,
                                     ),
                                     borderSide: BorderSide(
                                       color: parseRgb(
-                                        widget.map.borderData.borderColor,
+                                        widget.map!.borderData!.borderColor!,
                                       ),
-                                      width: widget.map.borderData.borderWidth,
+                                      width:
+                                          widget.map!.borderData!.borderWidth!,
                                     ),
                                   )
-                                : InputBorder.none,
-                            counter: (widget.map.showWordCount != null &&
-                                    widget.map.showWordCount)
+                                : null,
+                            counter: (widget.map!.showWordCount != null &&
+                                    widget.map!.showWordCount!)
                                 ? null
-                                : Container(),
-                            prefixIcon: widget.map.leftIcon != null
+                                : null,
+                            prefixIcon: widget.map!.leftIcon != null
                                 ? LeftIconWidgetParser(
-                                    color: widget.map.leftIconColor != null
-                                        ? parseRgb(widget.map.leftIconColor)
+                                    color: widget.map!.leftIconColor != null
+                                        ? parseRgb(widget.map!.leftIconColor!)
                                         : Colors.black,
                                   ).parse(
-                                    widget.map,
+                                    widget.map!,
                                     context,
                                     null,
                                     null,
                                   )
-                                : SizedBox.shrink(),
+                                : null,
                             // suffixIcon: widget.map.rightIcon != null
                             //     ? RightIconWidgetParser(
                             //         color: widget.map.rightIconColor != null
@@ -307,19 +313,19 @@ class _TextFieldCreatorState extends State<TextFieldCreator> {
                     ),
                   )
                 : Container(
-                    margin: widget.map.marginData != null
+                    margin: widget.map!.marginData != null
                         ? EdgeInsets.only(
-                            top: widget.map.marginData.top != null
-                                ? widget.map.marginData.top
+                            top: widget.map!.marginData!.top != null
+                                ? widget.map!.marginData!.top!
                                 : 0.0,
-                            left: widget.map.marginData.left != null
-                                ? widget.map.marginData.left
+                            left: widget.map!.marginData!.left != null
+                                ? widget.map!.marginData!.left!
                                 : 0.0,
-                            right: widget.map.marginData.right != null
-                                ? widget.map.marginData.right
+                            right: widget.map!.marginData!.right != null
+                                ? widget.map!.marginData!.right!
                                 : 0.0,
-                            bottom: widget.map.marginData.bottom != null
-                                ? widget.map.marginData.bottom
+                            bottom: widget.map!.marginData!.bottom != null
+                                ? widget.map!.marginData!.bottom!
                                 : 0.0,
                           )
                         : EdgeInsets.all(0.0),
@@ -327,34 +333,34 @@ class _TextFieldCreatorState extends State<TextFieldCreator> {
                       direction: Axis.vertical,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        widget.map.borderData != null &&
-                                widget.map.borderData.lableInBorder != null &&
-                                !(widget.map.borderData.lableInBorder)
+                        widget.map!.borderData != null &&
+                                widget.map!.borderData!.lableInBorder != null &&
+                                !widget.map!.borderData!.lableInBorder!
                             ? Text(
-                                (widget.map.label == null ||
-                                        widget.map.label.isEmpty)
+                                (widget.map!.label == null ||
+                                        widget.map!.label!.isEmpty)
                                     ? ""
-                                    : widget.map.label,
+                                    : widget.map!.label!,
                                 style: TextStyle(
-                                  fontSize: widget.map.textStyleData != null &&
-                                          widget.map.textStyleData.fontSize !=
+                                  fontSize: widget.map!.textStyleData != null &&
+                                          widget.map!.textStyleData!.fontSize !=
                                               null
-                                      ? widget.map.textStyleData.fontSize
+                                      ? widget.map!.textStyleData!.fontSize
                                       : 17.0,
                                   fontWeight: FontWeight.w500,
                                 ),
                               )
                             : SizedBox.shrink(),
-                        widget.map.borderData != null &&
-                                widget.map.borderData.lableInBorder != null &&
-                                !(widget.map.borderData.lableInBorder)
+                        widget.map!.borderData != null &&
+                                widget.map!.borderData!.lableInBorder != null &&
+                                !widget.map!.borderData!.lableInBorder!
                             ? SizedBox(height: 6)
                             : SizedBox.shrink(),
                         TextField(
-                          enabled: !widget.map.disabled,
-                          obscureText: widget.map.mask,
-                          keyboardType: parsetInputType(widget.map.type),
-                          style: widget.map.textStyleData == null
+                          enabled: !widget.map!.disabled!,
+                          obscureText: widget.map!.mask!,
+                          keyboardType: parsetInputType(widget.map!.type),
+                          style: widget.map!.textStyleData == null
                               ? TextStyle(
                                   fontSize: 15.0,
                                   color: Colors.black,
@@ -362,15 +368,17 @@ class _TextFieldCreatorState extends State<TextFieldCreator> {
                                 )
                               : TextStyle(
                                   fontSize:
-                                      widget.map.textStyleData.fontSize == null
+                                      widget.map!.textStyleData!.fontSize ==
+                                              null
                                           ? 15.0
-                                          : widget.map.textStyleData.fontSize,
-                                  color: widget.map.textStyleData.color == null
+                                          : widget.map!.textStyleData!.fontSize,
+                                  color: widget.map!.textStyleData!.color ==
+                                          null
                                       ? Colors.black
                                       : parseRgb(
-                                          widget.map.textStyleData.color),
+                                          widget.map!.textStyleData!.color!),
                                   fontWeight:
-                                      widget.map.textStyleData.fontWeight ==
+                                      widget.map!.textStyleData!.fontWeight ==
                                               null
                                           ? FontWeight.w400
                                           : FontWeight.w400,
@@ -379,80 +387,86 @@ class _TextFieldCreatorState extends State<TextFieldCreator> {
                                   // ),
                                 ),
                           controller: widget.controller,
-                          maxLength: widget.map.maxCount,
+                          maxLength: widget.map!.maxCount,
                           onChanged: (value) {
-                            _mapper.update(widget.map.key, (nVal) => value);
-                            widget.widgetProvider.widgetBloc
+                            _mapper.update(widget.map!.key, (nVal) => value);
+                            widget.widgetProvider!.widgetBloc
                                 .registerMap(_mapper);
                             setState(() => characters = value);
-                            if (value.trim().isEmpty && widget.map.errorOnEmpty)
+                            if (value.trim().isEmpty &&
+                                widget.map!.errorOnEmpty!)
                               setState(() {
                                 _error = true;
-                                _errorText = '${widget.map.errorText}';
+                                _errorText = '${widget.map!.errorText}';
                               });
                             else
                               setState(() => _error = false);
                             if (_error) {
                               print('_errorText $_errorText');
                               print(
-                                  'widget.map.errorText ${widget.map.errorText}');
+                                  'widget.map.errorText ${widget.map!.errorText}');
                             }
                           },
                           onSubmitted: (String value) {
-                            if (value.trim().isEmpty && widget.map.errorOnEmpty)
+                            if (value.trim().isEmpty &&
+                                widget.map!.errorOnEmpty!)
                               setState(() {
                                 _error = true;
-                                _errorText = '${widget.map.errorText}';
+                                _errorText = '${widget.map!.errorText}';
                               });
                             else
                               setState(() => _error = false);
                           },
                           inputFormatters: [
                             ModifiedLengthLimitingTextInputFormatter(
-                              widget.map.maxCount,
+                              widget.map!.maxCount,
                             ),
                           ],
                           decoration: InputDecoration(
-                            labelText: widget.map.borderData == null ||
-                                    widget.map.borderData.lableInBorder ==
+                            labelText: widget.map!.borderData == null ||
+                                    widget.map!.borderData!.lableInBorder ==
                                         null ||
-                                    widget.map.borderData.lableInBorder
-                                ? (widget.map.label != null)
-                                    ? widget.map.label
+                                    widget.map!.borderData!.lableInBorder!
+                                ? (widget.map!.label != null)
+                                    ? widget.map!.label
                                     : ""
                                 : "",
-                            hintText:
-                                widget.map.hint != null ? widget.map.hint : "",
+                            hintText: widget.map!.hint != null
+                                ? widget.map!.hint
+                                : "",
                             errorText: _error ? '$_errorText' : null,
-                            border: widget.map.borderData != null
+                            border: widget.map!.borderData != null
                                 ? OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(
-                                      widget.map.borderData.borderRadius,
+                                      widget.map!.borderData!.borderRadius!,
                                     ),
                                     borderSide: BorderSide(
                                       color: parseRgb(
-                                        widget.map.borderData.borderColor,
+                                        widget.map!.borderData!.borderColor!,
                                       ),
-                                      width: widget.map.borderData.borderWidth,
+                                      width:
+                                          widget.map!.borderData!.borderWidth!,
                                     ),
                                   )
-                                : InputBorder.none,
-                            counter: (widget.map.showWordCount != null &&
-                                    widget.map.showWordCount)
+                                : null,
+
+                            /// Counter seems useless...
+                            counter: (widget.map!.showWordCount != null &&
+                                    widget.map!.showWordCount!)
                                 ? null
-                                : SizedBox.shrink(),
-                            prefixIcon: widget.map.leftIcon != null
+                                : null,
+                            prefixIcon: widget.map!.leftIcon != null
                                 ? LeftIconWidgetParser(
-                                    color: widget.map.leftIconColor != null
-                                        ? parseRgb(widget.map.leftIconColor)
+                                    color: widget.map!.leftIconColor != null
+                                        ? parseRgb(widget.map!.leftIconColor!)
                                         : Colors.black,
                                   ).parse(
-                                    widget.map,
+                                    widget.map!,
                                     context,
                                     null,
                                     null,
                                   )
-                                : Container(),
+                                : null,
                             // suffixIcon: widget.map.rightIcon != null
                             //     ? RightIconWidgetParser(
                             //         color: widget.map.rightIconColor != null
@@ -495,7 +509,7 @@ class _TextFieldCreatorState extends State<TextFieldCreator> {
 
 class ModifiedLengthLimitingTextInputFormatter
     extends LengthLimitingTextInputFormatter {
-  final int maxLength;
+  final int? maxLength;
 
   ModifiedLengthLimitingTextInputFormatter(this.maxLength) : super(maxLength);
 
@@ -508,26 +522,27 @@ class ModifiedLengthLimitingTextInputFormatter
     // limit or the old value is composing too.
     if (newValue.composing.isValid) {
       if (maxLength != null &&
-          maxLength > 0 &&
+          maxLength! > 0 &&
           oldValue.text.characters.length == maxLength &&
           !oldValue.composing.isValid) {
         return oldValue;
         //START OF FIX
-      } else if (newValue.text.characters.length > maxLength) {
+      } else if (maxLength != null &&
+          newValue.text.characters.length > maxLength!) {
         return oldValue;
       }
       //END OF FIX
       return newValue;
     }
     if (maxLength != null &&
-        maxLength > 0 &&
-        newValue.text.characters.length > maxLength) {
+        maxLength! > 0 &&
+        newValue.text.characters.length > maxLength!) {
       // If already at the maximum and tried to enter even more, keep the old
       // value.
       if (oldValue.text.characters.length == maxLength) {
         return oldValue;
       }
-      return truncate(newValue, maxLength);
+      return truncate(newValue, maxLength!);
     }
     return newValue;
   }

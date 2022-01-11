@@ -7,7 +7,7 @@ class DayTextFieldParser extends WidgetParser {
   /// Returns a [Widget] of type [DayTextField]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener,
-      WidgetProvider widgetProvider) {
+      WidgetProvider? widgetProvider) {
     return DayTextFieldCreator(
       map: map,
       widgetProvider: widgetProvider,
@@ -21,9 +21,9 @@ class DayTextFieldParser extends WidgetParser {
 
 // ignore: must_be_immutable
 class DayTextFieldCreator extends StatefulWidget implements Manager {
-  final Component map;
+  final Component? map;
   final controller = TextEditingController();
-  final WidgetProvider widgetProvider;
+  final WidgetProvider? widgetProvider;
 
   DayTextFieldCreator({
     this.map,
@@ -35,11 +35,11 @@ class DayTextFieldCreator extends StatefulWidget implements Manager {
 
   /// Returns a [String] with the value contained inside [Component.key]
   @override
-  String keyValue() => map.key ?? "day";
+  String keyValue() => map!.key;
 
   /// Current value of the [Widget]
   @override
-  get data => controller.text ?? "";
+  get data => controller.text;
 }
 
 class _DayTextFieldCreatorState extends State<DayTextFieldCreator> {
@@ -51,21 +51,21 @@ class _DayTextFieldCreatorState extends State<DayTextFieldCreator> {
   @override
   void initState() {
     super.initState();
-    _mapper[widget.map.key] = {""};
-    if (widget.map.defaultValue != null)
-      (widget.map.defaultValue is List<String>)
-          ? widget.controller.text = widget.map.defaultValue
+    _mapper[widget.map!.key] = {""};
+    if (widget.map!.defaultValue != null)
+      (widget.map!.defaultValue is List<String>)
+          ? widget.controller.text = widget.map!.defaultValue
               .asMap()
               .values
               .toString()
               .replaceAll(RegExp('[()]'), '')
-          : widget.controller.text = widget.map.defaultValue.toString();
+          : widget.controller.text = widget.map!.defaultValue.toString();
     widget.controller.addListener(() {
-      _mapper.update(widget.map.key, (value) => widget.controller.value.text);
+      _mapper.update(widget.map!.key, (value) => widget.controller.value.text);
     });
     Future.delayed(Duration(milliseconds: 10), () {
-      _mapper.update(widget.map.key, (value) => widget.controller.value.text);
-      widget.widgetProvider.widgetBloc.registerMap(_mapper);
+      _mapper.update(widget.map!.key, (value) => widget.controller.value.text);
+      widget.widgetProvider!.widgetBloc.registerMap(_mapper);
     });
   }
 
@@ -76,29 +76,29 @@ class _DayTextFieldCreatorState extends State<DayTextFieldCreator> {
 
   @override
   Widget build(BuildContext context) {
-    bool isVisible = true;
+    bool? isVisible = true;
     final size = MediaQuery.of(context).size;
     return StreamBuilder(
-      stream: widget.widgetProvider.widgetBloc.widgetsStream,
+      stream: widget.widgetProvider!.widgetBloc.widgetsStream,
       builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
-        isVisible = (widget.map.conditional != null && snapshot.data != null)
-            ? (snapshot.data.containsKey(widget.map.conditional.when) &&
-                    snapshot.data[widget.map.conditional.when].toString() ==
-                        widget.map.conditional.eq)
-                ? widget.map.conditional.show
-                : !widget.map.conditional.show
+        isVisible = (widget.map!.conditional != null && snapshot.data != null)
+            ? (snapshot.data!.containsKey(widget.map!.conditional!.when) &&
+                    snapshot.data![widget.map!.conditional!.when].toString() ==
+                        widget.map!.conditional!.eq)
+                ? widget.map!.conditional!.show
+                : !widget.map!.conditional!.show!
             : true;
-        if (!isVisible) widget.controller.text = "";
-        return (!isVisible)
+        if (!isVisible!) widget.controller.text = "";
+        return (!isVisible!)
             ? SizedBox.shrink()
             : Neumorphic(
                 child: Container(
-                  width: (size.width * (1 / (widget.map.total + 0.5))),
+                  width: (size.width * (1 / (widget.map!.total + 0.5))),
                   padding: EdgeInsets.symmetric(horizontal: 4.0),
                   child: TextField(
-                    enabled: !widget.map.disabled,
-                    obscureText: widget.map.mask,
-                    keyboardType: parsetInputType(widget.map.type),
+                    enabled: !widget.map!.disabled!,
+                    obscureText: widget.map!.mask!,
+                    keyboardType: parsetInputType(widget.map!.type),
                     style: TextStyle(
                       fontSize: 20.0,
                       color: Colors.black,
@@ -106,35 +106,37 @@ class _DayTextFieldCreatorState extends State<DayTextFieldCreator> {
                     controller: widget.controller,
                     enableInteractiveSelection: false,
                     onChanged: (value) {
-                      _mapper.update(widget.map.key, (nVal) => value);
-                      widget.widgetProvider.widgetBloc.registerMap(_mapper);
+                      _mapper.update(widget.map!.key, (nVal) => value);
+                      widget.widgetProvider!.widgetBloc.registerMap(_mapper);
                       setState(() {
                         characters = value;
                       });
                     },
                     decoration: InputDecoration(
-                      counter: (widget.map.showWordCount != null &&
-                              widget.map.showWordCount)
+                      counter: (widget.map!.showWordCount != null &&
+                              widget.map!.showWordCount!)
                           ? (characters != "")
                               ? Text('${characters.split(' ').length} words')
-                              : Container()
+                              : null
                           : null,
-                      prefixText:
-                          (widget.map.prefix != null) ? widget.map.prefix : "",
+                      prefixText: (widget.map!.prefix != null)
+                          ? widget.map!.prefix
+                          : "",
                       prefixStyle: TextStyle(
-                        background: Paint()..color = Colors.teal[200],
+                        background: Paint()..color = Colors.teal[200]!,
                         color: Colors.black,
                         fontWeight: FontWeight.w600,
                         fontSize: 20.0,
                       ),
                       labelText:
-                          (widget.map.label != null) ? widget.map.label : "",
-                      hintText: widget.map.label,
+                          (widget.map!.label != null) ? widget.map!.label : "",
+                      hintText: widget.map!.label,
                       icon: Icon(Icons.calendar_today),
-                      suffixText:
-                          (widget.map.suffix != null) ? widget.map.suffix : "",
+                      suffixText: (widget.map!.suffix != null)
+                          ? widget.map!.suffix
+                          : "",
                       suffixStyle: TextStyle(
-                        background: Paint()..color = Colors.teal[200],
+                        background: Paint()..color = Colors.teal[200]!,
                         color: Colors.black,
                         fontWeight: FontWeight.w600,
                         fontSize: 20.0,
@@ -152,7 +154,7 @@ class _DayTextFieldCreatorState extends State<DayTextFieldCreator> {
   }
 
   _selectDate(BuildContext context) async {
-    DateTime picked = await showDatePicker(
+    DateTime? picked = await showDatePicker(
       context: context,
       initialDate: new DateTime.now(),
       firstDate: new DateTime.now(),
@@ -160,8 +162,8 @@ class _DayTextFieldCreatorState extends State<DayTextFieldCreator> {
     );
     if (picked != null) {
       selectedDT = _dateFormat.format(picked);
-      _mapper.update(widget.map.key, (value) => selectedDT);
-      widget.widgetProvider.widgetBloc.registerMap(_mapper);
+      _mapper.update(widget.map!.key, (value) => selectedDT);
+      widget.widgetProvider!.widgetBloc.registerMap(_mapper);
       widget.controller.text = selectedDT;
     }
   }

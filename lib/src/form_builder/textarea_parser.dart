@@ -6,7 +6,7 @@ class TextAreaParser extends WidgetParser {
   /// Returns a [Widget] of type [TextArea]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener,
-      WidgetProvider widgetProvider) {
+      WidgetProvider? widgetProvider) {
     return TextAreaCreator(
       map: map,
       widgetProvider: widgetProvider,
@@ -18,10 +18,9 @@ class TextAreaParser extends WidgetParser {
   String get widgetName => "textarea";
 }
 
-// ignore: must_be_immutable
 class TextAreaCreator extends StatefulWidget implements Manager {
-  final Component map;
-  final WidgetProvider widgetProvider;
+  final Component? map;
+  final WidgetProvider? widgetProvider;
   final controller = TextEditingController();
   TextAreaCreator({this.map, this.widgetProvider});
   @override
@@ -29,35 +28,35 @@ class TextAreaCreator extends StatefulWidget implements Manager {
 
   /// Returns a [String] with the value contained inside [Component.key]
   @override
-  String keyValue() => map.key ?? "textAreaField";
+  String keyValue() => map!.key;
 
   /// Current value of the [Widget]
   @override
-  get data => controller.text ?? "";
+  get data => controller.text;
 }
 
 class _TextAreaCreatorState extends State<TextAreaCreator> {
   String characters = "";
   String _calculate = "";
-  List<String> _operators = [];
+  List<String?> _operators = [];
   List<String> _keys = [];
   final Map<String, dynamic> _mapper = new Map();
 
   @override
   void initState() {
     super.initState();
-    _mapper[widget.map.key] = {""};
-    if (widget.map.defaultValue != null)
-      (widget.map.defaultValue is List<String>)
-          ? widget.controller.text = widget.map.defaultValue
+    _mapper[widget.map!.key] = {""};
+    if (widget.map!.defaultValue != null)
+      (widget.map!.defaultValue is List<String>)
+          ? widget.controller.text = widget.map!.defaultValue
               .asMap()
               .values
               .toString()
               .replaceAll(RegExp('[()]'), '')
-          : widget.controller.text = widget.map.defaultValue.toString();
+          : widget.controller.text = widget.map!.defaultValue.toString();
     Future.delayed(Duration(milliseconds: 10), () {
-      _mapper.update(widget.map.key, (value) => widget.controller.value.text);
-      widget.widgetProvider.widgetBloc.registerMap(_mapper);
+      _mapper.update(widget.map!.key, (value) => widget.controller.value.text);
+      widget.widgetProvider!.widgetBloc.registerMap(_mapper);
     });
   }
 
@@ -68,31 +67,31 @@ class _TextAreaCreatorState extends State<TextAreaCreator> {
 
   @override
   Widget build(BuildContext context) {
-    bool isVisible = true;
+    bool? isVisible = true;
     final size = MediaQuery.of(context).size;
-    if (widget.map.calculateValue != null) {
-      _keys = parseListStringCalculated(widget.map.calculateValue);
-      _operators = parseListStringOperator(widget.map.calculateValue);
+    if (widget.map!.calculateValue != null) {
+      _keys = parseListStringCalculated(widget.map!.calculateValue!);
+      _operators = parseListStringOperator(widget.map!.calculateValue!);
     }
     return StreamBuilder(
-      stream: widget.widgetProvider.widgetBloc.widgetsStream,
+      stream: widget.widgetProvider!.widgetBloc.widgetsStream,
       builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
-        isVisible = (widget.map.conditional != null && snapshot.data != null)
-            ? (snapshot.data.containsKey(widget.map.conditional.when) &&
-                    snapshot.data[widget.map.conditional.when].toString() ==
-                        widget.map.conditional.eq)
-                ? widget.map.conditional.show
-                : !widget.map.conditional.show
+        isVisible = (widget.map!.conditional != null && snapshot.data != null)
+            ? (snapshot.data!.containsKey(widget.map!.conditional!.when) &&
+                    snapshot.data![widget.map!.conditional!.when].toString() ==
+                        widget.map!.conditional!.eq)
+                ? widget.map!.conditional!.show
+                : !widget.map!.conditional!.show!
             : true;
 
-        if (widget.map.calculateValue != null &&
-            widget.map.calculateValue.isNotEmpty &&
+        if (widget.map!.calculateValue != null &&
+            widget.map!.calculateValue!.isNotEmpty &&
             snapshot.data != null) {
           _calculate = "";
           _keys.asMap().forEach(
             (value, element) {
-              _calculate = (snapshot.data.containsKey(element))
-                  ? "$_calculate ${snapshot.data[element]} ${(value < _operators.length) ? (_operators[value]) : ""}"
+              _calculate = (snapshot.data!.containsKey(element))
+                  ? "$_calculate ${snapshot.data![element]} ${(value < _operators.length) ? (_operators[value]) : ""}"
                   : double.tryParse(element) != null
                       ? "$_calculate $element ${(value < _operators.length) ? (_operators[value]) : ""}"
                       : "$_calculate 0 ${(value < _operators.length) ? (_operators[value]) : ""}";
@@ -100,8 +99,8 @@ class _TextAreaCreatorState extends State<TextAreaCreator> {
           );
           widget.controller.text = parseCalculate(_calculate);
         }
-        if (!isVisible) widget.controller.text = "";
-        return (!isVisible)
+        if (!isVisible!) widget.controller.text = "";
+        return (!isVisible!)
             ? SizedBox.shrink()
             : Neumorphic(
                 child: Container(
@@ -110,9 +109,9 @@ class _TextAreaCreatorState extends State<TextAreaCreator> {
                   height: 200,
                   padding: EdgeInsets.symmetric(horizontal: 10.0),
                   child: TextField(
-                    enabled: !widget.map.disabled,
-                    obscureText: widget.map.mask,
-                    keyboardType: parsetInputType(widget.map.type),
+                    enabled: !widget.map!.disabled!,
+                    obscureText: widget.map!.mask!,
+                    keyboardType: parsetInputType(widget.map!.type),
                     maxLines: 8,
                     style: TextStyle(
                       fontSize: 20.0,
@@ -120,12 +119,12 @@ class _TextAreaCreatorState extends State<TextAreaCreator> {
                     ),
                     controller: widget.controller,
                     onChanged: (value) {
-                      _mapper.update(widget.map.key, (nVal) => value);
-                      widget.widgetProvider.widgetBloc.registerMap(_mapper);
+                      _mapper.update(widget.map!.key, (nVal) => value);
+                      widget.widgetProvider!.widgetBloc.registerMap(_mapper);
                       setState(() => characters = value);
                     },
                     decoration: InputDecoration.collapsed(
-                      hintText: widget.map.label,
+                      hintText: widget.map!.label,
                     ),
                   ),
                 ),

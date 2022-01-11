@@ -67,7 +67,7 @@ class WidgetParserBuilder {
 
   /// Returns a [Widget] from each [WidgetParser] that match the [widgetName] with the [type] attribute.
   static Widget build(Component components, BuildContext context,
-      ClickListener listener, WidgetProvider widgetProvider) {
+      ClickListener? listener, WidgetProvider? widgetProvider) {
     initDefaultParsersIfNess();
     ClickListener _listener =
         listener == null ? new NonResponseWidgetClickListener() : listener;
@@ -76,8 +76,8 @@ class WidgetParserBuilder {
 
   /// Same as [build] but this returns the [WidgetParser] child class that has been found.
   static Widget buildFromMap(Component component, BuildContext context,
-      ClickListener listener, WidgetProvider widgetProvider) {
-    var parser = _widgetNameParserMap[component.type];
+      ClickListener listener, WidgetProvider? widgetProvider) {
+    var parser = _widgetNameParserMap[component.type!];
     return (parser != null)
         ? parser.parse(component, context, listener, widgetProvider)
         : Container();
@@ -87,8 +87,8 @@ class WidgetParserBuilder {
   static List<Widget> buildWidgetsByComponent(
       List<Component> components,
       BuildContext context,
-      ClickListener listener,
-      WidgetProvider widgetProvider) {
+      ClickListener? listener,
+      WidgetProvider? widgetProvider) {
     _rt = [];
     if (components.isEmpty) return [];
     components.asMap().forEach((key, value) {
@@ -104,8 +104,8 @@ class WidgetParserBuilder {
       ClickListener listener,
       WidgetProvider widgetProvider) {
     _rt = [];
-    if (collection.components.isEmpty) return [];
-    collection.components.forEach((element) {
+    if (collection.components!.isEmpty) return [];
+    collection.components!.forEach((element) {
       _rt.add(build(element, context, listener, widgetProvider));
     });
     return _rt;

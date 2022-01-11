@@ -2,7 +2,7 @@
 class Manager {
   /// retrieve the [key] of the [WidgetParser] class implemented.
   // ignore: missing_return
-  String keyValue() {}
+  String? keyValue() {}
 
   /// retrieve a [dynamic] data of the [WidgetParser] class implemented.
   dynamic get data {}

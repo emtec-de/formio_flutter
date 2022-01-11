@@ -4,7 +4,8 @@ class WidgetBloc {
   /// Contains the information related to the [key] and [value] of every [parser] class.
   Map<String, dynamic> _mapper = new Map();
 
-  final _widgetController = new BehaviorSubject<Map<String, dynamic>>();
+  final BehaviorSubject<Map<String, dynamic>> _widgetController =
+      new BehaviorSubject<Map<String, dynamic>>();
 
   /// Returns a [Stream] of [Map<String, dynamic].
   /// ```dart
@@ -25,6 +26,6 @@ class WidgetBloc {
 
   /// Close the Stream.
   void dispose() {
-    _widgetController?.close();
+    _widgetController.close();
   }
 }

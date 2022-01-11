@@ -7,7 +7,7 @@ class EmailTextFieldParser extends WidgetParser {
   /// Returns a [Widget] of type [EmailTextField]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener,
-      WidgetProvider widgetProvider) {
+      WidgetProvider? widgetProvider) {
     return EmailTextFieldCreator(
       map: map,
       widgetProvider: widgetProvider,
@@ -21,31 +21,31 @@ class EmailTextFieldParser extends WidgetParser {
 
 // ignore: must_be_immutable
 class EmailTextFieldCreator extends StatefulWidget implements Manager {
-  final Component map;
+  final Component? map;
   final controller = TextEditingController();
-  final WidgetProvider widgetProvider;
+  final WidgetProvider? widgetProvider;
   EmailTextFieldCreator({this.map, this.widgetProvider});
   @override
   _EmailTextFieldCreatorState createState() => _EmailTextFieldCreatorState();
 
   /// Returns a [String] with the value contained inside [Component.key]
   @override
-  String keyValue() => map.key ?? "emailField";
+  String keyValue() => map!.key;
 
   /// Current value of the [Widget]
   @override
-  get data => controller.text ?? "";
+  get data => controller.text;
 }
 
 class _EmailTextFieldCreatorState extends State<EmailTextFieldCreator> {
   String characters = "";
   String _calculate = "";
-  List<String> _operators = [];
+  List<String?> _operators = [];
   List<String> _keys = [];
   final Map<String, dynamic> _mapper = new Map();
 
-  bool _error;
-  String _errorText;
+  late bool _error;
+  String? _errorText;
 
   bool isValidEmail(String emailAddress) {
     return RegExp(
@@ -61,18 +61,18 @@ class _EmailTextFieldCreatorState extends State<EmailTextFieldCreator> {
     _error = false;
     _errorText = '';
 
-    _mapper[widget.map.key] = {""};
-    if (widget.map.defaultValue != null)
-      (widget.map.defaultValue is List<String>)
-          ? widget.controller.text = widget.map.defaultValue
+    _mapper[widget.map!.key] = {""};
+    if (widget.map!.defaultValue != null)
+      (widget.map!.defaultValue is List<String>)
+          ? widget.controller.text = widget.map!.defaultValue
               .asMap()
               .values
               .toString()
               .replaceAll(RegExp('[()]'), '')
-          : widget.controller.text = widget.map.defaultValue.toString();
+          : widget.controller.text = widget.map!.defaultValue.toString();
     Future.delayed(Duration(milliseconds: 10), () {
-      _mapper.update(widget.map.key, (value) => widget.controller.value.text);
-      widget.widgetProvider.widgetBloc.registerMap(_mapper);
+      _mapper.update(widget.map!.key, (value) => widget.controller.value.text);
+      widget.widgetProvider!.widgetBloc.registerMap(_mapper);
     });
   }
 
@@ -94,51 +94,51 @@ class _EmailTextFieldCreatorState extends State<EmailTextFieldCreator> {
 
   @override
   Widget build(BuildContext context) {
-    bool isVisible = true;
-    if (widget.map.calculateValue != null) {
-      _keys = parseListStringCalculated(widget.map.calculateValue);
-      _operators = parseListStringOperator(widget.map.calculateValue);
+    bool? isVisible = true;
+    if (widget.map!.calculateValue != null) {
+      _keys = parseListStringCalculated(widget.map!.calculateValue!);
+      _operators = parseListStringOperator(widget.map!.calculateValue!);
     }
     return StreamBuilder(
-      stream: widget.widgetProvider.widgetBloc.widgetsStream,
+      stream: widget.widgetProvider!.widgetBloc.widgetsStream,
       builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
-        isVisible = (widget.map.conditional != null && snapshot.data != null)
-            ? (snapshot.data.containsKey(widget.map.conditional.when) &&
-                    snapshot.data[widget.map.conditional.when].toString() ==
-                        widget.map.conditional.eq)
-                ? widget.map.conditional.show
-                : !widget.map.conditional.show
+        isVisible = (widget.map!.conditional != null && snapshot.data != null)
+            ? (snapshot.data!.containsKey(widget.map!.conditional!.when) &&
+                    snapshot.data![widget.map!.conditional!.when].toString() ==
+                        widget.map!.conditional!.eq)
+                ? widget.map!.conditional!.show
+                : !widget.map!.conditional!.show!
             : true;
-        if (widget.map.calculateValue != null &&
-            widget.map.calculateValue.isNotEmpty &&
+        if (widget.map!.calculateValue != null &&
+            widget.map!.calculateValue!.isNotEmpty &&
             snapshot.data != null) {
           _calculate = "";
           _keys.asMap().forEach((value, element) {
-            _calculate = (snapshot.data.containsKey(element))
-                ? "$_calculate ${snapshot.data[element]} ${(value < _operators.length) ? (_operators[value]) : ""}"
+            _calculate = (snapshot.data!.containsKey(element))
+                ? "$_calculate ${snapshot.data![element]} ${(value < _operators.length) ? (_operators[value]) : ""}"
                 : double.tryParse(element) != null
                     ? "$_calculate $element ${(value < _operators.length) ? (_operators[value]) : ""}"
                     : "$_calculate 0 ${(value < _operators.length) ? (_operators[value]) : ""}";
           });
           widget.controller.text = parseCalculate(_calculate);
         }
-        if (!isVisible) widget.controller.text = "";
-        return (!isVisible)
+        if (!isVisible!) widget.controller.text = "";
+        return (!isVisible!)
             ? SizedBox.shrink()
             : Container(
-                margin: widget.map.marginData != null
+                margin: widget.map!.marginData != null
                     ? EdgeInsets.only(
-                        top: widget.map.marginData.top != null
-                            ? widget.map.marginData.top
+                        top: widget.map!.marginData!.top != null
+                            ? widget.map!.marginData!.top!
                             : 0.0,
-                        left: widget.map.marginData.left != null
-                            ? widget.map.marginData.left
+                        left: widget.map!.marginData!.left != null
+                            ? widget.map!.marginData!.left!
                             : 0.0,
-                        right: widget.map.marginData.right != null
-                            ? widget.map.marginData.right
+                        right: widget.map!.marginData!.right != null
+                            ? widget.map!.marginData!.right!
                             : 0.0,
-                        bottom: widget.map.marginData.bottom != null
-                            ? widget.map.marginData.bottom
+                        bottom: widget.map!.marginData!.bottom != null
+                            ? widget.map!.marginData!.bottom!
                             : 0.0,
                       )
                     : EdgeInsets.all(0.0),
@@ -146,33 +146,34 @@ class _EmailTextFieldCreatorState extends State<EmailTextFieldCreator> {
                   direction: Axis.vertical,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    widget.map.borderData != null &&
-                            widget.map.borderData.lableInBorder != null &&
-                            !(widget.map.borderData.lableInBorder)
+                    widget.map!.borderData != null &&
+                            widget.map!.borderData!.lableInBorder != null &&
+                            !widget.map!.borderData!.lableInBorder!
                         ? Text(
-                            (widget.map.label == null ||
-                                    widget.map.label.isEmpty)
+                            (widget.map!.label == null ||
+                                    widget.map!.label!.isEmpty)
                                 ? ""
-                                : widget.map.label,
+                                : widget.map!.label!,
                             style: TextStyle(
-                              fontSize: widget.map.textStyleData != null &&
-                                      widget.map.textStyleData.fontSize != null
-                                  ? widget.map.textStyleData.fontSize
+                              fontSize: widget.map!.textStyleData != null &&
+                                      widget.map!.textStyleData!.fontSize !=
+                                          null
+                                  ? widget.map!.textStyleData!.fontSize
                                   : 17.0,
                               fontWeight: FontWeight.w500,
                             ),
                           )
                         : SizedBox.shrink(),
-                    widget.map.borderData != null &&
-                            widget.map.borderData.lableInBorder != null &&
-                            !(widget.map.borderData.lableInBorder)
+                    widget.map!.borderData != null &&
+                            widget.map!.borderData!.lableInBorder != null &&
+                            !widget.map!.borderData!.lableInBorder!
                         ? SizedBox(height: 6)
                         : SizedBox.shrink(),
                     TextField(
-                      enabled: !widget.map.disabled,
-                      obscureText: widget.map.mask,
-                      keyboardType: parsetInputType(widget.map.type),
-                      style: widget.map.textStyleData == null
+                      enabled: !widget.map!.disabled!,
+                      obscureText: widget.map!.mask!,
+                      keyboardType: parsetInputType(widget.map!.type),
+                      style: widget.map!.textStyleData == null
                           ? TextStyle(
                               fontSize: 15.0,
                               color: Colors.black,
@@ -180,14 +181,14 @@ class _EmailTextFieldCreatorState extends State<EmailTextFieldCreator> {
                             )
                           : TextStyle(
                               fontSize:
-                                  widget.map.textStyleData.fontSize == null
+                                  widget.map!.textStyleData!.fontSize == null
                                       ? 15.0
-                                      : widget.map.textStyleData.fontSize,
-                              color: widget.map.textStyleData.color == null
+                                      : widget.map!.textStyleData!.fontSize,
+                              color: widget.map!.textStyleData!.color == null
                                   ? Colors.black
-                                  : parseRgb(widget.map.textStyleData.color),
+                                  : parseRgb(widget.map!.textStyleData!.color!),
                               fontWeight:
-                                  widget.map.textStyleData.fontWeight == null
+                                  widget.map!.textStyleData!.fontWeight == null
                                       ? FontWeight.w400
                                       : FontWeight.w400,
                               // : parseFontWeight(
@@ -196,10 +197,10 @@ class _EmailTextFieldCreatorState extends State<EmailTextFieldCreator> {
                             ),
                       controller: widget.controller,
                       onChanged: (value) {
-                        _mapper.update(widget.map.key, (nVal) => value);
-                        widget.widgetProvider.widgetBloc.registerMap(_mapper);
+                        _mapper.update(widget.map!.key, (nVal) => value);
+                        widget.widgetProvider!.widgetBloc.registerMap(_mapper);
                         setState(() => characters = value);
-                        if (value.trim().isEmpty && widget.map.errorOnEmpty)
+                        if (value.trim().isEmpty && widget.map!.errorOnEmpty!)
                           setState(() {
                             _error = true;
                             _errorText = 'Empty Email';
@@ -208,53 +209,53 @@ class _EmailTextFieldCreatorState extends State<EmailTextFieldCreator> {
                           setState(() => _error = false);
                       },
                       onSubmitted: (String value) {
-                        if (value.trim().isEmpty && widget.map.errorOnEmpty) {
+                        if (value.trim().isEmpty && widget.map!.errorOnEmpty!) {
                           setState(() {
                             _error = true;
                             _errorText = 'Empty Email';
                           });
-                        } else if (widget.map.regex != null &&
+                        } else if (widget.map!.regex != null &&
                             !isValidEmail(value))
                           setState(() {
                             _error = true;
-                            _errorText = '${widget.map.errorText}';
+                            _errorText = '${widget.map!.errorText}';
                           });
                         else
                           setState(() => _error = false);
                       },
                       decoration: InputDecoration(
                         errorText: _error ? "$_errorText" : null,
-                        border: widget.map.borderData != null
+                        border: widget.map!.borderData != null
                             ? OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(
-                                  widget.map.borderData.borderRadius,
+                                  widget.map!.borderData!.borderRadius!,
                                 ),
                                 borderSide: BorderSide(
                                   color: parseRgb(
-                                    widget.map.borderData.borderColor,
+                                    widget.map!.borderData!.borderColor!,
                                   ),
-                                  width: widget.map.borderData.borderWidth,
+                                  width: widget.map!.borderData!.borderWidth!,
                                 ),
                               )
-                            : InputBorder.none,
-                        counter: (widget.map.showWordCount != null &&
-                                widget.map.showWordCount)
+                            : null,
+                        counter: (widget.map!.showWordCount != null &&
+                                widget.map!.showWordCount!)
                             ? (characters != "")
                                 ? Text('${characters.split(' ').length} words')
-                                : Container()
+                                : null
                             : null,
-                        prefixIcon: widget.map.leftIcon != null
+                        prefixIcon: widget.map!.leftIcon != null
                             ? LeftIconWidgetParser(
-                                color: widget.map.leftIconColor != null
-                                    ? parseRgb(widget.map.leftIconColor)
+                                color: widget.map!.leftIconColor != null
+                                    ? parseRgb(widget.map!.leftIconColor!)
                                     : Colors.black,
                               ).parse(
-                                widget.map,
+                                widget.map!,
                                 context,
                                 null,
                                 null,
                               )
-                            : Container(),
+                            : null,
                         // suffixIcon: widget.map.rightIcon != null
                         //     ? RightIconWidgetParser(
                         //         color: widget.map.rightIconColor != null
@@ -275,15 +276,15 @@ class _EmailTextFieldCreatorState extends State<EmailTextFieldCreator> {
                         //   fontWeight: FontWeight.w600,
                         //   fontSize: 20.0,
                         // ),
-                        labelText: widget.map.borderData == null ||
-                                widget.map.borderData.lableInBorder == null ||
-                                widget.map.borderData.lableInBorder
-                            ? (widget.map.label != null)
-                                ? widget.map.label
+                        labelText: widget.map!.borderData == null ||
+                                widget.map!.borderData!.lableInBorder == null ||
+                                widget.map!.borderData!.lableInBorder!
+                            ? (widget.map!.label != null)
+                                ? widget.map!.label
                                 : ""
                             : "",
                         hintText:
-                            widget.map.hint != null ? widget.map.hint : "",
+                            widget.map!.hint != null ? widget.map!.hint : "",
                         // suffixText:
                         //     (widget.map.suffix != null) ? widget.map.suffix : "",
                         // suffixStyle: TextStyle(

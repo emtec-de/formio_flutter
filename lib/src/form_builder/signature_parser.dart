@@ -6,7 +6,7 @@ class SignatureParser extends WidgetParser {
   /// Returns a [Widget] of type [Signature]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener,
-      WidgetProvider widgetProvider) {
+      WidgetProvider? widgetProvider) {
     return SignatureCreator(
       map: map,
       widgetProvider: widgetProvider,
@@ -22,8 +22,8 @@ class SignatureParser extends WidgetParser {
 class SignatureCreator extends StatefulWidget implements Manager {
   SignatureController controller = new SignatureController();
 
-  final Component map;
-  final WidgetProvider widgetProvider;
+  final Component? map;
+  final WidgetProvider? widgetProvider;
 
   SignatureCreator({
     this.map,
@@ -34,7 +34,7 @@ class SignatureCreator extends StatefulWidget implements Manager {
 
   /// Returns a [String] with the value contained inside [Component.key]
   @override
-  String keyValue() => map.key ?? "signatureField";
+  String keyValue() => map!.key;
 
   /// Current value of the [Widget]
   @override
@@ -49,16 +49,16 @@ class _SignatureCreatorState extends State<SignatureCreator> {
   @override
   void initState() {
     super.initState();
-    _mapper[widget.map.key] = {""};
-    isNewSignature = (widget.map.defaultValue != null) ? false : true;
+    _mapper[widget.map!.key] = {""};
+    isNewSignature = (widget.map!.defaultValue != null) ? false : true;
     widget.controller = SignatureController(
       penStrokeWidth: 5,
-      penColor: parseColor(widget.map.penColor),
+      penColor: parseColor(widget.map!.penColor),
       exportBackgroundColor: Colors.white,
     );
     Future.delayed(Duration(milliseconds: 10), () {
-      _mapper.update(widget.map.key, (value) => '');
-      widget.widgetProvider.widgetBloc.registerMap(_mapper);
+      _mapper.update(widget.map!.key, (value) => '');
+      widget.widgetProvider!.widgetBloc.registerMap(_mapper);
     });
   }
 
@@ -70,21 +70,22 @@ class _SignatureCreatorState extends State<SignatureCreator> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    bool isVisible = true;
+    bool? isVisible = true;
     return Container(
       child: StreamBuilder(
-          stream: widget.widgetProvider.widgetBloc.widgetsStream,
+          stream: widget.widgetProvider!.widgetBloc.widgetsStream,
           builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
-            isVisible = (widget.map.conditional != null &&
+            isVisible = (widget.map!.conditional != null &&
                     snapshot.data != null)
-                ? (snapshot.data.containsKey(widget.map.conditional.when) &&
-                        snapshot.data[widget.map.conditional.when].toString() ==
-                            widget.map.conditional.eq)
-                    ? widget.map.conditional.show
-                    : !widget.map.conditional.show
+                ? (snapshot.data!.containsKey(widget.map!.conditional!.when) &&
+                        snapshot.data![widget.map!.conditional!.when]
+                                .toString() ==
+                            widget.map!.conditional!.eq)
+                    ? widget.map!.conditional!.show
+                    : !widget.map!.conditional!.show!
                 : true;
-            if (!isVisible) widget.controller.clear();
-            return (!isVisible)
+            if (!isVisible!) widget.controller.clear();
+            return (!isVisible!)
                 ? SizedBox.shrink()
                 : Neumorphic(
                     padding:
@@ -93,7 +94,7 @@ class _SignatureCreatorState extends State<SignatureCreator> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         NeumorphicText(
-                          widget.map.label,
+                          widget.map!.label!,
                           textStyle: NeumorphicTextStyle(
                               fontWeight: FontWeight.w600, fontSize: 17.0),
                           style: NeumorphicStyle(
@@ -109,7 +110,7 @@ class _SignatureCreatorState extends State<SignatureCreator> {
                                 border: NeumorphicBorder(
                                     width: 0.4, color: Colors.grey),
                               ),
-                              child: (widget.map.defaultValue != null &&
+                              child: (widget.map!.defaultValue != null &&
                                       !isNewSignature)
                                   ? Column(
                                       children: [
@@ -132,9 +133,9 @@ class _SignatureCreatorState extends State<SignatureCreator> {
                                           child: Center(
                                             child: decodeSignatureFromBase64(
                                               signature:
-                                                  widget.map.defaultValue,
+                                                  widget.map!.defaultValue,
                                               color: parseRgb(
-                                                widget.map.backgroundColor,
+                                                widget.map!.backgroundColor!,
                                               ),
                                               width: size.width,
                                               height: size.height * 0.2,
@@ -147,8 +148,8 @@ class _SignatureCreatorState extends State<SignatureCreator> {
                                       controller: widget.controller,
                                       width: size.width,
                                       height: size.height * 0.2,
-                                      backgroundColor:
-                                          parseRgb(widget.map.backgroundColor),
+                                      backgroundColor: parseRgb(
+                                          widget.map!.backgroundColor!),
                                     ),
                             ),
                             Padding(
@@ -166,10 +167,10 @@ class _SignatureCreatorState extends State<SignatureCreator> {
                             ),
                           ],
                         ),
-                        (widget.map.footer == null)
+                        (widget.map!.footer == null)
                             ? Container()
                             : Text(
-                                widget.map.footer,
+                                widget.map!.footer!,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 17.0,

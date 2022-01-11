@@ -7,7 +7,7 @@ class ColumnParser extends WidgetParser {
   /// Returns a [Widget] of type [Column]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener,
-      WidgetProvider widgetProvider) {
+      WidgetProvider? widgetProvider) {
     return ColumnParserWidget(
       map: map,
       listener: listener,
@@ -22,10 +22,10 @@ class ColumnParser extends WidgetParser {
 
 // ignore: must_be_immutable
 class ColumnParserWidget extends StatefulWidget {
-  final Component map;
-  final WidgetProvider widgetProvider;
+  final Component? map;
+  final WidgetProvider? widgetProvider;
   List<Widget> widgets = [];
-  ClickListener listener;
+  ClickListener? listener;
 
   ColumnParserWidget({
     this.map,
@@ -38,29 +38,29 @@ class ColumnParserWidget extends StatefulWidget {
 }
 
 class _ColumnParserWidgetState extends State<ColumnParserWidget> {
-  Future<List<Widget>> _widgets;
+  Future<List<Widget>>? _widgets;
 
   @override
   Widget build(BuildContext context) {
-    bool isVisible = true;
+    bool? isVisible = true;
     _widgets ??= _buildWidget(context);
     return StreamBuilder(
-      stream: widget.widgetProvider.widgetBloc.widgetsStream,
+      stream: widget.widgetProvider!.widgetBloc.widgetsStream,
       builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
-        isVisible = (widget.map.conditional != null && snapshot.data != null)
-            ? (snapshot.data.containsKey(widget.map.conditional.when) &&
-                    snapshot.data[widget.map.conditional.when].toString() ==
-                        widget.map.conditional.eq)
-                ? widget.map.conditional.show
-                : !widget.map.conditional.show
+        isVisible = (widget.map!.conditional != null && snapshot.data != null)
+            ? (snapshot.data!.containsKey(widget.map!.conditional!.when) &&
+                    snapshot.data![widget.map!.conditional!.when].toString() ==
+                        widget.map!.conditional!.eq)
+                ? widget.map!.conditional!.show
+                : !widget.map!.conditional!.show!
             : true;
-        return (!isVisible)
+        return (!isVisible!)
             ? SizedBox.shrink()
             : Neumorphic(
                 child: Container(
                   //height: 200,
                   decoration: BoxDecoration(
-                    color: widget.map.background,
+                    color: widget.map!.background,
                   ),
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 3.0),
@@ -73,17 +73,15 @@ class _ColumnParserWidgetState extends State<ColumnParserWidget> {
                                 ? WrapSuper(
                                     wrapType: WrapType.balanced,
                                     alignment: WrapSuperAlignment.center,
-                                    children: snapshot.data,
+                                    children: snapshot.data!,
                                   )
                                 : Center(
                                     child: CircularProgressIndicator(),
                                   );
-                            break;
                           case ConnectionState.waiting:
                             return Center(
                               child: CircularProgressIndicator(),
                             );
-                            break;
                           case ConnectionState.none:
                             return Center(
                               child: CircularProgressIndicator(),
@@ -104,11 +102,11 @@ class _ColumnParserWidgetState extends State<ColumnParserWidget> {
 
   /// Returns a [List<Widget>] contained in [Component.map.columns] and [Component.map.component]
   Future<List<Widget>> _buildWidget(BuildContext context) async {
-    widget.map.columns.asMap().forEach(
+    widget.map!.columns!.asMap().forEach(
       (key, value) {
-        value.component.asMap().forEach(
+        value.component!.asMap().forEach(
           (key, ss) {
-            ss.total = widget.map.columns.length;
+            ss.total = widget.map!.columns!.length;
             widget.widgets.add(
               WidgetParserBuilder.build(
                 ss,

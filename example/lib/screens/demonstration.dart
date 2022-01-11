@@ -1,13 +1,12 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:formio_flutter/formio_flutter.dart';
-import 'package:provider/provider.dart';
 
 class DemonstrationPage extends StatefulWidget {
-  final String argument;
+  final String? argument;
 
   DemonstrationPage({this.argument});
 
@@ -17,14 +16,14 @@ class DemonstrationPage extends StatefulWidget {
 
 class _DemonstrationPageState extends State<DemonstrationPage>
     implements ClickListener {
-  Future<List<Widget>> _widgets;
+  Future<List<Widget>>? _widgets;
   // ignore: unused_field
-  BuildContext _context;
-  WidgetProvider widgetProvider;
+  BuildContext? _context;
+  late WidgetProvider widgetProvider;
 
   @override
   Widget build(BuildContext context) {
-    widgetProvider = Provider.of<WidgetProvider>(context);
+    widgetProvider = WidgetProvider.of(context)!;
     _widgets ??= _buildWidget(context);
     return Scaffold(
       appBar: AppBar(
@@ -41,21 +40,20 @@ class _DemonstrationPageState extends State<DemonstrationPage>
                 case ConnectionState.done:
                   return (snapshot.hasData)
                       ? ListView.builder(
-                          itemCount: snapshot.data.length,
+                          itemCount: snapshot.data!.length,
                           physics: BouncingScrollPhysics(),
                           shrinkWrap: true,
                           scrollDirection: Axis.vertical,
-                          itemBuilder: (context, index) => snapshot.data[index],
+                          itemBuilder: (context, index) =>
+                              snapshot.data![index],
                         )
                       : Center(
                           child: CircularProgressIndicator(),
                         );
-                  break;
                 case ConnectionState.waiting:
                   return Center(
                     child: CircularProgressIndicator(),
                   );
-                  break;
                 case ConnectionState.none:
                   return Center(
                     child: CircularProgressIndicator(),
@@ -73,7 +71,7 @@ class _DemonstrationPageState extends State<DemonstrationPage>
   }
 
   Future<List<Widget>> _buildWidget(BuildContext context) async {
-    String _json;
+    late String _json;
     switch (widget.argument) {
       case "textfield":
         _json = await rootBundle.loadString('assets/textfield.json');
@@ -122,9 +120,15 @@ class _DemonstrationPageState extends State<DemonstrationPage>
       }
     ];
     formCollection = await parseFormCollectionDefaultValueListMap(
-        formCollection, defaultMapper);
+      formCollection,
+      defaultMapper,
+    );
     return WidgetParserBuilder.buildWidgets(
-        formCollection, context, this, widgetProvider);
+      formCollection,
+      context,
+      this,
+      widgetProvider,
+    );
   }
 
   @override
