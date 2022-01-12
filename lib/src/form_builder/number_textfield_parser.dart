@@ -30,7 +30,7 @@ class NumberTextFieldCreator extends StatefulWidget implements Manager {
 
   /// Returns a [String] with the value contained inside [Component.key]
   @override
-  String keyValue() => map!.key;
+  String? keyValue() => map!.key;
 
   /// Current value of the [Widget]
   @override
@@ -40,7 +40,7 @@ class NumberTextFieldCreator extends StatefulWidget implements Manager {
 class _NumberTextFieldCreatorState extends State<NumberTextFieldCreator> {
   String characters = "";
   String _calculate = "";
-  final Map<String, dynamic> _mapper = new Map();
+  final Map<String?, dynamic> _mapper = new Map();
   List<String?> _operators = [];
   List<String> _keys = [];
 

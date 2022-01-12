@@ -64,7 +64,7 @@ class Component {
     this.suffix,
     this.penColor,
     this.inputMask,
-    required this.key,
+    this.key,
     this.conditional,
     this.type,
     this.input,
@@ -175,7 +175,7 @@ class Component {
   /// set a [String] that contains the [key].
   ///
   /// This acts as an ID, it's need to be [unique].
-  String key;
+  String? key;
 
   /// set a [Conditional] type.
   Conditional? conditional;

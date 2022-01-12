@@ -32,7 +32,7 @@ class FileCreator extends StatefulWidget implements Manager {
 
   /// Returns a [String] with the value contained inside [Component.key]
   @override
-  String keyValue() => map!.key;
+  String? keyValue() => map!.key;
 
   /// Retrieve the file.
   get platform => _platformFile;
@@ -53,7 +53,7 @@ class FileCreator extends StatefulWidget implements Manager {
 class _FileCreatorState extends State<FileCreator> {
   List<PlatformFile>? _paths;
   String? _extension;
-  final Map<String, dynamic> _mapper = new Map();
+  final Map<String?, dynamic> _mapper = new Map();
 
   @override
   void dispose() {

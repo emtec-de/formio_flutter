@@ -29,7 +29,7 @@ class PhoneTextFieldCreator extends StatefulWidget implements Manager {
 
   /// Returns a [String] with the value contained inside [Component.key]
   @override
-  String keyValue() => map!.key;
+  String? keyValue() => map!.key;
 
   /// Current value of the [Widget]
   @override
@@ -41,7 +41,7 @@ class _PhoneTextFieldCreatorState extends State<PhoneTextFieldCreator> {
   String _calculate = "";
   List<String?> _operators = [];
   List<String> _keys = [];
-  final Map<String, dynamic> _mapper = new Map();
+  final Map<String?, dynamic> _mapper = new Map();
 
   @override
   void initState() {

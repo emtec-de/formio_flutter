@@ -31,7 +31,7 @@ class SelectParserWidget extends StatefulWidget implements Manager {
 
   /// Returns a [String] with the value contained inside [Component.key]
   @override
-  String keyValue() => map!.key;
+  String? keyValue() => map!.key;
 
   /// Current value of the [Widget]
   @override
@@ -41,7 +41,7 @@ class SelectParserWidget extends StatefulWidget implements Manager {
 class _SelectParserWidgetState extends State<SelectParserWidget> {
   List<DropdownMenuItem<Value>>? _values;
   Future<List<Value>>? _futureValues;
-  final Map<String, dynamic> _mapper = new Map();
+  final Map<String?, dynamic> _mapper = new Map();
 
   /// When the [url] isn't null or empty then the data is prefetched for the [Select] widget.
   Future<List<Value>> _makeRequest() async {

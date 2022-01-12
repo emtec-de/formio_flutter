@@ -30,7 +30,7 @@ class DateTimeTextFieldCreator extends StatefulWidget implements Manager {
 
   /// Returns a [String] with the value contained inside [Component.key]
   @override
-  String keyValue() => map!.key;
+  String? keyValue() => map!.key;
 
   /// Current value of the [Widget]
   @override
@@ -39,7 +39,7 @@ class DateTimeTextFieldCreator extends StatefulWidget implements Manager {
 
 class _DateTimeTextFieldCreatorState extends State<DateTimeTextFieldCreator> {
   final _dateFormat = DateFormat('yyyy-MM-d');
-  final Map<String, dynamic> _mapper = new Map();
+  final Map<String?, dynamic> _mapper = new Map();
   String characters = "";
   String selectedDT = "";
 

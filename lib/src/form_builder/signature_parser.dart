@@ -34,7 +34,7 @@ class SignatureCreator extends StatefulWidget implements Manager {
 
   /// Returns a [String] with the value contained inside [Component.key]
   @override
-  String keyValue() => map!.key;
+  String? keyValue() => map!.key;
 
   /// Current value of the [Widget]
   @override
@@ -44,7 +44,7 @@ class SignatureCreator extends StatefulWidget implements Manager {
 class _SignatureCreatorState extends State<SignatureCreator> {
   String characters = "";
   bool isNewSignature = true;
-  final Map<String, dynamic> _mapper = new Map();
+  final Map<String?, dynamic> _mapper = new Map();
 
   @override
   void initState() {

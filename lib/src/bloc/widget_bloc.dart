@@ -2,7 +2,7 @@ import 'package:rxdart/rxdart.dart';
 
 class WidgetBloc {
   /// Contains the information related to the [key] and [value] of every [parser] class.
-  Map<String, dynamic> _mapper = new Map();
+  Map<String?, dynamic> _mapper = new Map();
 
   final BehaviorSubject<Map<String, dynamic>> _widgetController =
       new BehaviorSubject<Map<String, dynamic>>();
@@ -15,13 +15,14 @@ class WidgetBloc {
   /// Check if the [newMap] param is already registed inside the [_mapper]
   ///
   /// and return a [Map<String, dynamic>].
-  registerMap(Map<String, dynamic> newMap) {
+  registerMap(Map<String?, dynamic> newMap) {
     newMap.forEach((key, value) {
       (_mapper.containsKey(key))
-          ? _mapper.update(key, (newVal) => value)
-          : _mapper[key] = value;
+          ? _mapper.update(key!, (newVal) => value)
+          : _mapper[key!] = value;
     });
-    _widgetController.sink.add(_mapper);
+    _widgetController.sink
+        .add(_mapper.map((key, value) => MapEntry(key!, value)));
   }
 
   /// Close the Stream.

@@ -33,7 +33,7 @@ class CheckboxCreator extends StatefulWidget implements Manager {
 
   /// Returns a [String] with the value contained inside [Component.key]
   @override
-  String keyValue() => map!.key;
+  String? keyValue() => map!.key;
 
   /// Current value of the [Widget]
   @override
@@ -42,7 +42,7 @@ class CheckboxCreator extends StatefulWidget implements Manager {
 
 class _CheckboxCreatorState extends State<CheckboxCreator> {
   String characters = "";
-  final Map<String, dynamic> _mapper = new Map();
+  final Map<String?, dynamic> _mapper = new Map();
 
   @override
   void initState() {

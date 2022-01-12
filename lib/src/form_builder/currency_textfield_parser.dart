@@ -32,7 +32,7 @@ class CurrencyTextFieldCreator extends StatefulWidget implements Manager {
 
   /// Returns a [String] with the value contained inside [Component.key]
   @override
-  String keyValue() => map!.key;
+  String? keyValue() => map!.key;
 
   /// Current value of the [Widget]
   @override
@@ -42,7 +42,7 @@ class CurrencyTextFieldCreator extends StatefulWidget implements Manager {
 class _CurrencyTextFieldCreatorState extends State<CurrencyTextFieldCreator> {
   String characters = "";
   String _calculate = "";
-  final Map<String, dynamic> _mapper = new Map();
+  final Map<String?, dynamic> _mapper = new Map();
   late String _currency;
   List<String?> _operators = [];
   List<String> _keys = [];
