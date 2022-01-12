@@ -6,7 +6,7 @@ class PagerParser extends WidgetParser {
   /// Returns a [Widget] of type [Pager]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener,
-      WidgetProvider widgetProvider) {
+      WidgetProvider? widgetProvider) {
     return PagerParserWidget(
       map: map,
       listener: listener,
@@ -21,9 +21,9 @@ class PagerParser extends WidgetParser {
 
 // ignore: must_be_immutable
 class PagerParserWidget extends StatefulWidget {
-  final Component map;
-  final ClickListener listener;
-  final WidgetProvider widgetProvider;
+  final Component? map;
+  final ClickListener? listener;
+  final WidgetProvider? widgetProvider;
   List<Widget> widgets = [];
 
   PagerParserWidget({this.map, this.listener, this.widgetProvider});
@@ -35,7 +35,7 @@ class PagerParserWidget extends StatefulWidget {
 class _PagerParserWidgetState extends State<PagerParserWidget>
     with AutomaticKeepAliveClientMixin {
   ScrollController scrollController = new ScrollController();
-  WidgetProvider widgetProvider;
+  WidgetProvider? widgetProvider;
 
   @override
   void initState() {
@@ -44,7 +44,7 @@ class _PagerParserWidgetState extends State<PagerParserWidget>
 
   @override
   void dispose() {
-    scrollController?.dispose();
+    scrollController.dispose();
     super.dispose();
   }
 
@@ -56,13 +56,16 @@ class _PagerParserWidgetState extends State<PagerParserWidget>
   Widget build(BuildContext context) {
     super.build(context);
     widget.widgets = WidgetParserBuilder.buildWidgetsByComponent(
-        widget.map.component, context, widget.listener, widget.widgetProvider);
-    if (!widget.map.title.contains('Page') ||
-        !widget.map.title.contains('page'))
+        widget.map!.component!,
+        context,
+        widget.listener,
+        widget.widgetProvider);
+    if (!widget.map!.title!.contains('Page') ||
+        !widget.map!.title!.contains('page'))
       widget.widgets.insert(
         0,
         NeumorphicText(
-          widget.map.title,
+          widget.map!.title!,
           textAlign: TextAlign.center,
           textStyle: NeumorphicTextStyle(
             fontWeight: FontWeight.w500,
@@ -72,25 +75,26 @@ class _PagerParserWidgetState extends State<PagerParserWidget>
               depth: 13.0, intensity: 0.90, color: Colors.black),
         ),
       );
-    bool isVisible = true;
+    bool? isVisible = true;
     return StreamBuilder(
-        stream: widgetProvider?.widgetBloc?.widgetsStream,
-        builder: (context, snapshot) {
-          isVisible = (widget.map.conditional != null && snapshot.data != null)
-              ? (snapshot.data.containsKey(widget.map.conditional.when) &&
-                      snapshot.data[widget.map.conditional.when].toString() ==
-                          widget.map.conditional.eq)
-                  ? widget.map.conditional.show
-                  : !widget.map.conditional.show
+        stream: widgetProvider?.widgetBloc.widgetsStream,
+        builder: (context, AsyncSnapshot snapshot) {
+          isVisible = (widget.map!.conditional != null && snapshot.data != null)
+              ? (snapshot.data!.containsKey(widget.map!.conditional!.when) &&
+                      snapshot.data![widget.map!.conditional!.when]
+                              .toString() ==
+                          widget.map!.conditional!.eq)
+                  ? widget.map!.conditional!.show
+                  : !widget.map!.conditional!.show!
               : true;
-          return (!isVisible)
+          return (!isVisible!)
               ? SizedBox.shrink()
               : SingleChildScrollView(
                   controller: scrollController,
                   physics: BouncingScrollPhysics(),
                   child: Neumorphic(
                     child: Container(
-                      decoration: BoxDecoration(color: widget.map.background),
+                      decoration: BoxDecoration(color: widget.map!.background),
                       child: Column(
                         children: widget.widgets,
                       ),

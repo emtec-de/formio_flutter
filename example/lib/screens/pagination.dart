@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:formio_flutter/formio_flutter.dart';
-import 'package:provider/provider.dart';
 
 class PaginationPage extends StatefulWidget {
   @override
@@ -12,10 +11,10 @@ class PaginationPage extends StatefulWidget {
 
 class _PaginationPageState extends State<PaginationPage>
     implements ClickListener {
-  PageController controller;
-  FormCollection _formCollection;
-  WidgetProvider widgetProvider;
-  Future<List<Widget>> _widgets;
+  PageController? controller;
+  late FormCollection _formCollection;
+  late WidgetProvider widgetProvider;
+  Future<List<Widget>>? _widgets;
   int _index = 0;
 
   @override
@@ -26,7 +25,7 @@ class _PaginationPageState extends State<PaginationPage>
 
   @override
   Widget build(BuildContext context) {
-    widgetProvider = Provider.of<WidgetProvider>(context);
+    widgetProvider = WidgetProvider.of(context)!;
     _widgets ??= _buildWidget(context);
     return Scaffold(
       appBar: AppBar(
@@ -48,7 +47,7 @@ class _PaginationPageState extends State<PaginationPage>
                             onPageChanged: (value) => setState(
                               () => _index = value,
                             ),
-                            children: snapshot.data,
+                            children: snapshot.data!,
                           ),
                         ),
                         Container(
@@ -60,7 +59,7 @@ class _PaginationPageState extends State<PaginationPage>
                                 onPressed: (_index == 0)
                                     ? null
                                     : () {
-                                        controller.animateToPage(
+                                        controller!.animateToPage(
                                           _index - 1,
                                           duration: Duration(milliseconds: 200),
                                           curve: Curves.linear,
@@ -78,7 +77,7 @@ class _PaginationPageState extends State<PaginationPage>
                                 child: Row(
                                   children: [
                                     for (int i = 0;
-                                        i < snapshot.data.length;
+                                        i < snapshot.data!.length;
                                         i++)
                                       i == _index
                                           ? _buildPageIndicator(true)
@@ -87,14 +86,14 @@ class _PaginationPageState extends State<PaginationPage>
                                 ),
                               ),
                               TextButton(
-                                onPressed: (_index != snapshot.data.length - 1)
-                                    ? () => controller.animateToPage(
+                                onPressed: (_index != snapshot.data!.length - 1)
+                                    ? () => controller!.animateToPage(
                                           _index + 1,
                                           duration: Duration(milliseconds: 500),
                                           curve: Curves.linear,
                                         )
                                     : () => onClicked(""),
-                                child: (_index != snapshot.data.length - 1)
+                                child: (_index != snapshot.data!.length - 1)
                                     ? Text(
                                         "next".toUpperCase(),
                                         style: TextStyle(
@@ -118,12 +117,10 @@ class _PaginationPageState extends State<PaginationPage>
                   : Center(
                       child: CircularProgressIndicator(),
                     );
-              break;
             case ConnectionState.waiting:
               return Center(
                 child: CircularProgressIndicator(),
               );
-              break;
             case ConnectionState.none:
               return Center(
                 child: CircularProgressIndicator(),

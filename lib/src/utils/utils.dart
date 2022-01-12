@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
@@ -45,7 +46,7 @@ const Map<String, int> colorMap = {
 /// currency("USD") => "$"
 /// currency("EUR") => "€"
 /// ```
-String currencyCode(String code) =>
+String currencyCode(String? code) =>
     NumberFormat.simpleCurrency(name: code).currencySymbol;
 
 /// Returns a list of [String].
@@ -75,8 +76,9 @@ List<String> parseListStringCalculated(String value) {
 /// Throws a [ArgumentError] if the expression isn't valid.
 String parseCalculate(String operation) {
   try {
+    ContextModel cm = ContextModel();
     Expression exp = Parser().parse(operation);
-    return (exp.evaluate(EvaluationType.REAL, null)).toString();
+    return (exp.evaluate(EvaluationType.REAL, cm)).toString();
   } catch (ex) {
     return "";
   }
@@ -85,9 +87,9 @@ String parseCalculate(String operation) {
 /// Similar to [parseListStringCalculated], but handles a List of [String] with their
 /// respective mathematic symbol.
 /// ex: ["+","-","*","/"].
-List<String> parseListStringOperator(String value) {
+List<String?> parseListStringOperator(String value) {
   if (value.isEmpty) return [];
-  List<String> _retainer = [];
+  List<String?> _retainer = [];
   Iterable<Match> matches = regex.allMatches(value);
   matches.forEach((element) {
     _retainer.add(element.group(0));
@@ -145,7 +147,7 @@ Color parseHexColor(String theme) {
 /// parseInputType("calendar") => TextInputType.datetime
 /// parseInputType("textarea") => TextInputType.multiline
 /// ```
-TextInputType parsetInputType(String type) {
+TextInputType parsetInputType(String? type) {
   TextInputType _inputType;
   switch (type) {
     case "email":
@@ -304,7 +306,7 @@ Future<FormCollection> parseFormCollectionDefaultValueListMap(
     List<Map<String, dynamic>> defaultMapValue) async {
   var _formComponent = formCollection;
   _formComponent.components =
-      await parseDefaultValue(_formComponent.components, defaultMapValue);
+      await parseDefaultValue(_formComponent.components!, defaultMapValue);
   return _formComponent;
 }
 
@@ -313,7 +315,7 @@ Future<FormCollection> parseFormCollectionDefaultValueMap(
     FormCollection formCollection, Map<String, dynamic> defaultMapValue) async {
   var _formComponent = formCollection;
   _formComponent.components =
-      await parseByMap(formCollection.components, defaultMapValue);
+      await parseByMap(formCollection.components!, defaultMapValue);
   return formCollection;
 }
 
@@ -321,7 +323,7 @@ Future<FormCollection> parseFormCollectionDefaultValueMap(
 Future<List<Component>> parseByMap(
     List<Component> components, Map<String, dynamic> defaultMapper) async {
   var _components = components;
-  await Future.forEach(components, (element) async {
+  await Future.forEach(components, (dynamic element) async {
     var index =
         _components.indexWhere((indexElement) => indexElement == element);
     _components[index].defaultValue =
@@ -331,11 +333,11 @@ Future<List<Component>> parseByMap(
             : _components[index].defaultValue;
     if (_components[index].component != null) {
       _components[index].component =
-          await parseByMap(_components[index].component, defaultMapper);
+          await parseByMap(_components[index].component!, defaultMapper);
     }
     if (_components[index].columns != null) {
       _components[index].columns =
-          await parseByMap(_components[index].columns, defaultMapper);
+          await parseByMap(_components[index].columns!, defaultMapper);
     }
   });
   return _components;
@@ -345,7 +347,7 @@ Future<List<Component>> parseByMap(
 Future<List<Component>> parseDefaultValue(List<Component> components,
     List<Map<String, dynamic>> defaultMapValue) async {
   var _components = components;
-  await Future.forEach(_components, (element) async {
+  await Future.forEach(_components, (dynamic element) async {
     var _component = element as Component;
     defaultMapValue.forEach((mapElement) {
       if (mapElement.containsKey(_component.key)) {
@@ -354,12 +356,12 @@ Future<List<Component>> parseDefaultValue(List<Component> components,
             : _component.defaultValue;
       }
     });
-    if (_component.columns != null && _component.columns.isNotEmpty)
+    if (_component.columns != null && _component.columns!.isNotEmpty)
       _component.columns =
-          await parseDefaultValue(_component.columns, defaultMapValue);
-    if (_component.component != null && _component.component.isNotEmpty)
+          await parseDefaultValue(_component.columns!, defaultMapValue);
+    if (_component.component != null && _component.component!.isNotEmpty)
       _component.component =
-          await parseDefaultValue(_component.component, defaultMapValue);
+          await parseDefaultValue(_component.component!, defaultMapValue);
     element = _component;
   });
   return _components;
@@ -367,7 +369,7 @@ Future<List<Component>> parseDefaultValue(List<Component> components,
 
 /// Returns a [List<Map<String, dynamic>>] which contains the information related to the file
 Future<List<Map<String, dynamic>>> parseToFileList(
-    PlatformFile platformFile, String fileBase64, String mimeType) async {
+    PlatformFile platformFile, String fileBase64, String? mimeType) async {
   var _fileExtension = FileModel(
       name: platformFile.name,
       originalName: platformFile.name,
@@ -384,7 +386,7 @@ Future<List<Map<String, dynamic>>> parseToFileList(
 /// from that widget.
 Future<Map<String, dynamic>> parseWidgets(List<Widget> widgets) async {
   dynamic converted;
-  await Future.forEach(widgets, (element) async {
+  await Future.forEach(widgets, (dynamic element) async {
     switch (element.runtimeType) {
       case FileCreator:
         converted = element as FileCreator;
@@ -446,8 +448,8 @@ Future<Map<String, dynamic>> parseWidgets(List<Widget> widgets) async {
         break;
       case SignatureCreator:
         converted = element as SignatureCreator;
-        var signature = await convertSignatureToBase64WithEncodeText(
-            (element as SignatureCreator).controller);
+        var signature =
+            await convertSignatureToBase64WithEncodeText(element.controller);
         map[converted.keyValue()] = signature.isEmpty ? null : signature;
         break;
       case SelectParserWidget:
@@ -469,17 +471,17 @@ Future<Map<String, dynamic>> parseWidgets(List<Widget> widgets) async {
 
 /// Returns a [String] with the [base64] representation of the related file.
 Future<String> convertFileToBase64(String filename) async {
-  if (filename == null || filename.isEmpty) {
+  if (filename.isEmpty) {
     return "";
   }
-  var _bytes = await readFileByte(filename);
+  var _bytes = await (readFileByte(filename) as FutureOr<Uint8List>);
   return base64Encode(_bytes);
 }
 
-Future<Uint8List> readFileByte(String filePath) async {
+Future<Uint8List?> readFileByte(String filePath) async {
   Uri myUri = Uri.parse(filePath);
   File audioFile = new File.fromUri(myUri);
-  Uint8List bytes;
+  Uint8List? bytes;
   await audioFile.readAsBytes().then((value) {
     bytes = Uint8List.fromList(value);
     print('reading of bytes is completed');
@@ -493,7 +495,7 @@ Future<Uint8List> readFileByte(String filePath) async {
 /// and returns the [base64] representation.
 Future<String> convertSignatureToBase64(SignatureController controller) async {
   return (await controller.toPngBytes() != null)
-      ? base64Encode(await controller.toPngBytes())
+      ? base64Encode(await (controller.toPngBytes() as FutureOr<List<int>>))
       : "";
 }
 
@@ -502,14 +504,14 @@ Future<String> convertSignatureToBase64(SignatureController controller) async {
 Future<String> convertSignatureToBase64WithEncodeText(
     SignatureController controller) async {
   var _signature = (await controller.toPngBytes() != null)
-      ? base64Encode(await controller.toPngBytes())
+      ? base64Encode(await (controller.toPngBytes() as FutureOr<List<int>>))
       : "";
   return _signature != "" ? "data:image/jpeg;base64,$_signature" : "";
 }
 
 /// Returns an Image based on the [base64] representation.
 Image decodeSignatureFromBase64(
-    {String signature, Color color, double width, double height}) {
+    {required String signature, Color? color, double? width, double? height}) {
   var _signatureCleaner;
   if (signature.contains('jpeg')) {
     _signatureCleaner = signature.contains('data:image')
@@ -538,10 +540,10 @@ Image decodeSignatureFromBase64(
 /// ```dart
 /// parseColor("aqua") => colorMap["aqua"]
 /// ```
-Color parseColor(String color) {
-  var v = colorMap[color];
+Color parseColor(String? color) {
+  var v = colorMap[color!]!;
   Color out = Color((0xff << 24) | v);
-  return (v == null) ? Colors.cyan : out;
+  return out;
 }
 
 /// Returns a [Color] from a [String]

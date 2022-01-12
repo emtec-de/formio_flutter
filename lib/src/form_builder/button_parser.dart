@@ -19,42 +19,42 @@ class ButtonParser extends WidgetParser {
 
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener,
-      WidgetProvider widgetProvider) {
+      WidgetProvider? widgetProvider) {
     String clickEvent = map.action ?? "";
-    bool isVisible = true;
-    bool isDisabled = false;
+    bool? isVisible = true;
+    bool? isDisabled = false;
 
     /// Declared [WidgetProvider] to consume the [Map<String, dynamic>] created from it.
-    var button = (map.hidden)
+    var button = map.hidden!
         ? SizedBox.shrink()
         : StreamBuilder(
-            stream: widgetProvider.widgetBloc.widgetsStream,
+            stream: widgetProvider!.widgetBloc.widgetsStream,
             builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
               isVisible = (map.conditional != null && snapshot.data != null)
-                  ? (snapshot.data.containsKey(map.conditional.when) &&
-                          snapshot.data[map.conditional.when].toString() ==
-                              map.conditional.eq)
-                      ? map.conditional.show
-                      : !map.conditional.show
+                  ? (snapshot.data!.containsKey(map.conditional!.when) &&
+                          snapshot.data![map.conditional!.when].toString() ==
+                              map.conditional!.eq)
+                      ? map.conditional!.show
+                      : !map.conditional!.show!
                   : true;
               isDisabled = (map.disableConditional != null &&
                       snapshot.data != null)
-                  ? (snapshot.data.containsKey(map.disableConditional.when) &&
-                          snapshot.data[map.disableConditional.when]
+                  ? (snapshot.data!.containsKey(map.disableConditional!.when) &&
+                          snapshot.data![map.disableConditional!.when]
                                   .toString() ==
-                              map.disableConditional.eq)
-                      ? map.disableConditional.disable
-                      : !map.disableConditional.disable
+                              map.disableConditional!.eq)
+                      ? map.disableConditional!.disable
+                      : !map.disableConditional!.disable!
                   : false;
-              return (!isVisible)
+              return (!isVisible!)
                   ? SizedBox.shrink()
                   : Padding(
                       padding: map.marginData != null
                           ? EdgeInsets.only(
-                              top: map.marginData.top,
-                              left: map.marginData.left,
-                              right: map.marginData.right,
-                              bottom: map.marginData.bottom,
+                              top: map.marginData!.top!,
+                              left: map.marginData!.left!,
+                              right: map.marginData!.right!,
+                              bottom: map.marginData!.bottom!,
                             )
                           : EdgeInsets.zero,
                       child: ElevatedButton(
@@ -62,15 +62,15 @@ class ButtonParser extends WidgetParser {
                           shape: MaterialStateProperty.all(
                             RoundedRectangleBorder(
                               borderRadius: map.borderData != null &&
-                                      map.borderData.borderRadius != null
+                                      map.borderData!.borderRadius != null
                                   ? BorderRadius.circular(
-                                      map.borderData.borderRadius,
+                                      map.borderData!.borderRadius!,
                                     )
                                   : BorderRadius.zero,
                             ),
                           ),
                           backgroundColor: MaterialStateProperty.all(
-                            isDisabled
+                            isDisabled!
                                 ? parseHexColor(map.theme ?? "primary")
                                     .withOpacity(0.5)
                                 : parseHexColor(map.theme ?? "primary"),
@@ -87,19 +87,24 @@ class ButtonParser extends WidgetParser {
                               Padding(
                                 padding: map.paddingData != null
                                     ? EdgeInsets.only(
-                                        top: map.paddingData.top,
-                                        left: map.paddingData.left,
-                                        right: map.paddingData.right,
-                                        bottom: map.paddingData.bottom,
+                                        top: map.paddingData!.top!,
+                                        left: map.paddingData!.left!,
+                                        right: map.paddingData!.right!,
+                                        bottom: map.paddingData!.bottom!,
                                       )
                                     : EdgeInsets.zero,
                                 child: Text(
-                                  map.label,
+                                  map.label!,
                                   softWrap: true,
                                   style: TextStyle(
-                                    fontSize: map.textStyleData.fontSize,
-                                    color: map.textStyleData.color != null
-                                        ? parseRgb(map.textStyleData.color)
+                                    fontSize: (map.textStyleData != null)
+                                        ? map.textStyleData!.fontSize
+                                        : 16,
+                                    color: (map.textStyleData != null)
+                                        ? map.textStyleData!.color != null
+                                            ? parseRgb(
+                                                map.textStyleData!.color!)
+                                            : Colors.white
                                         : Colors.white,
                                   ),
                                 ),
@@ -111,7 +116,7 @@ class ButtonParser extends WidgetParser {
                             ],
                           ),
                         ),
-                        onPressed: isDisabled
+                        onPressed: isDisabled!
                             ? null
                             : () => listener.onClicked(clickEvent),
                       ),

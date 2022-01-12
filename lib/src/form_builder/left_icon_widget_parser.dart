@@ -3,7 +3,7 @@ import 'package:formio_flutter/formio_flutter.dart';
 
 /// Extends the abstract class [WidgetParser]
 class LeftIconWidgetParser extends WidgetParser {
-  final Color color;
+  final Color? color;
   LeftIconWidgetParser({
     this.color,
   });
@@ -13,12 +13,12 @@ class LeftIconWidgetParser extends WidgetParser {
   Widget parse(
     Component map,
     BuildContext context,
-    ClickListener listener,
-    WidgetProvider widgetProvider,
+    ClickListener? listener,
+    WidgetProvider? widgetProvider,
   ) {
     return Icon(
       (map.leftIcon != null)
-          ? getIconUsingPrefix(name: map.leftIcon)
+          ? getIconUsingPrefix(name: map.leftIcon!)
           : Icons.circle,
       size: (map.leftIcon != null) ? 20 : 0,
       color: color != null ? color : Colors.black,

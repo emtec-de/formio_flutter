@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:formio_flutter/formio_flutter.dart';
-import 'package:provider/provider.dart';
 
 class CustomForm extends StatefulWidget {
   @override
@@ -13,13 +12,13 @@ class CustomForm extends StatefulWidget {
 class _CustomFormState extends State<CustomForm> implements ClickListener {
   dynamic response;
 
-  Future<List<Widget>> _widgets;
-  WidgetProvider widgetProvider;
-  BuildContext _context;
+  Future<List<Widget>>? _widgets;
+  late WidgetProvider widgetProvider;
+  late BuildContext _context;
 
   @override
   Widget build(BuildContext context) {
-    widgetProvider = Provider.of<WidgetProvider>(context);
+    widgetProvider = WidgetProvider.of(context)!;
     _widgets ??= _buildWidget(context);
     return Scaffold(
       appBar: AppBar(
@@ -42,22 +41,21 @@ class _CustomFormState extends State<CustomForm> implements ClickListener {
                   }
                   return (snapshot.hasData)
                       ? ListView.builder(
-                          itemCount: snapshot.data.length,
+                          itemCount: snapshot.data!.length,
                           physics: BouncingScrollPhysics(),
                           shrinkWrap: true,
                           scrollDirection: Axis.vertical,
-                          itemBuilder: (context, index) => snapshot.data[index],
+                          itemBuilder: (context, index) =>
+                              snapshot.data![index],
                         )
                       : Center(
                           child: CircularProgressIndicator(),
                         );
-                  break;
                 case ConnectionState.waiting:
                   print('waiting');
                   return Center(
                     child: CircularProgressIndicator(),
                   );
-                  break;
                 case ConnectionState.none:
                   print('none');
                   return Center(
@@ -86,7 +84,8 @@ class _CustomFormState extends State<CustomForm> implements ClickListener {
       formCollection,
       defaultMapper,
     );
-    print('formCollection.components ${formCollection.components.last.action}');
+    print(
+        'formCollection.components ${formCollection.components!.last.action}');
 
     return WidgetParserBuilder.buildWidgets(
       formCollection,
@@ -112,8 +111,8 @@ class _CustomFormState extends State<CustomForm> implements ClickListener {
           );
         } else {
           formDataValue.entries
-              .forEach((MapEntry<String, dynamic> formEntyyMap) {
-            print('value ${formEntyyMap.value.toString()}');
+              .forEach((MapEntry<String?, dynamic> formEntryMap) {
+            print('value ${formEntryMap.value.toString()}');
           });
           showAlert(
             'keys: ${formDataValue.keys}\nvalues: ${formDataValue.values}',

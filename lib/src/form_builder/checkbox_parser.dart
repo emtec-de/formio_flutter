@@ -7,7 +7,7 @@ class CheckboxParser extends WidgetParser {
   /// Returns a [Widget] of type [Checkbox]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener,
-      WidgetProvider widgetProvider) {
+      WidgetProvider? widgetProvider) {
     return CheckboxCreator(
       map: map,
       widgetProvider: widgetProvider,
@@ -21,9 +21,9 @@ class CheckboxParser extends WidgetParser {
 
 // ignore: must_be_immutable
 class CheckboxCreator extends StatefulWidget implements Manager {
-  final Component map;
-  bool isSelected;
-  final WidgetProvider widgetProvider;
+  final Component? map;
+  bool? isSelected;
+  final WidgetProvider? widgetProvider;
   CheckboxCreator({
     this.map,
     this.widgetProvider,
@@ -33,7 +33,7 @@ class CheckboxCreator extends StatefulWidget implements Manager {
 
   /// Returns a [String] with the value contained inside [Component.key]
   @override
-  String keyValue() => map.key ?? "checkbox";
+  String? keyValue() => map!.key;
 
   /// Current value of the [Widget]
   @override
@@ -42,17 +42,17 @@ class CheckboxCreator extends StatefulWidget implements Manager {
 
 class _CheckboxCreatorState extends State<CheckboxCreator> {
   String characters = "";
-  final Map<String, dynamic> _mapper = new Map();
+  final Map<String?, dynamic> _mapper = new Map();
 
   @override
   void initState() {
     super.initState();
-    widget.isSelected = (widget.map.defaultValue is bool)
-        ? widget.map.defaultValue ?? false
+    widget.isSelected = (widget.map!.defaultValue is bool)
+        ? widget.map!.defaultValue ?? false
         : false;
-    _mapper[widget.map.key] = widget.isSelected;
+    _mapper[widget.map!.key] = widget.isSelected;
     Future.delayed(Duration(milliseconds: 10), () {
-      widget.widgetProvider.widgetBloc.registerMap(_mapper);
+      widget.widgetProvider!.widgetBloc.registerMap(_mapper);
     });
   }
 
@@ -63,37 +63,38 @@ class _CheckboxCreatorState extends State<CheckboxCreator> {
 
   @override
   Widget build(BuildContext context) {
-    bool isVisible = true;
-    return (!widget.map.disabled)
+    bool? isVisible = true;
+    return (!widget.map!.disabled!)
         ? StreamBuilder(
-            stream: widget.widgetProvider.widgetBloc.widgetsStream,
+            stream: widget.widgetProvider!.widgetBloc.widgetsStream,
             builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
-              isVisible = (widget.map.conditional != null &&
-                      snapshot.data != null)
-                  ? (snapshot.data.containsKey(widget.map.conditional.when) &&
-                          snapshot.data[widget.map.conditional.when]
-                                  .toString() ==
-                              widget.map.conditional.eq)
-                      ? widget.map.conditional.show
-                      : !widget.map.conditional.show
-                  : true;
-              return (!isVisible)
+              isVisible =
+                  (widget.map!.conditional != null && snapshot.data != null)
+                      ? (snapshot.data!
+                                  .containsKey(widget.map!.conditional!.when) &&
+                              snapshot.data![widget.map!.conditional!.when]
+                                      .toString() ==
+                                  widget.map!.conditional!.eq)
+                          ? widget.map!.conditional!.show
+                          : !widget.map!.conditional!.show!
+                      : true;
+              return (!isVisible!)
                   ? SizedBox.shrink()
                   : Container(
-                      margin: widget.map.marginData != null
+                      margin: widget.map!.marginData != null
                           ? EdgeInsets.only(
-                              top: widget.map.marginData.top,
-                              left: widget.map.marginData.left,
-                              right: widget.map.marginData.right,
-                              bottom: widget.map.marginData.bottom,
+                              top: widget.map!.marginData!.top!,
+                              left: widget.map!.marginData!.left!,
+                              right: widget.map!.marginData!.right!,
+                              bottom: widget.map!.marginData!.bottom!,
                             )
                           : EdgeInsets.all(0.0),
                       child: Row(
                         children: [
                           Expanded(
                             child: Text(
-                              (widget.map.label != null)
-                                  ? widget.map.label
+                              (widget.map!.label != null)
+                                  ? widget.map!.label!
                                   : "",
                               style: TextStyle(
                                 fontSize: 17.0,
@@ -109,8 +110,8 @@ class _CheckboxCreatorState extends State<CheckboxCreator> {
                             value: widget.isSelected,
                             onChanged: (value) {
                               setState(() => widget.isSelected = value);
-                              _mapper.update(widget.map.key, (t) => value);
-                              widget.widgetProvider.widgetBloc
+                              _mapper.update(widget.map!.key, (t) => value);
+                              widget.widgetProvider!.widgetBloc
                                   .registerMap(_mapper);
                             },
                           ),

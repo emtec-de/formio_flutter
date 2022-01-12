@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
 import 'package:formio_flutter/formio_flutter.dart';
 
 import 'routes/routes.dart';
@@ -22,13 +20,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        Provider(
-          create: (_) => WidgetProvider(),
-          lazy: false,
-        ),
-      ],
+    return WidgetProvider(
       child: MaterialApp(
         title: 'FormIo.Flutter',
         initialRoute: 'menu',
