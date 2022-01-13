@@ -7,7 +7,7 @@ class ColumnParser extends WidgetParser {
   /// Returns a [Widget] of type [Column]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener,
-      WidgetProvider? widgetProvider) {
+      FormioWidgetProvider? widgetProvider) {
     return ColumnParserWidget(
       map: map,
       listener: listener,
@@ -23,7 +23,7 @@ class ColumnParser extends WidgetParser {
 // ignore: must_be_immutable
 class ColumnParserWidget extends StatefulWidget {
   final Component? map;
-  final WidgetProvider? widgetProvider;
+  final FormioWidgetProvider? widgetProvider;
   List<Widget> widgets = [];
   ClickListener? listener;
 

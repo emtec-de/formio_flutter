@@ -6,7 +6,7 @@ class PagerParser extends WidgetParser {
   /// Returns a [Widget] of type [Pager]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener,
-      WidgetProvider? widgetProvider) {
+      FormioWidgetProvider? widgetProvider) {
     return PagerParserWidget(
       map: map,
       listener: listener,
@@ -23,7 +23,7 @@ class PagerParser extends WidgetParser {
 class PagerParserWidget extends StatefulWidget {
   final Component? map;
   final ClickListener? listener;
-  final WidgetProvider? widgetProvider;
+  final FormioWidgetProvider? widgetProvider;
   List<Widget> widgets = [];
 
   PagerParserWidget({this.map, this.listener, this.widgetProvider});
@@ -35,7 +35,7 @@ class PagerParserWidget extends StatefulWidget {
 class _PagerParserWidgetState extends State<PagerParserWidget>
     with AutomaticKeepAliveClientMixin {
   ScrollController scrollController = new ScrollController();
-  WidgetProvider? widgetProvider;
+  FormioWidgetProvider? widgetProvider;
 
   @override
   void initState() {

@@ -6,7 +6,7 @@ class TimeTextFieldParser extends WidgetParser {
   /// Returns a [Widget] of type [TimeTextField]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener,
-      WidgetProvider? widgetProvider) {
+      FormioWidgetProvider? widgetProvider) {
     return TimeTextFieldCreator(
       map: map,
       widgetProvider: widgetProvider,
@@ -22,7 +22,7 @@ class TimeTextFieldParser extends WidgetParser {
 class TimeTextFieldCreator extends StatefulWidget implements Manager {
   final Component? map;
   final controller = TextEditingController();
-  final WidgetProvider? widgetProvider;
+  final FormioWidgetProvider? widgetProvider;
   TimeTextFieldCreator({this.map, this.widgetProvider});
   @override
   _TimeTextFieldCreatorState createState() => _TimeTextFieldCreatorState();

@@ -7,7 +7,7 @@ class NumberTextFieldParser extends WidgetParser {
   /// Returns a [Widget] of type [NumberTextField]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener,
-      WidgetProvider? widgetProvider) {
+      FormioWidgetProvider? widgetProvider) {
     return NumberTextFieldCreator(
       map: map,
       widgetProvider: widgetProvider,
@@ -23,7 +23,7 @@ class NumberTextFieldParser extends WidgetParser {
 class NumberTextFieldCreator extends StatefulWidget implements Manager {
   final Component? map;
   final controller = TextEditingController();
-  final WidgetProvider? widgetProvider;
+  final FormioWidgetProvider? widgetProvider;
   NumberTextFieldCreator({this.map, this.widgetProvider});
   @override
   _NumberTextFieldCreatorState createState() => _NumberTextFieldCreatorState();

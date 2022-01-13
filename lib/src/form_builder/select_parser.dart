@@ -9,7 +9,7 @@ class SelectParser extends WidgetParser {
   /// Returns a [Widget] of type [DropDown/Selector]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener,
-      WidgetProvider? widgetProvider) {
+      FormioWidgetProvider? widgetProvider) {
     return SelectParserWidget(map: map, widgetProvider: widgetProvider);
   }
 
@@ -22,7 +22,7 @@ class SelectParser extends WidgetParser {
 class SelectParserWidget extends StatefulWidget implements Manager {
   final Component? map;
   Value? selected;
-  final WidgetProvider? widgetProvider;
+  final FormioWidgetProvider? widgetProvider;
 
   SelectParserWidget({this.map, this.widgetProvider});
 

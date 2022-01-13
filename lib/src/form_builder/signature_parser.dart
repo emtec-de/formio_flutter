@@ -6,7 +6,7 @@ class SignatureParser extends WidgetParser {
   /// Returns a [Widget] of type [Signature]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener,
-      WidgetProvider? widgetProvider) {
+      FormioWidgetProvider? widgetProvider) {
     return SignatureCreator(
       map: map,
       widgetProvider: widgetProvider,
@@ -23,7 +23,7 @@ class SignatureCreator extends StatefulWidget implements Manager {
   SignatureController controller = new SignatureController();
 
   final Component? map;
-  final WidgetProvider? widgetProvider;
+  final FormioWidgetProvider? widgetProvider;
 
   SignatureCreator({
     this.map,

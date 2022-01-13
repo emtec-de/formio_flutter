@@ -7,7 +7,7 @@ class DayTextFieldParser extends WidgetParser {
   /// Returns a [Widget] of type [DayTextField]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener,
-      WidgetProvider? widgetProvider) {
+      FormioWidgetProvider? widgetProvider) {
     return DayTextFieldCreator(
       map: map,
       widgetProvider: widgetProvider,
@@ -23,7 +23,7 @@ class DayTextFieldParser extends WidgetParser {
 class DayTextFieldCreator extends StatefulWidget implements Manager {
   final Component? map;
   final controller = TextEditingController();
-  final WidgetProvider? widgetProvider;
+  final FormioWidgetProvider? widgetProvider;
 
   DayTextFieldCreator({
     this.map,

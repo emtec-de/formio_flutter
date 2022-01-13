@@ -7,7 +7,7 @@ class EmailTextFieldParser extends WidgetParser {
   /// Returns a [Widget] of type [EmailTextField]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener,
-      WidgetProvider? widgetProvider) {
+      FormioWidgetProvider? widgetProvider) {
     return EmailTextFieldCreator(
       map: map,
       widgetProvider: widgetProvider,
@@ -23,7 +23,7 @@ class EmailTextFieldParser extends WidgetParser {
 class EmailTextFieldCreator extends StatefulWidget implements Manager {
   final Component? map;
   final controller = TextEditingController();
-  final WidgetProvider? widgetProvider;
+  final FormioWidgetProvider? widgetProvider;
   EmailTextFieldCreator({this.map, this.widgetProvider});
   @override
   _EmailTextFieldCreatorState createState() => _EmailTextFieldCreatorState();

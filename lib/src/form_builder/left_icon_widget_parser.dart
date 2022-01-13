@@ -14,7 +14,7 @@ class LeftIconWidgetParser extends WidgetParser {
     Component map,
     BuildContext context,
     ClickListener? listener,
-    WidgetProvider? widgetProvider,
+    FormioWidgetProvider? widgetProvider,
   ) {
     return Icon(
       (map.leftIcon != null)

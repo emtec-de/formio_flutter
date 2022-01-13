@@ -19,11 +19,11 @@ class _DemonstrationPageState extends State<DemonstrationPage>
   Future<List<Widget>>? _widgets;
   // ignore: unused_field
   BuildContext? _context;
-  late WidgetProvider widgetProvider;
+  late FormioWidgetProvider widgetProvider;
 
   @override
   Widget build(BuildContext context) {
-    widgetProvider = WidgetProvider.of(context)!;
+    widgetProvider = FormioWidgetProvider.of(context)!;
     _widgets ??= _buildWidget(context);
     return Scaffold(
       appBar: AppBar(

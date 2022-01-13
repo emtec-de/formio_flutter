@@ -13,7 +13,7 @@ class _PaginationPageState extends State<PaginationPage>
     implements ClickListener {
   PageController? controller;
   late FormCollection _formCollection;
-  late WidgetProvider widgetProvider;
+  late FormioWidgetProvider widgetProvider;
   Future<List<Widget>>? _widgets;
   int _index = 0;
 
@@ -25,7 +25,7 @@ class _PaginationPageState extends State<PaginationPage>
 
   @override
   Widget build(BuildContext context) {
-    widgetProvider = WidgetProvider.of(context)!;
+    widgetProvider = FormioWidgetProvider.of(context)!;
     _widgets ??= _buildWidget(context);
     return Scaffold(
       appBar: AppBar(
