@@ -8,7 +8,7 @@ class CurrencyTextFieldParser extends WidgetParser {
   /// Returns a [Widget] of type [CurrencyTextField]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener,
-      WidgetProvider? widgetProvider) {
+      FormioWidgetProvider? widgetProvider) {
     return CurrencyTextFieldCreator(
       map: map,
       widgetProvider: widgetProvider,
@@ -24,7 +24,7 @@ class CurrencyTextFieldParser extends WidgetParser {
 class CurrencyTextFieldCreator extends StatefulWidget implements Manager {
   final Component? map;
   final controller = TextEditingController();
-  final WidgetProvider? widgetProvider;
+  final FormioWidgetProvider? widgetProvider;
   CurrencyTextFieldCreator({this.map, this.widgetProvider});
   @override
   _CurrencyTextFieldCreatorState createState() =>

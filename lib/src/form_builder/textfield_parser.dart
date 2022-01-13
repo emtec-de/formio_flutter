@@ -10,7 +10,7 @@ class TextFieldParser extends WidgetParser {
   /// Returns a [Widget] of type [TextField]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener,
-      WidgetProvider? widgetProvider) {
+      FormioWidgetProvider? widgetProvider) {
     return TextFieldCreator(
       map: map,
       widgetProvider: widgetProvider,
@@ -26,7 +26,7 @@ class TextFieldParser extends WidgetParser {
 class TextFieldCreator extends StatefulWidget implements Manager {
   final Component? map;
   final controller = TextEditingController();
-  final WidgetProvider? widgetProvider;
+  final FormioWidgetProvider? widgetProvider;
   TextFieldCreator({this.map, this.widgetProvider});
   @override
   _TextFieldCreatorState createState() => _TextFieldCreatorState();

@@ -12,6 +12,11 @@ class WidgetBloc {
   /// Map<String, dynamic> = {"textfield": "valueInTextField", "datetime": "2020/08/22"}
   Stream<Map<String, dynamic>> get widgetsStream => _widgetController.stream;
 
+  clear() {
+    _mapper.clear();
+    _widgetController.sink.add({});
+  }
+
   /// Check if the [newMap] param is already registed inside the [_mapper]
   ///
   /// and return a [Map<String, dynamic>].

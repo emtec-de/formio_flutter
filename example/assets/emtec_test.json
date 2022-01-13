@@ -1,0 +1,3105 @@
+{
+  "_id": "615465ce56564eb4f57f4f97",
+  "_vid": 0,
+  "name": "vorlage53Wissensmanagement",
+  "path": "vorlage53wissensmanagement",
+  "tags": [
+    "common"
+  ],
+  "type": "form",
+  "owner": "5f9c2bce502abfaccbc9d8e0",
+  "title": "P0845/A Inspektion für Unimat plus 203210 20_fra_91544",
+  "access": [
+    {
+      "type": "create_own",
+      "roles": []
+    },
+    {
+      "type": "create_all",
+      "roles": []
+    },
+    {
+      "type": "read_own",
+      "roles": []
+    },
+    {
+      "type": "read_all",
+      "roles": [
+        "5f9c1e21ca08032f6ce0ce50",
+        "5f9c1e21ca080380d7e0ce51",
+        "5f9c1e21ca08033cc2e0ce52"
+      ]
+    },
+    {
+      "type": "update_own",
+      "roles": []
+    },
+    {
+      "type": "update_all",
+      "roles": []
+    },
+    {
+      "type": "delete_own",
+      "roles": []
+    },
+    {
+      "type": "delete_all",
+      "roles": []
+    },
+    {
+      "type": "team_read",
+      "roles": []
+    },
+    {
+      "type": "team_write",
+      "roles": []
+    },
+    {
+      "type": "team_admin",
+      "roles": []
+    }
+  ],
+  "created": "2021-09-29T13:10:38.639Z",
+  "display": "wizard",
+  "project": "5f9c1e21ca08034c5de0ce4f",
+  "modified": "2021-10-29T13:59:30.470Z",
+  "settings": {},
+  "revisions": "",
+  "components": [
+    {
+      "key": "page1",
+      "type": "panel",
+      "input": false,
+      "isNew": true,
+      "label": "Vorbereitung",
+      "title": " ",
+      "source": "5fe08d6d87454281dd79e4de",
+      "lockKey": true,
+      "hideLabel": true,
+      "tableView": false,
+      "components": [
+        {
+          "key": "columns76",
+          "type": "columns",
+          "input": false,
+          "label": "Columns",
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 4,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "content9",
+                  "html": "<h4><strong>Charité CFM Facility Management GmbH</strong></h4>",
+                  "type": "content",
+                  "input": false,
+                  "label": "Content",
+                  "hidden": true,
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 8,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "content10",
+                  "html": "<figure class=\"image image-style-align-right\"><img src=\"data:image/png;base64,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\"></figure>",
+                  "type": "content",
+                  "input": false,
+                  "label": "Content",
+                  "hidden": true,
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            }
+          ],
+          "tableView": false
+        },
+        {
+          "key": "dokumentenart3",
+          "html": "<h4><strong>Prüfprotokoll</strong></h4>",
+          "type": "content",
+          "input": false,
+          "label": "Dokumentenart",
+          "hidden": true,
+          "tableView": false,
+          "refreshOnChange": false
+        },
+        {
+          "key": "untertitel3",
+          "html": "<h4>P0845/A Inspektion für Unimat plus 203210 20</h4>",
+          "type": "content",
+          "input": false,
+          "label": "Untertitel ",
+          "hidden": true,
+          "tableView": false,
+          "refreshOnChange": false
+        },
+        {
+          "key": "content11",
+          "html": "<p><strong>Auftragsdaten</strong></p>",
+          "type": "content",
+          "input": false,
+          "label": "Content",
+          "hidden": true,
+          "tableView": false,
+          "refreshOnChange": false
+        },
+        {
+          "key": "columns77",
+          "type": "columns",
+          "input": false,
+          "label": "Columns",
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 4,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "auftragsnummer",
+                  "type": "textfield",
+                  "input": true,
+                  "isNew": true,
+                  "label": "Auftragsnummer",
+                  "hidden": true,
+                  "source": "5f9ffe8d502abf003bc9da20",
+                  "lockKey": true,
+                  "tableView": true,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 4,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "Auftragsdatum",
+                  "mask": false,
+                  "type": "number",
+                  "input": true,
+                  "isNew": true,
+                  "label": "Auftragsdatum",
+                  "hidden": true,
+                  "source": "5f9ffe8d502abf003bc9da20",
+                  "lockKey": true,
+                  "delimiter": false,
+                  "tableView": false,
+                  "spellcheck": true,
+                  "inputFormat": "plain",
+                  "requireDecimal": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 4,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "inventarnummer",
+                  "type": "textfield",
+                  "input": true,
+                  "isNew": true,
+                  "label": "Inventarnummer",
+                  "hidden": true,
+                  "source": "5f9ffe8d502abf003bc9da20",
+                  "lockKey": true,
+                  "tableView": true,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            }
+          ],
+          "tableView": false
+        },
+        {
+          "key": "content",
+          "html": "<p><strong>Gerätedaten</strong></p>",
+          "type": "content",
+          "input": false,
+          "label": "Content",
+          "hidden": true,
+          "tableView": false,
+          "refreshOnChange": false
+        },
+        {
+          "key": "columns8",
+          "type": "columns",
+          "input": false,
+          "label": "Columns",
+          "hidden": true,
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 6,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "geratebezeichnung",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "Gerätebezeichnung",
+                  "hidden": true,
+                  "tableView": true,
+                  "hideOnChildrenHidden": false
+                },
+                {
+                  "key": "kostenstellenBezeichnung",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "Kostenstellenbezeichnung",
+                  "hidden": true,
+                  "tableView": true,
+                  "hideOnChildrenHidden": false
+                },
+                {
+                  "key": "standortBezeichnung",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "Standort-Bezeichnung",
+                  "hidden": true,
+                  "tableView": true,
+                  "hideOnChildrenHidden": false
+                },
+                {
+                  "key": "typModell",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "Typ/Modell",
+                  "hidden": true,
+                  "tableView": true,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 6,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "seriennummer",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "Seriennummer",
+                  "hidden": true,
+                  "tableView": true,
+                  "hideOnChildrenHidden": false
+                },
+                {
+                  "key": "kostenstelle",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "Kostenstelle",
+                  "hidden": true,
+                  "tableView": true,
+                  "hideOnChildrenHidden": false
+                },
+                {
+                  "key": "standort",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "Standort-ID",
+                  "hidden": true,
+                  "tableView": true,
+                  "hideOnChildrenHidden": false
+                },
+                {
+                  "key": "hersteller",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "Hersteller",
+                  "hidden": true,
+                  "tableView": true,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            }
+          ],
+          "tableView": false
+        },
+        {
+          "key": "content6",
+          "html": "<p><strong>Vorbereitung</strong></p>",
+          "type": "content",
+          "input": false,
+          "label": "Content",
+          "tableView": false,
+          "refreshOnChange": false
+        },
+        {
+          "key": "verwendetesZubehor",
+          "type": "radio",
+          "input": true,
+          "label": "Verwendetes Zubehör",
+          "inline": true,
+          "values": [
+            {
+              "label": "Original",
+              "value": "original",
+              "shortcut": ""
+            },
+            {
+              "label": "Ersatzweise",
+              "value": "ersatzweise",
+              "shortcut": ""
+            },
+            {
+              "label": "Entfällt",
+              "value": "entfallt",
+              "shortcut": ""
+            }
+          ],
+          "validate": {
+            "required": true
+          },
+          "tableView": false,
+          "defaultValue": "original",
+          "optionsLabelPosition": "right"
+        },
+        {
+          "key": "bemerkungen",
+          "type": "textarea",
+          "input": true,
+          "label": "Bemerkungen ",
+          "tableView": true,
+          "autoExpand": false,
+          "conditional": {
+            "eq": "ersatzweise",
+            "show": true,
+            "when": "verwendetesZubehor"
+          }
+        },
+        {
+          "key": "content2",
+          "html": "<p><strong>Dieses Gerät wurde in Verbindung mit weiteren Geräten geprüft:&nbsp;</strong></p>",
+          "type": "content",
+          "input": false,
+          "label": "Content",
+          "tableView": false,
+          "refreshOnChange": false
+        },
+        {
+          "key": "weitereGeraete2",
+          "type": "radio",
+          "input": true,
+          "isNew": true,
+          "label": "Weitere Geräte",
+          "inline": true,
+          "source": "5fe09986874542475479e4e5",
+          "values": [
+            {
+              "label": "ja",
+              "value": "ja",
+              "shortcut": ""
+            },
+            {
+              "label": "nein",
+              "value": "nein",
+              "shortcut": ""
+            }
+          ],
+          "lockKey": true,
+          "hideLabel": true,
+          "tableView": false,
+          "defaultValue": "nein",
+          "optionsLabelPosition": "right"
+        },
+        {
+          "key": "InventarnummerGeraet2",
+          "type": "textfield",
+          "input": true,
+          "label": "1.  Geräte-Inventarnummer",
+          "tableView": true,
+          "conditional": {
+            "eq": "ja",
+            "show": true,
+            "when": "weitereGeraete2"
+          },
+          "hideOnChildrenHidden": false
+        },
+        {
+          "key": "weitereGeraete3",
+          "type": "radio",
+          "input": true,
+          "isNew": true,
+          "label": "Weitere Geräte",
+          "inline": true,
+          "source": "5fe09986874542475479e4e5",
+          "values": [
+            {
+              "label": "ja",
+              "value": "ja",
+              "shortcut": ""
+            },
+            {
+              "label": "nein",
+              "value": "nein",
+              "shortcut": ""
+            }
+          ],
+          "lockKey": true,
+          "tableView": false,
+          "conditional": {
+            "eq": "ja",
+            "show": true,
+            "when": "weitereGeraete2"
+          },
+          "defaultValue": "nein",
+          "optionsLabelPosition": "right"
+        },
+        {
+          "key": "InventarnummerGeraet3",
+          "type": "textfield",
+          "input": true,
+          "label": "2.  Geräte-Inventarnummer",
+          "tableView": true,
+          "conditional": {
+            "eq": "ja",
+            "show": true,
+            "when": "weitereGeraete3"
+          },
+          "hideOnChildrenHidden": false
+        },
+        {
+          "key": "weitereGeraete4",
+          "type": "radio",
+          "input": true,
+          "isNew": true,
+          "label": "Weitere Geräte",
+          "inline": true,
+          "source": "5fe09986874542475479e4e5",
+          "values": [
+            {
+              "label": "ja",
+              "value": "ja",
+              "shortcut": ""
+            },
+            {
+              "label": "nein",
+              "value": "nein",
+              "shortcut": ""
+            }
+          ],
+          "lockKey": true,
+          "tableView": false,
+          "conditional": {
+            "eq": "ja",
+            "show": true,
+            "when": "weitereGeraete3"
+          },
+          "defaultValue": "nein",
+          "optionsLabelPosition": "right"
+        },
+        {
+          "key": "InventarnummerGeraet4",
+          "type": "textfield",
+          "input": true,
+          "label": "3. Geräte-Inventarnummer",
+          "tableView": true,
+          "conditional": {
+            "eq": "ja",
+            "show": true,
+            "when": "weitereGeraete4"
+          },
+          "hideOnChildrenHidden": false
+        },
+        {
+          "key": "weitereGeraete5",
+          "type": "radio",
+          "input": true,
+          "isNew": true,
+          "label": "Weitere Geräte",
+          "inline": true,
+          "source": "5fe09986874542475479e4e5",
+          "values": [
+            {
+              "label": "ja",
+              "value": "ja",
+              "shortcut": ""
+            },
+            {
+              "label": "nein",
+              "value": "nein",
+              "shortcut": ""
+            }
+          ],
+          "lockKey": true,
+          "tableView": false,
+          "conditional": {
+            "eq": "ja",
+            "show": true,
+            "when": "weitereGeraete4"
+          },
+          "defaultValue": "nein",
+          "optionsLabelPosition": "right"
+        },
+        {
+          "key": "InventarnummerGeraet5",
+          "type": "textfield",
+          "input": true,
+          "label": "4. Geräte-Inventarnummer",
+          "tableView": true,
+          "conditional": {
+            "eq": "ja",
+            "show": true,
+            "when": "weitereGeraete5"
+          },
+          "hideOnChildrenHidden": false
+        },
+        {
+          "key": "content1",
+          "html": "<p><strong>verwendete Prüfmittel</strong></p>",
+          "type": "content",
+          "input": false,
+          "label": "Content",
+          "tableView": false,
+          "refreshOnChange": false
+        },
+        {
+          "key": "columns9",
+          "type": "columns",
+          "input": false,
+          "label": "Columns",
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 6,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "Inventarnummer",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "1. Inventarnummer",
+                  "tableView": true,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 6,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "bezeichnung",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "Bezeichnung",
+                  "tableView": true,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            }
+          ],
+          "tableView": false
+        },
+        {
+          "key": "weiterePrufmittel",
+          "type": "radio",
+          "input": true,
+          "isNew": true,
+          "label": "Weitere Prüfmittel",
+          "inline": true,
+          "source": "5fe09986874542475479e4e5",
+          "values": [
+            {
+              "label": "ja",
+              "value": "ja",
+              "shortcut": ""
+            },
+            {
+              "label": "nein",
+              "value": "nein",
+              "shortcut": ""
+            }
+          ],
+          "lockKey": true,
+          "tableView": false,
+          "defaultValue": "nein",
+          "optionsLabelPosition": "right"
+        },
+        {
+          "key": "columns10",
+          "type": "columns",
+          "input": false,
+          "label": "Columns",
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 6,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "Inventarnummer1",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "2. Inventarnummer",
+                  "tableView": true,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 6,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "bezeichnung1",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "Bezeichnung",
+                  "tableView": true,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            }
+          ],
+          "tableView": false,
+          "conditional": {
+            "eq": "ja",
+            "show": true,
+            "when": "weiterePrufmittel"
+          }
+        },
+        {
+          "key": "weiterePrufmittel1",
+          "type": "radio",
+          "input": true,
+          "isNew": true,
+          "label": "Weitere Prüfmittel",
+          "inline": true,
+          "source": "5fe09986874542475479e4e5",
+          "values": [
+            {
+              "label": "ja",
+              "value": "ja",
+              "shortcut": ""
+            },
+            {
+              "label": "nein",
+              "value": "nein",
+              "shortcut": ""
+            }
+          ],
+          "lockKey": true,
+          "tableView": false,
+          "conditional": {
+            "eq": "ja",
+            "show": true,
+            "when": "weiterePrufmittel"
+          },
+          "defaultValue": "nein",
+          "optionsLabelPosition": "right"
+        },
+        {
+          "key": "columns11",
+          "type": "columns",
+          "input": false,
+          "label": "Columns",
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 6,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "Inventarnummer2",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "3. Inventarnummer",
+                  "tableView": true,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 6,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "bezeichnung2",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "Bezeichnung",
+                  "tableView": true,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            }
+          ],
+          "tableView": false,
+          "conditional": {
+            "eq": "ja",
+            "show": true,
+            "when": "weiterePrufmittel1"
+          }
+        },
+        {
+          "key": "weiterePrufmittel2",
+          "type": "radio",
+          "input": true,
+          "isNew": true,
+          "label": "Weitere Prüfmittel",
+          "inline": true,
+          "source": "5fe09986874542475479e4e5",
+          "values": [
+            {
+              "label": "ja",
+              "value": "ja",
+              "shortcut": ""
+            },
+            {
+              "label": "nein",
+              "value": "nein",
+              "shortcut": ""
+            }
+          ],
+          "lockKey": true,
+          "tableView": false,
+          "conditional": {
+            "eq": "ja",
+            "show": true,
+            "when": "weiterePrufmittel1"
+          },
+          "defaultValue": "nein",
+          "optionsLabelPosition": "right"
+        },
+        {
+          "key": "columns12",
+          "type": "columns",
+          "input": false,
+          "label": "Columns",
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 6,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "Inventarnummer3",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "4. Inventarnummer",
+                  "tableView": true,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 6,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "bezeichnung3",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "Bezeichnung",
+                  "tableView": true,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            }
+          ],
+          "tableView": false,
+          "conditional": {
+            "eq": "ja",
+            "show": true,
+            "when": "weiterePrufmittel2"
+          }
+        },
+        {
+          "key": "weiterePrufmittel3",
+          "type": "radio",
+          "input": true,
+          "isNew": true,
+          "label": "Weitere Prüfmittel",
+          "inline": true,
+          "source": "5fe09986874542475479e4e5",
+          "values": [
+            {
+              "label": "ja",
+              "value": "ja",
+              "shortcut": ""
+            },
+            {
+              "label": "nein",
+              "value": "nein",
+              "shortcut": ""
+            }
+          ],
+          "lockKey": true,
+          "tableView": false,
+          "conditional": {
+            "eq": "ja",
+            "show": true,
+            "when": "weiterePrufmittel2"
+          },
+          "defaultValue": "nein",
+          "optionsLabelPosition": "right"
+        },
+        {
+          "key": "columns13",
+          "type": "columns",
+          "input": false,
+          "label": "Columns",
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 6,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "Inventarnummer4",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "5. Inventarnummer",
+                  "tableView": true,
+                  "conditional": {
+                    "eq": "ja",
+                    "show": true,
+                    "when": "weiterePrufmittel3"
+                  },
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 6,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "bezeichnung4",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "Bezeichnung",
+                  "tableView": true,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            }
+          ],
+          "tableView": false,
+          "conditional": {
+            "eq": "ja",
+            "show": true,
+            "when": "weiterePrufmittel3"
+          }
+        },
+        {
+          "key": "weiterePrufmittel4",
+          "type": "radio",
+          "input": true,
+          "isNew": true,
+          "label": "Weitere Prüfmittel",
+          "inline": true,
+          "source": "5fe09986874542475479e4e5",
+          "values": [
+            {
+              "label": "ja",
+              "value": "ja",
+              "shortcut": ""
+            },
+            {
+              "label": "nein",
+              "value": "nein",
+              "shortcut": ""
+            }
+          ],
+          "lockKey": true,
+          "tableView": false,
+          "conditional": {
+            "eq": "ja",
+            "show": true,
+            "when": "weiterePrufmittel3"
+          },
+          "defaultValue": "nein",
+          "optionsLabelPosition": "right"
+        },
+        {
+          "key": "columns14",
+          "type": "columns",
+          "input": false,
+          "label": "Columns",
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 6,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "Inventarnummer5",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "6. Inventarnummer",
+                  "tableView": true,
+                  "conditional": {
+                    "eq": "ja",
+                    "show": true,
+                    "when": "weiterePrufmittel4"
+                  },
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 6,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "bezeichnung5",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "Bezeichnung",
+                  "tableView": true,
+                  "conditional": {
+                    "eq": "ja",
+                    "show": true,
+                    "when": "weiterePrufmittel4"
+                  },
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            }
+          ],
+          "tableView": false,
+          "conditional": {
+            "eq": "ja",
+            "show": true,
+            "when": "weiterePrufmittel3"
+          }
+        }
+      ],
+      "collapsible": false,
+      "buttonSettings": {
+        "next": true,
+        "cancel": true,
+        "previous": true
+      },
+      "breadcrumbClickable": true
+    },
+    {
+      "key": "page2",
+      "type": "panel",
+      "input": false,
+      "label": "Sichtprüfung",
+      "title": " ",
+      "tableView": false,
+      "components": [
+        {
+          "key": "content7",
+          "html": "<h4><strong>1. Sichtprüfung</strong></h4>",
+          "type": "content",
+          "input": false,
+          "label": "Content",
+          "tableView": false,
+          "refreshOnChange": false
+        },
+        {
+          "key": "columns",
+          "type": "columns",
+          "input": false,
+          "label": "Columns",
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 9,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "html6",
+                  "tag": "div",
+                  "type": "htmlelement",
+                  "attrs": [
+                    {
+                      "attr": "",
+                      "value": ""
+                    }
+                  ],
+                  "input": false,
+                  "label": "HTML",
+                  "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <body>\r\n    <details><summary>1.1 Gehäuse und Zubehör</summary><p><span class=\"small\">(äußerlich unbeschädigt)</span></p></details>\r\n  </body>\r\n</html>",
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 3,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "allgemeinerGeratezustand",
+                  "type": "radio",
+                  "input": true,
+                  "label": "Gehäuse und Zubehör ",
+                  "inline": false,
+                  "values": [
+                    {
+                      "label": "in Ordnung",
+                      "value": "inOrdnung",
+                      "shortcut": ""
+                    },
+                    {
+                      "label": "nicht in Ordnung",
+                      "value": "nichtInOrdnung",
+                      "shortcut": ""
+                    }
+                  ],
+                  "validate": {
+                    "required": true
+                  },
+                  "hideLabel": true,
+                  "tableView": false,
+                  "hideOnChildrenHidden": false,
+                  "optionsLabelPosition": "right"
+                }
+              ]
+            }
+          ],
+          "tableView": false
+        },
+        {
+          "key": "columns1",
+          "type": "columns",
+          "input": false,
+          "label": "Columns",
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 9,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "html7",
+                  "tag": "div",
+                  "type": "htmlelement",
+                  "attrs": [
+                    {
+                      "attr": "",
+                      "value": ""
+                    }
+                  ],
+                  "input": false,
+                  "label": "HTML",
+                  "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <body>\r\n1.2 Aufschriften und Typenschildangaben\r\n</body>\r\n</html>",
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 3,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "bedienungselementeAufschriftenTastatur",
+                  "type": "radio",
+                  "input": true,
+                  "label": "Aufschriften und Typenschildangaben",
+                  "inline": false,
+                  "values": [
+                    {
+                      "label": "in Ordnung",
+                      "value": "inOrdnung",
+                      "shortcut": ""
+                    },
+                    {
+                      "label": "nicht in Ordnung",
+                      "value": "nichtInOrdnung",
+                      "shortcut": ""
+                    }
+                  ],
+                  "validate": {
+                    "required": true
+                  },
+                  "hideLabel": true,
+                  "tableView": false,
+                  "hideOnChildrenHidden": false,
+                  "optionsLabelPosition": "right"
+                }
+              ]
+            }
+          ],
+          "tableView": false
+        },
+        {
+          "key": "columns2",
+          "type": "columns",
+          "input": false,
+          "label": "Columns",
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 9,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "html8",
+                  "tag": "div",
+                  "type": "htmlelement",
+                  "attrs": [
+                    {
+                      "attr": "",
+                      "value": ""
+                    }
+                  ],
+                  "input": false,
+                  "label": "HTML",
+                  "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <body>\r\n    <details><summary>1.3 CE-Kennzeichen, Storz-Prüfplakette </summary><p><span class=\"small\">(sind am Gehäuse angebracht)</span></p></details>\r\n  </body>\r\n</html>",
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 3,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "co2Sensor",
+                  "type": "radio",
+                  "input": true,
+                  "label": "CE-Kennzeichen, Storz-Prüfplakette ",
+                  "inline": false,
+                  "values": [
+                    {
+                      "label": "in Ordnung",
+                      "value": "inOrdnung",
+                      "shortcut": ""
+                    },
+                    {
+                      "label": "nicht in Ordnung",
+                      "value": "nichtInOrdnung",
+                      "shortcut": ""
+                    }
+                  ],
+                  "validate": {
+                    "required": true
+                  },
+                  "hideLabel": true,
+                  "tableView": false,
+                  "hideOnChildrenHidden": false,
+                  "optionsLabelPosition": "right"
+                }
+              ]
+            }
+          ],
+          "tableView": false
+        },
+        {
+          "key": "columns18",
+          "type": "columns",
+          "input": false,
+          "label": "Columns",
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 9,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "html9",
+                  "tag": "div",
+                  "type": "htmlelement",
+                  "attrs": [
+                    {
+                      "attr": "",
+                      "value": ""
+                    }
+                  ],
+                  "input": false,
+                  "label": "HTML",
+                  "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <body>\r\n1.4 Gebrauchsanweisung \r\n</body>\r\n</html>",
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 3,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "spO2SensorOptional",
+                  "type": "radio",
+                  "input": true,
+                  "label": "Gebrauchsanweisung",
+                  "inline": false,
+                  "values": [
+                    {
+                      "label": "in Ordnung",
+                      "value": "inOrdnung",
+                      "shortcut": ""
+                    },
+                    {
+                      "label": "nicht in Ordnung",
+                      "value": "nichtInOrdnung",
+                      "shortcut": ""
+                    },
+                    {
+                      "label": "entfällt",
+                      "value": "entfallt",
+                      "shortcut": ""
+                    }
+                  ],
+                  "validate": {
+                    "required": true
+                  },
+                  "hideLabel": true,
+                  "tableView": false,
+                  "hideOnChildrenHidden": false,
+                  "optionsLabelPosition": "right"
+                }
+              ]
+            }
+          ],
+          "tableView": false
+        },
+        {
+          "key": "columns81",
+          "type": "columns",
+          "input": false,
+          "label": "Columns",
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 9,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "html88",
+                  "tag": "div",
+                  "type": "htmlelement",
+                  "attrs": [
+                    {
+                      "attr": "",
+                      "value": ""
+                    }
+                  ],
+                  "input": false,
+                  "label": "HTML",
+                  "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <body>\r\n1.5 Netzsicherungen<br> 2 x T 0,2 A/250 V (SB) (230 V∼ /240 V∼)\r\n </body>\r\n</html>",
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 3,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "spO2SensorOptional2",
+                  "type": "radio",
+                  "input": true,
+                  "label": "Netzsicherungen",
+                  "inline": false,
+                  "values": [
+                    {
+                      "label": "in Ordnung",
+                      "value": "inOrdnung",
+                      "shortcut": ""
+                    },
+                    {
+                      "label": "nicht in Ordnung",
+                      "value": "nichtInOrdnung",
+                      "shortcut": ""
+                    }
+                  ],
+                  "validate": {
+                    "required": true
+                  },
+                  "hideLabel": true,
+                  "tableView": false,
+                  "hideOnChildrenHidden": false,
+                  "optionsLabelPosition": "right"
+                }
+              ]
+            }
+          ],
+          "tableView": false
+        },
+        {
+          "key": "columns82",
+          "type": "columns",
+          "input": false,
+          "label": "Columns",
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 9,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "html93",
+                  "tag": "div",
+                  "type": "htmlelement",
+                  "attrs": [
+                    {
+                      "attr": "",
+                      "value": ""
+                    }
+                  ],
+                  "input": false,
+                  "label": "HTML",
+                  "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <body>\r\n1.6 Sicherung im Transformator<br> 1 x T 1,0 A/250 V (SB) \r\n</body>\r\n</html>",
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 3,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "spO2SensorOptional3",
+                  "type": "radio",
+                  "input": true,
+                  "label": "Sicherung im Transformator",
+                  "inline": false,
+                  "values": [
+                    {
+                      "label": "in Ordnung",
+                      "value": "inOrdnung",
+                      "shortcut": ""
+                    },
+                    {
+                      "label": "nicht in Ordnung",
+                      "value": "nichtInOrdnung",
+                      "shortcut": ""
+                    }
+                  ],
+                  "validate": {
+                    "required": true
+                  },
+                  "hideLabel": true,
+                  "tableView": false,
+                  "hideOnChildrenHidden": false,
+                  "optionsLabelPosition": "right"
+                }
+              ]
+            }
+          ],
+          "tableView": false
+        },
+        {
+          "key": "columns19",
+          "type": "columns",
+          "input": false,
+          "label": "Columns",
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 9,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "html10",
+                  "tag": "div",
+                  "type": "htmlelement",
+                  "attrs": [
+                    {
+                      "attr": "",
+                      "value": ""
+                    }
+                  ],
+                  "input": false,
+                  "label": "HTML",
+                  "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <body>\r\n    <details><summary>1.7 Spannungswähler</summary><p><span class=\"small\">(Netzspannung ist auf die richtige Spannung eingestellt)</span></p></details>\r\n  </body>\r\n</html>",
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 3,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "radio1",
+                  "type": "radio",
+                  "input": true,
+                  "label": "Spannungswähler ",
+                  "inline": false,
+                  "values": [
+                    {
+                      "label": "in Ordnung",
+                      "value": "inOrdnung",
+                      "shortcut": ""
+                    },
+                    {
+                      "label": "nicht in Ordnung",
+                      "value": "nichtInOrdnung",
+                      "shortcut": ""
+                    }
+                  ],
+                  "validate": {
+                    "required": true
+                  },
+                  "hideLabel": true,
+                  "tableView": false,
+                  "hideOnChildrenHidden": false,
+                  "optionsLabelPosition": "right"
+                }
+              ]
+            }
+          ],
+          "tableView": false
+        },
+        {
+          "key": "columns83",
+          "type": "columns",
+          "input": false,
+          "label": "Columns",
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 9,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "html94",
+                  "tag": "div",
+                  "type": "htmlelement",
+                  "attrs": [
+                    {
+                      "attr": "",
+                      "value": ""
+                    }
+                  ],
+                  "input": false,
+                  "label": "HTML",
+                  "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <body>\r\n1.8 Schublade für Kurzbedienungsanleitung \r\n</body>\r\n</html>",
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 3,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "spO2SensorOptional4",
+                  "type": "radio",
+                  "input": true,
+                  "label": "Schublade für Kurzbedienungsanleitung",
+                  "inline": false,
+                  "values": [
+                    {
+                      "label": "in Ordnung",
+                      "value": "inOrdnung",
+                      "shortcut": ""
+                    },
+                    {
+                      "label": "nicht in Ordnung",
+                      "value": "nichtInOrdnung",
+                      "shortcut": ""
+                    }
+                  ],
+                  "validate": {
+                    "required": true
+                  },
+                  "hideLabel": true,
+                  "tableView": false,
+                  "hideOnChildrenHidden": false,
+                  "optionsLabelPosition": "right"
+                }
+              ]
+            }
+          ],
+          "tableView": false
+        }
+      ],
+      "collapsible": false,
+      "buttonSettings": {
+        "next": true,
+        "cancel": true,
+        "previous": true
+      },
+      "breadcrumbClickable": true
+    },
+    {
+      "key": "page3",
+      "type": "panel",
+      "input": false,
+      "label": "Prüfung der Funktionsfähigkeit",
+      "title": " ",
+      "tableView": false,
+      "components": [
+        {
+          "key": "content13",
+          "html": "<p><h4><strong>2. Prüfung der Funktionsfähigkeit</strong></h4></p>",
+          "type": "content",
+          "input": false,
+          "label": "Content",
+          "tableView": false,
+          "refreshOnChange": false
+        },
+        {
+          "key": "content14",
+          "html": "<p><strong>2.1 Prüfung der notwendigen Überwachungs-, Sicherheits-, Anzeige- und Meldeeinrichtungen</strong></p>",
+          "type": "content",
+          "input": false,
+          "label": "Content",
+          "tableView": false,
+          "refreshOnChange": false
+        },
+        {
+          "key": "columns20",
+          "type": "columns",
+          "input": false,
+          "label": "Columns",
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 9,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "html11",
+                  "tag": "div",
+                  "type": "htmlelement",
+                  "attrs": [
+                    {
+                      "attr": "",
+                      "value": ""
+                    }
+                  ],
+                  "input": false,
+                  "label": "HTML",
+                  "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <body>\r\n2.1.1 Netzschalter \r\n</body>\r\n</html>",
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 3,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "ruckschlagventil",
+                  "type": "radio",
+                  "input": true,
+                  "label": "Netzschalter",
+                  "inline": false,
+                  "values": [
+                    {
+                      "label": "in Ordnung",
+                      "value": "inOrdnung",
+                      "shortcut": ""
+                    },
+                    {
+                      "label": "nicht in Ordnung",
+                      "value": "nichtInOrdnung",
+                      "shortcut": ""
+                    }
+                  ],
+                  "validate": {
+                    "required": true
+                  },
+                  "hideLabel": true,
+                  "tableView": false,
+                  "hideOnChildrenHidden": false,
+                  "optionsLabelPosition": "right"
+                }
+              ]
+            }
+          ],
+          "tableView": false
+        },
+        {
+          "key": "columns21",
+          "type": "columns",
+          "input": false,
+          "label": "Columns",
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 9,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "html12",
+                  "tag": "div",
+                  "type": "htmlelement",
+                  "attrs": [
+                    {
+                      "attr": "",
+                      "value": ""
+                    }
+                  ],
+                  "input": false,
+                  "label": "HTML",
+                  "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <body>\r\n    <details><summary>2.1.2 Saugpumpe</summary><p><span class=\"small\">(funktioniert einwandfrei)</span></p></details>\r\n  </body>\r\n</html>",
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 3,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "notatemventil",
+                  "type": "radio",
+                  "input": true,
+                  "label": "Saugpumpe",
+                  "inline": false,
+                  "values": [
+                    {
+                      "label": "in Ordnung",
+                      "value": "inOrdnung",
+                      "shortcut": ""
+                    },
+                    {
+                      "label": "nicht in Ordnung",
+                      "value": "nichtInOrdnung",
+                      "shortcut": ""
+                    }
+                  ],
+                  "validate": {
+                    "required": true
+                  },
+                  "hideLabel": true,
+                  "tableView": false,
+                  "hideOnChildrenHidden": false,
+                  "optionsLabelPosition": "right"
+                }
+              ]
+            }
+          ],
+          "tableView": false
+        },
+        {
+          "key": "columns84",
+          "type": "columns",
+          "input": false,
+          "label": "Columns",
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 9,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "html95",
+                  "tag": "div",
+                  "type": "htmlelement",
+                  "attrs": [
+                    {
+                      "attr": "",
+                      "value": ""
+                    }
+                  ],
+                  "input": false,
+                  "label": "HTML",
+                  "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <body>\r\n    <details><summary>2.1.3 Spülpumpe</summary><p><span class=\"small\">(funktioniert einwandfrei)</span></p></details>\r\n  </body>\r\n</html>",
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 3,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "notatemventil1",
+                  "type": "radio",
+                  "input": true,
+                  "label": "Spülpumpe",
+                  "inline": false,
+                  "values": [
+                    {
+                      "label": "in Ordnung",
+                      "value": "inOrdnung",
+                      "shortcut": ""
+                    },
+                    {
+                      "label": "nicht in Ordnung",
+                      "value": "nichtInOrdnung",
+                      "shortcut": ""
+                    }
+                  ],
+                  "validate": {
+                    "required": true
+                  },
+                  "hideLabel": true,
+                  "tableView": false,
+                  "hideOnChildrenHidden": false,
+                  "optionsLabelPosition": "right"
+                }
+              ]
+            }
+          ],
+          "tableView": false
+        },
+        {
+          "key": "content26",
+          "html": "<p><strong>2.2 Messung der sicherheitserheblichen Ausgangsparameter und spezielle technische Prüfung</strong></p>",
+          "type": "content",
+          "input": false,
+          "label": "Content",
+          "tableView": false,
+          "refreshOnChange": false
+        },
+        {
+          "key": "columns38",
+          "type": "columns",
+          "input": false,
+          "label": "Columns",
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 4,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "html36",
+                  "tag": "div",
+                  "type": "htmlelement",
+                  "attrs": [
+                    {
+                      "attr": "",
+                      "value": ""
+                    }
+                  ],
+                  "input": false,
+                  "label": "HTML",
+                  "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <body>\r\n    2.2.1 Saugdruck\r\n  </body>\r\n</html>",
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 2,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "html37",
+                  "type": "htmlelement",
+                  "attrs": [
+                    {
+                      "attr": "",
+                      "value": ""
+                    }
+                  ],
+                  "input": false,
+                  "label": "HTML",
+                  "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <body>\r\n    <span class=\"small\"><strong>(Soll: 478-619 mmHg)</strong></span>\r\n  </body>\r\n</html>",
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 3,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "textField9",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "Saugdruck",
+                  "width": 12,
+                  "suffix": "mmHg",
+                  "hideLabel": true,
+                  "tableView": true,
+                  "placeholder": "Ist-Wert",
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 3,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "schutzleiterwiderstand2",
+                  "type": "radio",
+                  "input": true,
+                  "label": "Saugdruck",
+                  "width": 12,
+                  "inline": false,
+                  "values": [
+                    {
+                      "label": "in Ordnung",
+                      "value": "inOrdnung",
+                      "shortcut": ""
+                    },
+                    {
+                      "label": "nicht in Ordnung",
+                      "value": "nichtInOrdnung",
+                      "shortcut": ""
+                    },
+                    {
+                      "label": "entfällt",
+                      "value": "entfallt",
+                      "shortcut": ""
+                    }
+                  ],
+                  "validate": {
+                    "required": true
+                  },
+                  "hideLabel": true,
+                  "tableView": false,
+                  "hideOnChildrenHidden": false,
+                  "optionsLabelPosition": "right"
+                }
+              ]
+            }
+          ],
+          "tableView": false
+        },
+        {
+          "key": "columns37",
+          "type": "columns",
+          "input": false,
+          "label": "Columns",
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 4,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "html47",
+                  "tag": "div",
+                  "type": "htmlelement",
+                  "attrs": [
+                    {
+                      "attr": "",
+                      "value": ""
+                    }
+                  ],
+                  "input": false,
+                  "label": "HTML",
+                  "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <body>\r\n    <strong>oder</strong>\r\n  </body>\r\n</html>",
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 2,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "html35",
+                  "type": "htmlelement",
+                  "attrs": [
+                    {
+                      "attr": "",
+                      "value": ""
+                    }
+                  ],
+                  "input": false,
+                  "label": "HTML",
+                  "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <body>\r\n    <span class=\"small\"><strong>(Soll: 638-825 mbar )</strong></span>\r\n  </body>\r\n</html>",
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 3,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "textField8",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "Saugdruck",
+                  "width": 12,
+                  "suffix": "mbar",
+                  "hideLabel": true,
+                  "tableView": true,
+                  "placeholder": "Ist-Wert",
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 3,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "schutzleiterwiderstand1",
+                  "type": "radio",
+                  "input": true,
+                  "label": "Saugdruck",
+                  "width": 12,
+                  "inline": false,
+                  "values": [
+                    {
+                      "label": "in Ordnung",
+                      "value": "inOrdnung",
+                      "shortcut": ""
+                    },
+                    {
+                      "label": "nicht in Ordnung",
+                      "value": "nichtInOrdnung",
+                      "shortcut": ""
+                    },
+                    {
+                      "label": "entfällt",
+                      "value": "entfallt",
+                      "shortcut": ""
+                    }
+                  ],
+                  "validate": {
+                    "required": true
+                  },
+                  "hideLabel": true,
+                  "tableView": false,
+                  "hideOnChildrenHidden": false,
+                  "optionsLabelPosition": "right"
+                }
+              ]
+            }
+          ],
+          "tableView": false
+        },
+        {
+          "key": "columns39",
+          "type": "columns",
+          "input": false,
+          "label": "Columns",
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 4,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "html38",
+                  "tag": "div",
+                  "type": "htmlelement",
+                  "attrs": [
+                    {
+                      "attr": "",
+                      "value": ""
+                    }
+                  ],
+                  "input": false,
+                  "label": "HTML",
+                  "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <body>\r\n2.2.2 Spüldruck\r\n</body>\r\n</html>",
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 2,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "html39",
+                  "type": "htmlelement",
+                  "attrs": [
+                    {
+                      "attr": "",
+                      "value": ""
+                    }
+                  ],
+                  "input": false,
+                  "label": "HTML",
+                  "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <body>\r\n    <span class=\"small\"><strong>(Soll: 380-420 mmHg)</strong></span>\r\n  </body>\r\n</html>",
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 3,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "textField10",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "Spüldruck",
+                  "width": 12,
+                  "suffix": "mmHg",
+                  "hideLabel": true,
+                  "tableView": true,
+                  "placeholder": "Ist-Wert",
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 3,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "schutzleiterwiderstand3",
+                  "type": "radio",
+                  "input": true,
+                  "label": "Spüldruck",
+                  "width": 12,
+                  "inline": false,
+                  "values": [
+                    {
+                      "label": "in Ordnung",
+                      "value": "inOrdnung",
+                      "shortcut": ""
+                    },
+                    {
+                      "label": "nicht in Ordnung",
+                      "value": "nichtInOrdnung",
+                      "shortcut": ""
+                    },
+                    {
+                      "label": "entfällt",
+                      "value": "entfallt",
+                      "shortcut": ""
+                    }
+                  ],
+                  "validate": {
+                    "required": true
+                  },
+                  "hideLabel": true,
+                  "tableView": false,
+                  "hideOnChildrenHidden": false,
+                  "optionsLabelPosition": "right"
+                }
+              ]
+            }
+          ],
+          "tableView": false
+        },
+        {
+          "key": "columns40",
+          "type": "columns",
+          "input": false,
+          "label": "Columns",
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 4,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "html48",
+                  "tag": "div",
+                  "type": "htmlelement",
+                  "attrs": [
+                    {
+                      "attr": "",
+                      "value": ""
+                    }
+                  ],
+                  "input": false,
+                  "label": "HTML",
+                  "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <body>\r\n    <strong>oder</strong>\r\n  </body>\r\n</html>",
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 2,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "html40",
+                  "type": "htmlelement",
+                  "attrs": [
+                    {
+                      "attr": "",
+                      "value": ""
+                    }
+                  ],
+                  "input": false,
+                  "label": "HTML",
+                  "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <body>\r\n    <span class=\"small\"><strong>(Soll: 507-560 mbar )</strong></span>\r\n  </body>\r\n</html>",
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 3,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "textField11",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "Spüldruck",
+                  "width": 12,
+                  "suffix": "mbar",
+                  "hideLabel": true,
+                  "tableView": true,
+                  "placeholder": "Ist-Wert",
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 3,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "schutzleiterwiderstand4",
+                  "type": "radio",
+                  "input": true,
+                  "label": "Spüldruck",
+                  "width": 12,
+                  "inline": false,
+                  "values": [
+                    {
+                      "label": "in Ordnung",
+                      "value": "inOrdnung",
+                      "shortcut": ""
+                    },
+                    {
+                      "label": "nicht in Ordnung",
+                      "value": "nichtInOrdnung",
+                      "shortcut": ""
+                    },
+                    {
+                      "label": "entfällt",
+                      "value": "entfallt",
+                      "shortcut": ""
+                    }
+                  ],
+                  "validate": {
+                    "required": true
+                  },
+                  "hideLabel": true,
+                  "tableView": false,
+                  "hideOnChildrenHidden": false,
+                  "optionsLabelPosition": "right"
+                }
+              ]
+            }
+          ],
+          "tableView": false
+        }
+      ],
+      "collapsible": false,
+      "buttonSettings": {
+        "next": true,
+        "cancel": true,
+        "previous": true
+      },
+      "breadcrumbClickable": true
+    },
+    {
+      "key": "page4",
+      "type": "panel",
+      "input": false,
+      "label": "Prüfung der elektrischen Sicherheit gemäß DIN EN 62353 (VDE 0751-1)",
+      "title": " ",
+      "tableView": false,
+      "components": [
+        {
+          "key": "content48",
+          "html": "<p><h4><strong>3. Prüfung der elektrischen Sicherheit gemäß DIN EN 62353 (VDE 0751-1)</strong></h4></p>",
+          "type": "content",
+          "input": false,
+          "label": "Content",
+          "tableView": false,
+          "refreshOnChange": false
+        },
+        {
+          "key": "columns32",
+          "type": "columns",
+          "input": false,
+          "label": "Columns",
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 4,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "html23",
+                  "tag": "div",
+                  "type": "htmlelement",
+                  "attrs": [
+                    {
+                      "attr": "",
+                      "value": ""
+                    }
+                  ],
+                  "input": false,
+                  "label": "HTML",
+                  "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <body>\r\n    3.1 Schutzleiterwiderstand\r\n  </body>\r\n</html>",
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 2,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "html32",
+                  "type": "htmlelement",
+                  "attrs": [
+                    {
+                      "attr": "",
+                      "value": ""
+                    }
+                  ],
+                  "input": false,
+                  "label": "HTML",
+                  "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <body>\r\n    <span class=\"small\"><strong>(Soll: < 0,3 &Omega;)</strong></span>\r\n  </body>\r\n</html>",
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 3,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "textField4",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "Schutzleiterwiderstand",
+                  "width": 12,
+                  "suffix": "Ω",
+                  "hideLabel": true,
+                  "tableView": true,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 3,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "schutzleiterwiderstand",
+                  "type": "radio",
+                  "input": true,
+                  "label": "Schutzleiterwiderstand",
+                  "width": 12,
+                  "inline": false,
+                  "values": [
+                    {
+                      "label": "in Ordnung",
+                      "value": "inOrdnung",
+                      "shortcut": ""
+                    },
+                    {
+                      "label": "nicht in Ordnung",
+                      "value": "nichtInOrdnung",
+                      "shortcut": ""
+                    }
+                  ],
+                  "validate": {
+                    "required": true
+                  },
+                  "hideLabel": true,
+                  "tableView": false,
+                  "hideOnChildrenHidden": false,
+                  "optionsLabelPosition": "right"
+                }
+              ]
+            }
+          ],
+          "tableView": false
+        },
+        {
+          "key": "columns41",
+          "type": "columns",
+          "input": false,
+          "label": "Columns",
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 4,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "html34",
+                  "tag": "div",
+                  "type": "htmlelement",
+                  "attrs": [
+                    {
+                      "attr": "",
+                      "value": ""
+                    }
+                  ],
+                  "input": false,
+                  "label": "HTML",
+                  "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <body>\r\n    3.2 Isolationswiderstand \r\n  </body>\r\n</html>",
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 2,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "html41",
+                  "type": "htmlelement",
+                  "attrs": [
+                    {
+                      "attr": "",
+                      "value": ""
+                    }
+                  ],
+                  "input": false,
+                  "label": "HTML",
+                  "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <body>\r\n    <span class=\"small\"><strong>(Soll: > 2 M&Omega;)</strong></span>\r\n  </body>\r\n</html>",
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 3,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "textField12",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "Isolationswiderstand",
+                  "width": 12,
+                  "suffix": "MΩ",
+                  "hideLabel": true,
+                  "tableView": true,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 3,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "schutzleiterwiderstand5",
+                  "type": "radio",
+                  "input": true,
+                  "label": "3.2 Isolationswiderstand ",
+                  "width": 12,
+                  "inline": false,
+                  "values": [
+                    {
+                      "label": "in Ordnung",
+                      "value": "inOrdnung",
+                      "shortcut": ""
+                    },
+                    {
+                      "label": "nicht in Ordnung",
+                      "value": "nichtInOrdnung",
+                      "shortcut": ""
+                    },
+                    {
+                      "label": "entfällt",
+                      "value": "entfallt",
+                      "shortcut": ""
+                    }
+                  ],
+                  "validate": {
+                    "required": true
+                  },
+                  "hideLabel": true,
+                  "tableView": false,
+                  "hideOnChildrenHidden": false,
+                  "optionsLabelPosition": "right"
+                }
+              ]
+            }
+          ],
+          "tableView": false
+        },
+        {
+          "key": "columns33",
+          "type": "columns",
+          "input": false,
+          "label": "Columns",
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 4,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "html24",
+                  "tag": "div",
+                  "type": "htmlelement",
+                  "attrs": [
+                    {
+                      "attr": "",
+                      "value": ""
+                    }
+                  ],
+                  "input": false,
+                  "label": "HTML",
+                  "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <body>\r\n3.3 Ersatzgeräteableitstrom \r\n</body>\r\n</html>",
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 2,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "html33",
+                  "type": "htmlelement",
+                  "attrs": [
+                    {
+                      "attr": "",
+                      "value": ""
+                    }
+                  ],
+                  "input": false,
+                  "label": "HTML",
+                  "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <body>\r\n    <span class=\"small\"><strong>(Soll: < 1 mA)</strong></span>\r\n  </body>\r\n</html>",
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 3,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "textField5",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "Ersatzgeräteableitstrom",
+                  "width": 12,
+                  "suffix": "mA",
+                  "hideLabel": true,
+                  "tableView": true,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 3,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "gerateableitstrom",
+                  "type": "radio",
+                  "input": true,
+                  "label": "Ersatzgeräteableitstrom",
+                  "inline": false,
+                  "values": [
+                    {
+                      "label": "in Ordnung",
+                      "value": "inOrdnung",
+                      "shortcut": ""
+                    },
+                    {
+                      "label": "nicht in Ordnung",
+                      "value": "nichtInOrdnung",
+                      "shortcut": ""
+                    }
+                  ],
+                  "validate": {
+                    "required": true
+                  },
+                  "hideLabel": true,
+                  "tableView": false,
+                  "hideOnChildrenHidden": false,
+                  "optionsLabelPosition": "right"
+                }
+              ]
+            }
+          ],
+          "tableView": false
+        },
+        {
+          "key": "html44",
+          "tag": "div",
+          "type": "htmlelement",
+          "attrs": [
+            {
+              "attr": "",
+              "value": ""
+            }
+          ],
+          "input": false,
+          "label": "HTML",
+          "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <body>\r\n<strong>oder</strong> \r\n</body>\r\n</html>",
+          "tableView": false,
+          "refreshOnChange": false,
+          "hideOnChildrenHidden": false
+        },
+        {
+          "key": "columns34",
+          "type": "columns",
+          "input": false,
+          "label": "Columns",
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 4,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "html42",
+                  "tag": "div",
+                  "type": "htmlelement",
+                  "attrs": [
+                    {
+                      "attr": "",
+                      "value": ""
+                    }
+                  ],
+                  "input": false,
+                  "label": "HTML",
+                  "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <body>\r\n3.4 Differenzstrom\r\n</body>\r\n</html>",
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 2,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "html43",
+                  "type": "htmlelement",
+                  "attrs": [
+                    {
+                      "attr": "",
+                      "value": ""
+                    }
+                  ],
+                  "input": false,
+                  "label": "HTML",
+                  "content": "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <body>\r\n    <span class=\"small\"><strong>(Soll: < 0,5 mA)</strong></span>\r\n  </body>\r\n</html>",
+                  "tableView": false,
+                  "refreshOnChange": false,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 3,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "textField13",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "Differenzstrom",
+                  "width": 12,
+                  "suffix": "mA",
+                  "hideLabel": true,
+                  "tableView": true,
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 3,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "gerateableitstrom1",
+                  "type": "radio",
+                  "input": true,
+                  "label": "Differenzstrom",
+                  "inline": false,
+                  "values": [
+                    {
+                      "label": "in Ordnung",
+                      "value": "inOrdnung",
+                      "shortcut": ""
+                    },
+                    {
+                      "label": "nicht in Ordnung",
+                      "value": "nichtInOrdnung",
+                      "shortcut": ""
+                    },
+                    {
+                      "label": "entfällt",
+                      "value": "entfallt",
+                      "shortcut": ""
+                    }
+                  ],
+                  "validate": {
+                    "required": true
+                  },
+                  "hideLabel": true,
+                  "tableView": false,
+                  "hideOnChildrenHidden": false,
+                  "optionsLabelPosition": "right"
+                }
+              ]
+            }
+          ],
+          "tableView": false
+        },
+        {
+          "key": "content27",
+          "html": "<p><strong>Bemerkung:</strong></p><p>Falls die Werte der ABLEITSTROM-Messungen das 0,9 fache der zulässigen Werte überschreiten, sind die zuvor gemessenen Werte zur Beurteilung heranzuziehen. Zeigt der Vergleich der Messwerte einen sprunghaften Anstieg oder liegen zuvor gemessene Werte nicht vor, kann eine Verkürzung der Fristen für die WIEDERHOLUNGSPRÜFUNG erforderlich werden.&nbsp;</p>",
+          "type": "content",
+          "input": false,
+          "label": "Content",
+          "tableView": false,
+          "refreshOnChange": false
+        }
+      ],
+      "collapsible": false,
+      "buttonSettings": {
+        "next": true,
+        "cancel": true,
+        "previous": true
+      },
+      "breadcrumbClickable": true
+    },
+    {
+      "key": "page6",
+      "type": "panel",
+      "input": false,
+      "label": "Prüfergebnis",
+      "title": " ",
+      "tableView": false,
+      "components": [
+        {
+          "key": "content66",
+          "html": "<h4><strong>4. Prüfergebnis</strong></h4>",
+          "type": "content",
+          "input": false,
+          "label": "Content",
+          "tableView": false,
+          "refreshOnChange": false
+        },
+        {
+          "key": "prufergebnis",
+          "data": {
+            "values": [
+              {
+                "label": "ja",
+                "value": "ja"
+              },
+              {
+                "label": "nein",
+                "value": "nein"
+              }
+            ]
+          },
+          "type": "select",
+          "input": true,
+          "label": "Das Gerät ist in sicherheitstechnisch unbedenklichem Zustand:",
+          "validate": {
+            "required": true
+          },
+          "indexeddb": {
+            "filter": {}
+          },
+          "tableView": true,
+          "selectThreshold": 0.3
+        },
+        {
+          "key": "prufplaketteVerklebt",
+          "data": {
+            "values": [
+              {
+                "label": "ja",
+                "value": "ja"
+              },
+              {
+                "label": "nein",
+                "value": "nein"
+              }
+            ]
+          },
+          "type": "select",
+          "input": true,
+          "label": "Prüfplakette verklebt",
+          "validate": {
+            "required": true
+          },
+          "indexeddb": {
+            "filter": {}
+          },
+          "tableView": true,
+          "selectThreshold": 0.3
+        },
+        {
+          "key": "bemerkung",
+          "type": "textarea",
+          "input": true,
+          "label": "Bemerkung",
+          "tableView": true,
+          "autoExpand": false
+        },
+        {
+          "key": "bilddokumentation",
+          "type": "file",
+          "input": true,
+          "isNew": true,
+          "label": "Bilddokumentation",
+          "source": "5fa006a0502abf7d30c9da2e",
+          "webcam": false,
+          "lockKey": true,
+          "storage": "base64",
+          "fileTypes": [
+            {
+              "label": "",
+              "value": ""
+            }
+          ],
+          "tableView": false
+        },
+        {
+          "key": "columns79",
+          "type": "columns",
+          "input": false,
+          "isNew": true,
+          "label": "Columns",
+          "source": "5fa006a0502abf7d30c9da2e",
+          "columns": [
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 6,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "techniker",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "Techniker:",
+                  "tableView": true,
+                  "placeholder": "Name, Vorname",
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            },
+            {
+              "pull": 0,
+              "push": 0,
+              "size": "md",
+              "width": 6,
+              "offset": 0,
+              "components": [
+                {
+                  "key": "techniker2",
+                  "type": "textfield",
+                  "input": true,
+                  "label": "Auftraggeber: ",
+                  "tableView": true,
+                  "placeholder": "Name, Vorname",
+                  "hideOnChildrenHidden": false
+                }
+              ]
+            }
+          ],
+          "lockKey": true,
+          "tableView": false
+        },
+        {
+          "key": "prufprotokollEinreichen",
+          "type": "button",
+          "input": true,
+          "label": "Prüfprotokoll einreichen",
+          "tableView": false,
+          "showValidations": false
+        }
+      ],
+      "collapsible": false,
+      "buttonSettings": {
+        "next": true,
+        "cancel": true,
+        "previous": true
+      },
+      "breadcrumbClickable": true
+    }
+  ],
+  "controller": "",
+  "properties": {
+  },
+  "machineName": "stage-ops:vorlage53Wissensmanagement",
+  "submissionAccess": [
+    {
+      "type": "create_own",
+      "roles": []
+    },
+    {
+      "type": "create_all",
+      "roles": []
+    },
+    {
+      "type": "read_own",
+      "roles": []
+    },
+    {
+      "type": "read_all",
+      "roles": []
+    },
+    {
+      "type": "update_own",
+      "roles": []
+    },
+    {
+      "type": "update_all",
+      "roles": []
+    },
+    {
+      "type": "delete_own",
+      "roles": []
+    },
+    {
+      "type": "delete_all",
+      "roles": []
+    },
+    {
+      "type": "team_read",
+      "roles": []
+    },
+    {
+      "type": "team_write",
+      "roles": []
+    },
+    {
+      "type": "team_admin",
+      "roles": []
+    }
+  ]
+}

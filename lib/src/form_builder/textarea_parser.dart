@@ -6,7 +6,7 @@ class TextAreaParser extends WidgetParser {
   /// Returns a [Widget] of type [TextArea]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener,
-      WidgetProvider? widgetProvider) {
+      FormioWidgetProvider? widgetProvider) {
     return TextAreaCreator(
       map: map,
       widgetProvider: widgetProvider,
@@ -20,7 +20,7 @@ class TextAreaParser extends WidgetParser {
 
 class TextAreaCreator extends StatefulWidget implements Manager {
   final Component? map;
-  final WidgetProvider? widgetProvider;
+  final FormioWidgetProvider? widgetProvider;
   final controller = TextEditingController();
   TextAreaCreator({this.map, this.widgetProvider});
   @override

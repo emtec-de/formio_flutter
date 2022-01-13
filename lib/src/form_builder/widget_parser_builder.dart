@@ -67,7 +67,7 @@ class WidgetParserBuilder {
 
   /// Returns a [Widget] from each [WidgetParser] that match the [widgetName] with the [type] attribute.
   static Widget build(Component components, BuildContext context,
-      ClickListener? listener, WidgetProvider? widgetProvider) {
+      ClickListener? listener, FormioWidgetProvider? widgetProvider) {
     initDefaultParsersIfNess();
     ClickListener _listener =
         listener == null ? new NonResponseWidgetClickListener() : listener;
@@ -76,7 +76,7 @@ class WidgetParserBuilder {
 
   /// Same as [build] but this returns the [WidgetParser] child class that has been found.
   static Widget buildFromMap(Component component, BuildContext context,
-      ClickListener listener, WidgetProvider? widgetProvider) {
+      ClickListener listener, FormioWidgetProvider? widgetProvider) {
     var parser = _widgetNameParserMap[component.type!];
     return (parser != null)
         ? parser.parse(component, context, listener, widgetProvider)
@@ -88,7 +88,7 @@ class WidgetParserBuilder {
       List<Component> components,
       BuildContext context,
       ClickListener? listener,
-      WidgetProvider? widgetProvider) {
+      FormioWidgetProvider? widgetProvider) {
     _rt = [];
     if (components.isEmpty) return [];
     components.asMap().forEach((key, value) {
@@ -102,7 +102,7 @@ class WidgetParserBuilder {
       FormCollection collection,
       BuildContext context,
       ClickListener listener,
-      WidgetProvider widgetProvider) {
+      FormioWidgetProvider widgetProvider) {
     _rt = [];
     if (collection.components!.isEmpty) return [];
     collection.components!.forEach((element) {

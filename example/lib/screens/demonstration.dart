@@ -19,11 +19,11 @@ class _DemonstrationPageState extends State<DemonstrationPage>
   Future<List<Widget>>? _widgets;
   // ignore: unused_field
   BuildContext? _context;
-  late WidgetProvider widgetProvider;
+  late FormioWidgetProvider widgetProvider;
 
   @override
   Widget build(BuildContext context) {
-    widgetProvider = WidgetProvider.of(context)!;
+    widgetProvider = FormioWidgetProvider.of(context)!;
     _widgets ??= _buildWidget(context);
     return Scaffold(
       appBar: AppBar(
@@ -73,6 +73,9 @@ class _DemonstrationPageState extends State<DemonstrationPage>
   Future<List<Widget>> _buildWidget(BuildContext context) async {
     late String _json;
     switch (widget.argument) {
+      case "customTest":
+        _json = await rootBundle.loadString('assets/emtec_test.json');
+        break;
       case "textfield":
         _json = await rootBundle.loadString('assets/textfield.json');
         break;

@@ -13,12 +13,12 @@ class _CustomFormState extends State<CustomForm> implements ClickListener {
   dynamic response;
 
   Future<List<Widget>>? _widgets;
-  late WidgetProvider widgetProvider;
+  late FormioWidgetProvider widgetProvider;
   late BuildContext _context;
 
   @override
   Widget build(BuildContext context) {
-    widgetProvider = WidgetProvider.of(context)!;
+    widgetProvider = FormioWidgetProvider.of(context)!;
     _widgets ??= _buildWidget(context);
     return Scaffold(
       appBar: AppBar(

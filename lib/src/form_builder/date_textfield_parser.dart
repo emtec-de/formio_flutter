@@ -7,7 +7,7 @@ class DateTextFieldParser extends WidgetParser {
   /// Returns a [Widget] of type [DateTextField]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener,
-      WidgetProvider? widgetProvider) {
+      FormioWidgetProvider? widgetProvider) {
     return DateTextFieldCreator(
       map: map,
       widgetProvider: widgetProvider,
@@ -23,7 +23,7 @@ class DateTextFieldParser extends WidgetParser {
 class DateTextFieldCreator extends StatefulWidget implements Manager {
   final Component? map;
   final controller = TextEditingController();
-  final WidgetProvider? widgetProvider;
+  final FormioWidgetProvider? widgetProvider;
   DateTextFieldCreator({
     this.map,
     this.widgetProvider,

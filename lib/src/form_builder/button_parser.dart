@@ -19,7 +19,7 @@ class ButtonParser extends WidgetParser {
 
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener,
-      WidgetProvider? widgetProvider) {
+      FormioWidgetProvider? widgetProvider) {
     String clickEvent = map.action ?? "";
     bool? isVisible = true;
     bool? isDisabled = false;

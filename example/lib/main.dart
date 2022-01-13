@@ -20,7 +20,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return WidgetProvider(
+    return FormioWidgetProvider(
       child: MaterialApp(
         title: 'FormIo.Flutter',
         initialRoute: 'menu',

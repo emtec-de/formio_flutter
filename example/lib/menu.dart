@@ -28,6 +28,10 @@ class MenuPage extends StatelessWidget {
         children: [
           ElevatedButton(
               onPressed: () => Navigator.pushNamed(context, 'demonstration',
+                  arguments: 'customTest'),
+              child: Text('Eigener Test')),
+          ElevatedButton(
+              onPressed: () => Navigator.pushNamed(context, 'demonstration',
                   arguments: 'textfield'),
               child: Text('Textfield')),
           ElevatedButton(

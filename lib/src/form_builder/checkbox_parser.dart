@@ -7,7 +7,7 @@ class CheckboxParser extends WidgetParser {
   /// Returns a [Widget] of type [Checkbox]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener,
-      WidgetProvider? widgetProvider) {
+      FormioWidgetProvider? widgetProvider) {
     return CheckboxCreator(
       map: map,
       widgetProvider: widgetProvider,
@@ -23,7 +23,7 @@ class CheckboxParser extends WidgetParser {
 class CheckboxCreator extends StatefulWidget implements Manager {
   final Component? map;
   bool? isSelected;
-  final WidgetProvider? widgetProvider;
+  final FormioWidgetProvider? widgetProvider;
   CheckboxCreator({
     this.map,
     this.widgetProvider,

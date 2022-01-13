@@ -9,7 +9,7 @@ class FileParser extends WidgetParser {
   /// Returns a [Widget] of type [File]
   @override
   Widget parse(Component map, BuildContext context, ClickListener listener,
-      WidgetProvider? widgetProvider) {
+      FormioWidgetProvider? widgetProvider) {
     return FileCreator(
       map: map,
       widgetProvider: widgetProvider,
@@ -24,7 +24,7 @@ class FileParser extends WidgetParser {
 // ignore: must_be_immutable
 class FileCreator extends StatefulWidget implements Manager {
   final Component? map;
-  final WidgetProvider? widgetProvider;
+  final FormioWidgetProvider? widgetProvider;
   PlatformFile? _platformFile;
   FileCreator({this.map, this.widgetProvider});
   @override
