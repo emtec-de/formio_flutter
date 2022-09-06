@@ -16,8 +16,8 @@ dependencies:
   formio_flutter:
     path: ../
 
-  cupertino_icons: ^1.0.4
-  file_picker: ^4.5.1
+  cupertino_icons: ^1.0.5
+  file_picker: ^5.0.1
 
 dev_dependencies:
   flutter_test:
