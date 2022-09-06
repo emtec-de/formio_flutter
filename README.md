@@ -6,7 +6,9 @@ Render any form created with [FORMIO.JS](https://formio.github.io/formio.js) on 
 
 ```yaml
 dependencies:
-  formio_flutter: ^0.9.40
+    formio_flutter:
+    git:
+      url: https://github.com/emtec-de/formio_flutter
 ```
 
 for any doubt please check the **example** folder.
